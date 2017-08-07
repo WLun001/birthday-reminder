@@ -9,4 +9,10 @@
     <string name="tab_title_upcoming">Up Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>
     <string name="action_search">Search</string>
+    <string name="title_activity_add_birthday">AddBirthdayActivity</string>
+    <string name="add_birthday_name">Name</string>
+    <string name="add_birthday_email">Email</string>
+    <string name="add_birthday_phone">Phone</string>
+    <string name="add_birthday_date">Birthday</string>
+    <string name="add_bithday_notification">Show Notification</string>
 </resources>

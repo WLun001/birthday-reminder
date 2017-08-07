@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="135dp"
+        android:layout_gravity="center"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_account_circle_black_24dp"
+        android:layout_weight="0.46" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_birthday_name"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/add_birthday_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_birthday_email"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/add_birthday_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_birthday_phone"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/add_birthday_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="@string/add_birthday_date"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/birthday_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:onClick="showDatePickerDialog" />
+
+
+    <Switch
+        android:id="@+id/show_noti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:paddingTop="10dp"
+        android:text="@string/add_bithday_notification"
+        android:textColor="#757575"
+        android:textSize="18sp" />
+
+</LinearLayout>

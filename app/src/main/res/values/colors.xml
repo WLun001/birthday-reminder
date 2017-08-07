@@ -6,4 +6,6 @@
 
     <color name="tab_color">#A8A19E</color>
     <color name="tab_selected_color">#FFFFFF</color>
+
+    <color name="circle_icon">#efdfd8</color>
 </resources>
