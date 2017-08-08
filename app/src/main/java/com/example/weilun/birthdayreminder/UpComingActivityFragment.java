@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,7 +39,15 @@ public class UpComingActivityFragment extends Fragment {
                 , PersonContract.PersonEntry.COLUMN_NAME_DOB + " ASC");
         PersonCursorAdapter adapter = new PersonCursorAdapter(getActivity(), cursor, 0);
         ListView listView =(ListView) getActivity().findViewById(R.id.listview);
+
+        TextView tv = (TextView)getActivity().findViewById(R.id.no_birthday);
+        listView.setEmptyView(tv);
+        tv.setText(getString(R.string.no_birthday));
+
         listView.setAdapter(adapter);
-        listView.setEmptyView(getActivity().findViewById(R.id.no_birthday));
+
+
+
+
     }
 }
