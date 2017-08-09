@@ -51,11 +51,8 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         long id = intent.getLongExtra(UpComingActivityFragment.EXTRA_ID, 0);
-
         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
-
         String[] columns = PersonContract.columns;
-
         String selection =  PersonContract.PersonEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(id)};
 
