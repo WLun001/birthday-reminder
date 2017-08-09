@@ -77,7 +77,14 @@ public class ViewBirthdayActivity extends AppCompatActivity {
                     );
             person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
         }
+        setView();
+    }
 
+    private boolean checkBoolean(int value) {
+        return value > 0;
+    }
+
+    private void setView(){
         icon = (ImageView) findViewById(R.id.icon);
         etName = (EditText) findViewById(R.id.add_birthday_name);
         etEmail = (EditText) findViewById(R.id.add_birthday_email);
@@ -85,16 +92,11 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         etBirthday = (EditText) findViewById(R.id.birthday_date);
         aSwitch = (Switch) findViewById(R.id.show_noti);
 
-
         icon.setImageResource(person.getImageResourceId());
         etName.setText(person.getName());
         etEmail.setText(person.getEmail());
         etPhone.setText(person.getPhone());
         etBirthday.setText(new SimpleDateFormat("EEEE, MMMM d, yyyy").format(person.getDOB()));
         aSwitch.setChecked(person.isNotify());
-    }
-
-    private boolean checkBoolean(int value) {
-        return value > 0;
     }
 }
