@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
 public class ViewBirthdayActivity extends AppCompatActivity {
     private Person person;
@@ -51,37 +54,19 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
 
-        String[] columns = {
-                PersonContract.PersonEntry._ID,
-                PersonContract.PersonEntry.COLUMN_NAME_NAME,
-                PersonContract.PersonEntry.COLUMN_NAME_EMAIL,
-                PersonContract.PersonEntry.COLUMN_NAME_PHONE,
-                PersonContract.PersonEntry.COLUMN_NAME_DOB,
-                PersonContract.PersonEntry.COLUMN_NAME_NOFITY,
-                PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
-
-        };
+        String[] columns = PersonContract.columns;
 
         String selection =  PersonContract.PersonEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(id)};
 
         Cursor cursor = dbQueries.query(columns, selection, selectionArgs, null, null, null);
-        if(cursor.moveToNext()){
-            person = new Person(
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
-                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
-                    checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
-                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
-                    );
-            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
-        }
+        person = getPerson(cursor);
         setView();
     }
 
-    private boolean checkBoolean(int value) {
-        return value > 0;
+    public void showDatePickerDialog(View view) {
+        DialogFragment fragment = new DatePickerFragment();
+        fragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     private void setView(){

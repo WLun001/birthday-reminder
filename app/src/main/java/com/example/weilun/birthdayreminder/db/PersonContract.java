@@ -7,6 +7,17 @@ import android.provider.BaseColumns;
  */
 
 public class PersonContract {
+
+    public static String[] columns = {
+            PersonContract.PersonEntry._ID,
+            PersonContract.PersonEntry.COLUMN_NAME_NAME,
+            PersonContract.PersonEntry.COLUMN_NAME_EMAIL,
+            PersonContract.PersonEntry.COLUMN_NAME_PHONE,
+            PersonContract.PersonEntry.COLUMN_NAME_DOB,
+            PersonContract.PersonEntry.COLUMN_NAME_NOFITY,
+            PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
+
+    };
     public static class PersonEntry implements BaseColumns{
         public static final String TABLE_NAME = "person";
         public static final String COLUMN_NAME_NAME = "name";

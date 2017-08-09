@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.weilun.birthdayreminder.Person;
 
+import java.util.Date;
+
 /**
  * Created by Wei Lun on 8/7/2017.
  */
@@ -18,6 +20,22 @@ public class PersonDBQueries {
         this.helper = helper;
     }
 
+    public static Person getPerson(Cursor cursor){
+        Person person = null;
+        if(cursor.moveToNext()){
+            person = new Person(
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
+                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
+                    checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
+                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
+            );
+            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
+        }
+        return person;
+    }
+
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy
             , String having, String orderBy) {
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -25,6 +43,7 @@ public class PersonDBQueries {
         return db.query(PersonContract.PersonEntry.TABLE_NAME, columns, selection, selectionArgs, groupBy
                 , having, orderBy);
     }
+
 
     public long insert(Person person) {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -69,6 +88,10 @@ public class PersonDBQueries {
     public void deleteAll() {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(PersonContract.PersonEntry.TABLE_NAME, null, null);
+    }
+
+    private static boolean checkBoolean(int value) {
+        return value > 0;
     }
 
 
