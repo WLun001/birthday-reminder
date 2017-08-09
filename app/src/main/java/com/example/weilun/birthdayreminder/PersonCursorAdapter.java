@@ -9,6 +9,8 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.weilun.birthdayreminder.db.PersonContract;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

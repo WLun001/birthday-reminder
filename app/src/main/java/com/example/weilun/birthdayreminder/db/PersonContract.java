@@ -1,4 +1,4 @@
-package com.example.weilun.birthdayreminder;
+package com.example.weilun.birthdayreminder.db;
 
 import android.provider.BaseColumns;
 

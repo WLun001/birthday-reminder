@@ -1,9 +1,7 @@
 package com.example.weilun.birthdayreminder;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.weilun.birthdayreminder.db.PersonDBHelper;
+import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

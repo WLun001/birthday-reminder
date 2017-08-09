@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.weilun.birthdayreminder.db.PersonContract;
+import com.example.weilun.birthdayreminder.db.PersonDBHelper;
+import com.example.weilun.birthdayreminder.db.PersonDBQueries;
+
 /**
  * A placeholder fragment containing a simple view.
  */

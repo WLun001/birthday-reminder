@@ -1,8 +1,10 @@
-package com.example.weilun.birthdayreminder;
+package com.example.weilun.birthdayreminder.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.weilun.birthdayreminder.Person;
 
 /**
  * Created by Wei Lun on 8/7/2017.
