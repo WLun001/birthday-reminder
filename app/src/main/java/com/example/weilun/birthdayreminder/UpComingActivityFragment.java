@@ -1,11 +1,13 @@
 package com.example.weilun.birthdayreminder;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,14 +19,27 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
  * A placeholder fragment containing a simple view.
  */
 public class UpComingActivityFragment extends Fragment {
+    public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
+    private ListView listView;
 
     public UpComingActivityFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      return  inflater.inflate(R.layout.fragment_up_coming, container, false);
+      View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
+        listView =(ListView) rootView.findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor c = (Cursor) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), ViewBirthdayActivity.class);
+                intent.putExtra(EXTRA_ID, c.getLong(c.getColumnIndex(PersonContract.PersonEntry._ID)));
+                startActivity(intent);
+            }
+        });
+        return rootView;
 
     }
 
