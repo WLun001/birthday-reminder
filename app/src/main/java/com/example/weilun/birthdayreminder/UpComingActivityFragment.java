@@ -1,10 +1,16 @@
 package com.example.weilun.birthdayreminder;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,9 +24,12 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class UpComingActivityFragment extends Fragment {
+public class UpComingActivityFragment extends Fragment
+implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private ListView listView;
+    private SearchView searchView;
+    private String currentFilter;
 
     public UpComingActivityFragment() {
     }
@@ -64,9 +73,48 @@ public class UpComingActivityFragment extends Fragment {
         tv.setText(getString(R.string.no_birthday));
 
         listView.setAdapter(adapter);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
+        if(searchView == null)
+            return ;
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
+    }
 
+    @Override
+    public boolean onClose() {
+        if(!TextUtils.isEmpty(searchView.getQuery())){
+            searchView.setQuery(null, true);
+        }
+        return true;
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String newFilter;
+        if(!TextUtils.isEmpty(newText))
+            newFilter = newText;
+        else
+            newFilter = null;
+
+        if(currentFilter == null && newFilter == null)
+            return true;
+        if(currentFilter != null && currentFilter.equals(newFilter))
+            return true;
+
+        currentFilter = newFilter;
+        return true;
     }
 }
