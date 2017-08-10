@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +27,9 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
  * A placeholder fragment containing a simple view.
  */
 public class UpComingActivityFragment extends Fragment
-implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
+implements SearchView.OnQueryTextListener,
+        SearchView.OnCloseListener,
+        LoaderManager.LoaderCallbacks<Cursor>{
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private ListView listView;
     private SearchView searchView;
@@ -56,13 +60,7 @@ implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
     public void onResume() {
         super.onResume();
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
-        String[] columns = {
-                PersonContract.PersonEntry._ID,
-                PersonContract.PersonEntry.COLUMN_NAME_NAME,
-                PersonContract.PersonEntry.COLUMN_NAME_DOB,
-                PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
-
-        };
+        String[] columns = PersonContract.columns;
         Cursor cursor = dbQuery.query(columns, null, null, null, null
                 , PersonContract.PersonEntry.COLUMN_NAME_DOB + " ASC");
         PersonCursorAdapter adapter = new PersonCursorAdapter(getActivity(), cursor, 0);
@@ -116,5 +114,20 @@ implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
         currentFilter = newFilter;
         return true;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }
