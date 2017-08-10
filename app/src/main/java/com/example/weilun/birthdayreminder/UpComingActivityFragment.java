@@ -4,10 +4,13 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,9 +34,10 @@ implements SearchView.OnQueryTextListener,
         SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor>{
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
-    private ListView listView;
-    private SearchView searchView;
-    private String currentFilter;
+    public static final int SEARCH_LOADER_ID = 1;
+    private PersonCursorAdapter adapter;
+    private SearchView searchView = null;
+    private String searchKeyword;
 
     public UpComingActivityFragment() {
     }
@@ -42,7 +46,7 @@ implements SearchView.OnQueryTextListener,
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
       View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
-        listView =(ListView) rootView.findViewById(R.id.listview);
+        ListView listView =(ListView) rootView.findViewById(R.id.listview);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,30 +56,38 @@ implements SearchView.OnQueryTextListener,
                 startActivity(intent);
             }
         });
+        setHasOptionsMenu(true);
+        getLoaderManager().initLoader(SEARCH_LOADER_ID, null, this);
         return rootView;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        //actionbar.setTitle(R.string.title_accounts);
+        //actionbar.setDisplayHomeAsUpEnabled(true);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
-        String[] columns = PersonContract.columns;
-        Cursor cursor = dbQuery.query(columns, null, null, null, null
-                , PersonContract.PersonEntry.COLUMN_NAME_DOB + " ASC");
-        PersonCursorAdapter adapter = new PersonCursorAdapter(getActivity(), cursor, 0);
         ListView listView =(ListView) getActivity().findViewById(R.id.listview);
 
         TextView tv = (TextView)getActivity().findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
+        adapter = new PersonCursorAdapter(getActivity(), null, 0);
         tv.setText(getString(R.string.no_birthday));
-
         listView.setAdapter(adapter);
+        getLoaderManager().initLoader(SEARCH_LOADER_ID, null, this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main, menu);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
@@ -101,33 +113,57 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        String newFilter;
-        if(!TextUtils.isEmpty(newText))
-            newFilter = newText;
-        else
-            newFilter = null;
-
-        if(currentFilter == null && newFilter == null)
-            return true;
-        if(currentFilter != null && currentFilter.equals(newFilter))
-            return true;
-
-        currentFilter = newFilter;
+        if(!TextUtils.isEmpty(newText)){
+            searchKeyword = newText;
+            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+        }
         return true;
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        return new SearchLoader(getActivity(), searchKeyword);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        adapter.swapCursor(data);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        adapter.swapCursor(null);
     }
+
+    public static final class SearchLoader extends DBLoader{
+        private String keyword;
+        private Context context;
+
+        public SearchLoader(Context context, String keyword){
+            super(context);
+            this.context = context;
+            this.keyword = keyword;
+        }
+        @Override
+        public Cursor loadInBackground() {
+            PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(context));
+            Cursor cursor;
+            String[] columns = PersonContract.columns;
+            if(keyword != null) {
+                String[] selectionArgs = {"%" + keyword + "%"};
+                cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_NAME + " LIKE"
+                        , selectionArgs, null, null
+                        , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
+        }
+            else {
+                cursor = dbQuery.query(columns, null, null, null, null
+                        , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
+
+            }
+            return cursor;
+        }
+    }
+
+
 }
