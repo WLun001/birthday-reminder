@@ -71,9 +71,6 @@ implements SearchView.OnQueryTextListener,
 
     }
 
-    public void refresh(){
-        getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
-    }
     @Override
     public void onResume() {
         super.onResume();
@@ -84,6 +81,7 @@ implements SearchView.OnQueryTextListener,
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
         tv.setText(getString(R.string.no_birthday));
         listView.setAdapter(adapter);
+        getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
     }
 
     @Override
