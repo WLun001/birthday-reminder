@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -57,7 +59,7 @@ implements SearchView.OnQueryTextListener,
             }
         });
         setHasOptionsMenu(true);
-        getLoaderManager().initLoader(SEARCH_LOADER_ID, null, this);
+        getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         return rootView;
 
     }
@@ -108,31 +110,39 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if(!TextUtils.isEmpty(newText)){
-            searchKeyword = newText;
+        if(!TextUtils.isEmpty(query)){
+            searchKeyword = query;
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
         return true;
     }
 
     @Override
+    public boolean onQueryTextChange(String newText) {
+//        if(!TextUtils.isEmpty(newText)){
+//            searchKeyword = newText;
+//            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+//        }
+        return true;
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.v("onCreateLoader","creating loader" );
         return new SearchLoader(getActivity(), searchKeyword);
+
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v("onLoadFinish", Integer.toString(data.getColumnCount()));
         adapter.swapCursor(data);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        Log.v("onLoadReset","resetting loader" );
         adapter.swapCursor(null);
     }
 
@@ -142,9 +152,17 @@ implements SearchView.OnQueryTextListener,
 
         public SearchLoader(Context context, String keyword){
             super(context);
+            Log.v("SearchLoader","SearchLoader instantiated" );
             this.context = context;
             this.keyword = keyword;
         }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            forceLoad();
+        }
+
         @Override
         public Cursor loadInBackground() {
             PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(context));
@@ -157,12 +175,13 @@ implements SearchView.OnQueryTextListener,
                         , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
         }
             else {
+            Log.v("loadInBackgrond","query in background" );
                 cursor = dbQuery.query(columns, null, null, null, null
                         , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
 
             }
-            if(cursor != null)
-                registerContentObserver(cursor);
+//            if(cursor != null)
+//                registerContentObserver(cursor);
             return cursor;
         }
     }
