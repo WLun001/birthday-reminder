@@ -40,6 +40,7 @@ implements SearchView.OnQueryTextListener,
     private PersonCursorAdapter adapter;
     private SearchView searchView = null;
     private String searchKeyword;
+    private TextView tv;
 
     public UpComingActivityFragment() {
     }
@@ -59,7 +60,7 @@ implements SearchView.OnQueryTextListener,
             }
         });
         setHasOptionsMenu(true);
-        getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+        //getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         return rootView;
 
     }
@@ -78,11 +79,12 @@ implements SearchView.OnQueryTextListener,
         super.onResume();
         ListView listView =(ListView) getActivity().findViewById(R.id.listview);
 
-        TextView tv = (TextView)getActivity().findViewById(R.id.no_birthday);
+        tv = (TextView)getActivity().findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
         tv.setText(getString(R.string.no_birthday));
         listView.setAdapter(adapter);
+        Log.v("onResume", "Creating Loader");
         getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
     }
 
@@ -102,9 +104,9 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onClose() {
-        if(!TextUtils.isEmpty(searchView.getQuery())){
-            searchView.setQuery(null, true);
-        }
+        searchKeyword = null;
+        Log.v("onClose", "Restarting Loader");
+        getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         return true;
     }
 
@@ -112,6 +114,7 @@ implements SearchView.OnQueryTextListener,
     public boolean onQueryTextSubmit(String query) {
         if(!TextUtils.isEmpty(query)){
             searchKeyword = query;
+            Log.v("onQueryTextSubmit", "Restarting Loader");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
         return true;
@@ -137,6 +140,8 @@ implements SearchView.OnQueryTextListener,
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.v("onLoadFinish", Integer.toString(data.getColumnCount()));
         adapter.swapCursor(data);
+        tv.setVisibility(View.GONE);
+        Log.v("onLoadFinish", "Swapping adapter");
         adapter.notifyDataSetChanged();
     }
 
@@ -155,6 +160,7 @@ implements SearchView.OnQueryTextListener,
             Log.v("SearchLoader","SearchLoader instantiated" );
             this.context = context;
             this.keyword = keyword;
+            Log.v("SearchLoader", "Keyword value: " + keyword);
         }
 
         @Override
@@ -169,10 +175,11 @@ implements SearchView.OnQueryTextListener,
             Cursor cursor;
             String[] columns = PersonContract.columns;
             if(keyword != null) {
+                Log.v("loadInBackground", "LIKE QUERY");
                 String[] selectionArgs = {"%" + keyword + "%"};
-                cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_NAME + " LIKE"
+                cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_NAME + " LIKE ?"
                         , selectionArgs, null, null
-                        , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
+                        , null);
         }
             else {
             Log.v("loadInBackgrond","query in background" );
