@@ -8,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -96,11 +99,13 @@ implements SearchView.OnQueryTextListener,
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
         if(searchView == null)
-            return ;
+            return;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
     }
+
+
 
     @Override
     public boolean onClose() {
@@ -112,20 +117,21 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+//        if(!TextUtils.isEmpty(query)){
+//            searchKeyword = query;
+//            Log.v("onQueryTextSubmit", "Restarting Loader");
+//            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+//        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
         if(!TextUtils.isEmpty(query)){
             searchKeyword = query;
             Log.v("onQueryTextSubmit", "Restarting Loader");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-//        if(!TextUtils.isEmpty(newText)){
-//            searchKeyword = newText;
-//            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
-//        }
         return true;
     }
 
@@ -151,7 +157,7 @@ implements SearchView.OnQueryTextListener,
         adapter.swapCursor(null);
     }
 
-    public static final class SearchLoader extends DBLoader{
+    public static final class SearchLoader extends AsyncTaskLoader<Cursor>{
         private String keyword;
         private Context context;
 
@@ -180,7 +186,7 @@ implements SearchView.OnQueryTextListener,
                 cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_NAME + " LIKE ?"
                         , selectionArgs, null, null
                         , null);
-        }
+                }
             else {
             Log.v("loadInBackgrond","query in background" );
                 cursor = dbQuery.query(columns, null, null, null, null
