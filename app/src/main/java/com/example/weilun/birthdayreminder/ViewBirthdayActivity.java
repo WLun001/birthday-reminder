@@ -52,7 +52,6 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //TODO: Check intent
         long id = 0;
         long idFromUpComingFragment = intent.getLongExtra(UpComingBirthdayFragment.EXTRA_ID, 0);
         long idFromContactFragment = intent.getLongExtra(ContactListFragment.EXTRA_ID, 0);

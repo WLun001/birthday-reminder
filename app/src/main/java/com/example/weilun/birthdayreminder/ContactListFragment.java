@@ -79,7 +79,7 @@ implements SearchView.OnQueryTextListener,
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.search_menu, menu);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
@@ -100,6 +100,7 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
         return true;
     }
 
@@ -107,9 +108,15 @@ implements SearchView.OnQueryTextListener,
     public boolean onQueryTextChange(String query) {
         if(!TextUtils.isEmpty(query)){
             searchKeyword = query;
-            Log.v("onQueryTextSubmit", "Restarting Loader");
+            Log.v("onQueryTextSubmit", "Restarting Loader when have keyword");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
+        else{
+            searchKeyword = null;
+            Log.v("onQueryTextSubmit", "Restarting Loader when no keyword");
+            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+        }
+
         return true;
     }
 
