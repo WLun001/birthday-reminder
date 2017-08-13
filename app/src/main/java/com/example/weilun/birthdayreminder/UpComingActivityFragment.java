@@ -4,14 +4,12 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -25,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -41,8 +38,8 @@ implements SearchView.OnQueryTextListener,
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     public static final int SEARCH_LOADER_ID = 1;
     private PersonCursorAdapter adapter;
-    private SearchView searchView = null;
-    private String searchKeyword;
+    private SearchView searchView;
+    private String searchKeyword = null;
     private TextView tv;
 
     public UpComingActivityFragment() {
@@ -53,6 +50,12 @@ implements SearchView.OnQueryTextListener,
                              Bundle savedInstanceState) {
       View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
         ListView listView =(ListView) rootView.findViewById(R.id.listview);
+
+        tv = (TextView)rootView.findViewById(R.id.no_birthday);
+        listView.setEmptyView(tv);
+        adapter = new PersonCursorAdapter(getActivity(), null, 0);
+        tv.setText(getString(R.string.no_birthday_for_upcoming));
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,13 +83,6 @@ implements SearchView.OnQueryTextListener,
     @Override
     public void onResume() {
         super.onResume();
-        ListView listView =(ListView) getActivity().findViewById(R.id.listview);
-
-        tv = (TextView)getActivity().findViewById(R.id.no_birthday);
-        listView.setEmptyView(tv);
-        adapter = new PersonCursorAdapter(getActivity(), null, 0);
-        tv.setText(getString(R.string.no_birthday));
-        listView.setAdapter(adapter);
         Log.v("onResume", "Creating Loader");
         getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
     }
