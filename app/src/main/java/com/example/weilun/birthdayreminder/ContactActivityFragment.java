@@ -53,7 +53,7 @@ implements SearchView.OnQueryTextListener,
         tv = (TextView)rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
-        tv.setText(getString(R.string.no_birthday_for_upcoming));
+        tv.setText(getString(R.string.no_birthday_data));
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

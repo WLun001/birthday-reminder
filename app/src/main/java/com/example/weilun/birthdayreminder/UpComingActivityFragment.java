@@ -61,8 +61,21 @@ public class UpComingActivityFragment extends Fragment {
             }
         });
         setHasOptionsMenu(true);
-        //getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         return rootView;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
+        String[] columns = PersonContract.columns;
+        Cursor cursor = dbQuery.query(columns, null, null, null, null
+                , PersonContract.PersonEntry.COLUMN_NAME_NAME + " DESC");
+        onRefresh(cursor);
+    }
+
+    public void onRefresh(Cursor cursor){
+        adapter.swapCursor(cursor);
+        adapter.notifyDataSetChanged();
     }
 }
