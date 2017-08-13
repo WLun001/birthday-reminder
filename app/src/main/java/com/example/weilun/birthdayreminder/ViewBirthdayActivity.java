@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import java.util.Date;
 import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
 public class ViewBirthdayActivity extends AppCompatActivity {
+    public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private Person person;
     private EditText etName, etEmail, etPhone, etBirthday;
     private Switch aSwitch;
@@ -39,8 +41,9 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ViewBirthdayActivity.this, EditBirthdayActivity.class);
+                intent.putExtra(EXTRA_ID, person);
+                startActivity(intent);
             }
         });
     }
@@ -50,7 +53,20 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         super.onResume();
 
         Intent intent = getIntent();
-        long id = intent.getLongExtra(UpComingActivityFragment.EXTRA_ID, 0);
+
+        //TODO: Check intent
+        long id = 0;
+        long idFromUpComingFragment = intent.getLongExtra(UpComingActivityFragment.EXTRA_ID, 0);
+        long idFromContactFragment = intent.getLongExtra(ContactActivityFragment.EXTRA_ID, 0);
+        if(idFromUpComingFragment != 0) {
+            id = idFromUpComingFragment;
+            Log.v("VIewAcitivty","id from upcoming fragment");
+        }
+        else {
+            id = idFromContactFragment;
+            Log.v("VIewAcitivty","id from contact fragment");
+        }
+
         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
         String[] columns = PersonContract.columns;
         String selection =  PersonContract.PersonEntry._ID + " = ?";

@@ -26,6 +26,10 @@
         <activity
             android:name=".ViewBirthdayActivity"
             android:label="@string/title_activity_view_birthday"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditBirthdayActivity"
+            android:label="@string/title_activity_edit_birthday"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

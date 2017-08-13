@@ -43,7 +43,7 @@ public class AddBirthdayActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    //int imageResourceId = (int)image.getTag(); //get image resource id
+                    //TODO ; set iamge reources id
                     int imageResourceId = R.drawable.ic_account_circle_black_24dp;
                     String name = etName.getText().toString();
                     String email = etEmail.getText().toString();
