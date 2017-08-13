@@ -28,7 +28,7 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ContactActivityFragment extends Fragment
+public class ContactListFragment extends Fragment
 implements SearchView.OnQueryTextListener,
         SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor>{
@@ -40,7 +40,7 @@ implements SearchView.OnQueryTextListener,
     private String searchKeyword = null;
     private TextView tv;
 
-    public ContactActivityFragment() {
+    public ContactListFragment() {
     }
 
     @Override

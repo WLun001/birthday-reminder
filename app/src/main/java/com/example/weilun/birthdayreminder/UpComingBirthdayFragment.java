@@ -31,13 +31,13 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class UpComingActivityFragment extends Fragment {
+public class UpComingBirthdayFragment extends Fragment {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private PersonCursorAdapter adapter;
     private TextView tv;
 
 
-    public UpComingActivityFragment() {
+    public UpComingBirthdayFragment() {
     }
 
     @Override

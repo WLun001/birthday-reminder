@@ -19,8 +19,8 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0: return  new UpComingActivityFragment();
-            case 1: return new ContactActivityFragment();
+            case 0: return  new UpComingBirthdayFragment();
+            case 1: return new ContactListFragment();
                 default: return null;
         }
     }

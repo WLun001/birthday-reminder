@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,6 @@ import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
@@ -56,8 +54,8 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
         //TODO: Check intent
         long id = 0;
-        long idFromUpComingFragment = intent.getLongExtra(UpComingActivityFragment.EXTRA_ID, 0);
-        long idFromContactFragment = intent.getLongExtra(ContactActivityFragment.EXTRA_ID, 0);
+        long idFromUpComingFragment = intent.getLongExtra(UpComingBirthdayFragment.EXTRA_ID, 0);
+        long idFromContactFragment = intent.getLongExtra(ContactListFragment.EXTRA_ID, 0);
         if(idFromUpComingFragment != 0) {
             id = idFromUpComingFragment;
             Log.v("VIewAcitivty","id from upcoming fragment");
