@@ -93,5 +93,8 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         etPhone.setText(person.getPhone());
         etBirthday.setText(new SimpleDateFormat("EEEE, MMMM d, yyyy").format(person.getDOB()));
         aSwitch.setChecked(person.isNotify());
+
+        setTitle(person.getName());
+
     }
 }

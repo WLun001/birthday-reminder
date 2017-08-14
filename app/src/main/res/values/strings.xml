@@ -13,7 +13,7 @@
     <string name="tab_title_upcoming">Up Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>
 
-    <string name="title_activity_add_birthday">AddBirthdayActivity</string>
+    <string name="title_activity_add_birthday">Add Birthday</string>
     <string name="add_birthday_name">Name</string>
     <string name="add_birthday_email">Email</string>
     <string name="add_birthday_phone">Phone</string>
@@ -23,7 +23,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_view_birthday">ViewBirthdayActivity</string>
-    <string name="title_activity_edit_birthday">EditBirthdayActivity</string>
+    <string name="title_activity_edit_birthday">Edit Birthday</string>
 
     <string name="dialog_message">You will lose all records!</string>
     <string name="dialog_title">Delete All Records</string>
