@@ -39,7 +39,7 @@ public class UpComingBirthdayFragment extends Fragment {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private PersonCursorAdapter adapter;
     private TextView tv;
-    private static Calendar startDate, endDate;
+    private static Calendar startDate, endDate, dob;
     private Countable countable;
 
     public interface Countable {
@@ -88,11 +88,13 @@ public class UpComingBirthdayFragment extends Fragment {
         super.onResume();
         startDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
-        endDate.add(Calendar.DAY_OF_MONTH, 3);
+        endDate.add(Calendar.DAY_OF_MONTH, 2);
+
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {startDate.getTimeInMillis() + "", "" + endDate.getTimeInMillis()};
-        Cursor cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_DOB + " BETWEEN ? AND ?",
+        Cursor cursor = dbQuery.query(columns, "strftime('%m-%d',"+ PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
+                + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')",
                 selectionArgs, null, null, null);
 
         countable.getCount(cursor.getCount());
