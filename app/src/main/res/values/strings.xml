@@ -32,5 +32,6 @@
     <string name="delete_success">All records have been deleted</string>
 
     <string name="warming">Warming</string>
+    <string name="btn_ok">OK</string>
     <string name="restart_app_message">Please restart the app to apply changes</string>
 </resources>
