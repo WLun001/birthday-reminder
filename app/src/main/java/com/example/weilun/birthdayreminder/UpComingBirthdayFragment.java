@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -34,22 +35,37 @@ import java.util.Calendar;
  * A placeholder fragment containing a simple view.
  */
 public class UpComingBirthdayFragment extends Fragment {
+    private static final String LOG_TAG ="UpComingBirthdayFragment";
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private PersonCursorAdapter adapter;
     private TextView tv;
     private static Calendar startDate, endDate;
+    private Countable countable;
 
+    public interface Countable {
+        void getCount(int count);
+    }
 
     public UpComingBirthdayFragment() {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            countable = (Countable) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("must implement Countable interface");
+        }
+    }
+
+    @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
-        ListView listView =(ListView) rootView.findViewById(R.id.listview);
+        View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
+        ListView listView = (ListView) rootView.findViewById(R.id.listview);
 
-        tv = (TextView)rootView.findViewById(R.id.no_birthday);
+        tv = (TextView) rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
         tv.setText(getString(R.string.no_birthday_for_upcoming));
@@ -75,13 +91,15 @@ public class UpComingBirthdayFragment extends Fragment {
         endDate.add(Calendar.DAY_OF_MONTH, 3);
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
-        String [] selectionArgs =  {startDate.getTimeInMillis()+"", ""+endDate.getTimeInMillis()};
+        String[] selectionArgs = {startDate.getTimeInMillis() + "", "" + endDate.getTimeInMillis()};
         Cursor cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_DOB + " BETWEEN ? AND ?",
-               selectionArgs, null, null, null);
+                selectionArgs, null, null, null);
+
+        countable.getCount(cursor.getCount());
         onRefresh(cursor);
     }
 
-    public void onRefresh(Cursor cursor){
+    public void onRefresh(Cursor cursor) {
         adapter.swapCursor(cursor);
         adapter.notifyDataSetChanged();
     }

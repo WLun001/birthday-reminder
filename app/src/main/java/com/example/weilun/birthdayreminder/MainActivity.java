@@ -2,6 +2,8 @@ package com.example.weilun.birthdayreminder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,8 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+UpComingBirthdayFragment.Countable{
 
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,7 +59,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
+    @Override
+    public void getCount(int count) {
+        if(count != 0)
+            tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming) + " (" + count + ")");
+    }
 
     @Override
     public void onBackPressed() {
