@@ -90,10 +90,7 @@ UpComingBirthdayFragment.Countable{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if(id == R.id.action_delete){
-            comfirmDeleteAll();
-        }
-        else if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
             return true;
         }
 
@@ -124,10 +121,4 @@ UpComingBirthdayFragment.Countable{
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void comfirmDeleteAll() {
-        DialogFragment fragment = new DeleteRecordsDialogFragment();
-        fragment.show(getSupportFragmentManager(), "deleteDialog");
-    }
-
 }

@@ -2,24 +2,30 @@ package com.example.weilun.birthdayreminder;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -78,6 +84,7 @@ implements SearchView.OnQueryTextListener,
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+
         inflater.inflate(R.menu.search_menu, menu);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -87,6 +94,21 @@ implements SearchView.OnQueryTextListener,
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if(id == R.id.action_delete){
+            comfirmDeleteAll();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void comfirmDeleteAll() {
+        DialogFragment fragment = new DeleteRecordsDialogFragment();
+        fragment.show(getActivity().getSupportFragmentManager(), "deleteDialog");
     }
 
     @Override

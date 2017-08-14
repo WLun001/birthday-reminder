@@ -28,6 +28,18 @@ public class DeleteRecordsDialogFragment extends DialogFragment {
                         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getActivity()));
                         dbQueries.deleteAll();
                         Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();
+
+                        //display warning message to ask user to restart the app
+                        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                        alertDialog.setTitle(getString(R.string.warming));
+                        alertDialog.setMessage(getString(R.string.restart_app_message));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
                     }
                 })
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
