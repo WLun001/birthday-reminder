@@ -42,7 +42,6 @@ implements SearchView.OnQueryTextListener,
 
     public ContactListFragment() {
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

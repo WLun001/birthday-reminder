@@ -28,6 +28,8 @@ import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
+import java.util.Calendar;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -35,6 +37,7 @@ public class UpComingBirthdayFragment extends Fragment {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private PersonCursorAdapter adapter;
     private TextView tv;
+    private static Calendar startDate, endDate;
 
 
     public UpComingBirthdayFragment() {
@@ -67,10 +70,14 @@ public class UpComingBirthdayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        startDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+        endDate.add(Calendar.DAY_OF_MONTH, 3);
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
-        Cursor cursor = dbQuery.query(columns, null, null, null, null
-                , PersonContract.PersonEntry.COLUMN_NAME_NAME + " DESC");
+        String [] selectionArgs =  {startDate.getTimeInMillis()+"", ""+endDate.getTimeInMillis()};
+        Cursor cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_DOB + " BETWEEN ? AND ?",
+               selectionArgs, null, null, null);
         onRefresh(cursor);
     }
 

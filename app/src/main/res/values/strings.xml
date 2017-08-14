@@ -24,4 +24,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_view_birthday">ViewBirthdayActivity</string>
     <string name="title_activity_edit_birthday">EditBirthdayActivity</string>
+
+    <string name="dialog_message">You will lose all records!</string>
+    <string name="dialog_title">Delete All Records</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="delete_success">All records have been deleted</string>
 </resources>
