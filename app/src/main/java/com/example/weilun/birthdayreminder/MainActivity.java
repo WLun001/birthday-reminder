@@ -2,12 +2,9 @@ package com.example.weilun.birthdayreminder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +17,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-UpComingBirthdayFragment.Countable{
+        UpComingBirthdayFragment.Countable {
 
     private TabLayout tabLayout;
 
@@ -44,7 +41,7 @@ UpComingBirthdayFragment.Countable{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddBirthdayActivity.class);
-                if(intent.resolveActivity(getPackageManager()) != null)
+                if (intent.resolveActivity(getPackageManager()) != null)
                     startActivity(intent);
             }
         });
@@ -61,7 +58,7 @@ UpComingBirthdayFragment.Countable{
 
     @Override
     public void getCount(int count) {
-        if(count != 0)
+        if (count != 0)
             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming) + " (" + count + ")");
     }
 

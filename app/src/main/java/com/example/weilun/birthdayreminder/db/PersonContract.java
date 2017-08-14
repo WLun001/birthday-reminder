@@ -18,7 +18,8 @@ public class PersonContract {
             PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
 
     };
-    public static class PersonEntry implements BaseColumns{
+
+    public static class PersonEntry implements BaseColumns {
         public static final String TABLE_NAME = "person";
         public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_EMAIL = "email";

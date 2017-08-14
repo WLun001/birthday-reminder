@@ -8,23 +8,25 @@ import java.util.Date;
  * Created by Wei Lun on 8/7/2017.
  */
 
-public class Person implements Serializable{
+public class Person implements Serializable {
     private long id;
     private String name, email, phone;
     private Date dob;
     private Boolean notify;
     private int imageResourceId;
 
-    public Person (){}
+    public Person() {
+    }
 
-    public Person (String name, String email, String phone, Date dob, Boolean notify){
+    public Person(String name, String email, String phone, Date dob, Boolean notify) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.dob = dob;
         this.notify = notify;
     }
-    public Person (String name, String email, String phone, Date dob, Boolean notify, int imageResourceId){
+
+    public Person(String name, String email, String phone, Date dob, Boolean notify, int imageResourceId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -33,65 +35,65 @@ public class Person implements Serializable{
         this.imageResourceId = imageResourceId;
     }
 
-    public long getId(){
+    public long getId() {
         return id;
     }
 
-    public String getName(){
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public String getEmail(){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public String getPhone(){
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
         return phone;
     }
 
-    public Date getDOB(){
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getDOB() {
         return dob;
     }
 
-    public Calendar getDOBAsCalender(){
+    public Calendar getDOBAsCalender() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dob.getTime());
         return calendar;
     }
 
-    public Boolean isNotify(){
+    public Boolean isNotify() {
         return notify;
     }
 
-    public int getImageResourceId(){
+    public int getImageResourceId() {
         return imageResourceId;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public void setPhone(String phone){
-        this.phone = phone;
-    }
-
-    public void setDob(Date dob){
-        this.dob = dob;
-    }
-
-    public void setNotify(Boolean notify){
-        this.notify = notify;
-    }
-
-    public void setImageResourceId(int imageResourceId){
+    public void setImageResourceId(int imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
 
-    public void setId(Long id){
-        this.id = id;
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public void setNotify(Boolean notify) {
+        this.notify = notify;
     }
 }

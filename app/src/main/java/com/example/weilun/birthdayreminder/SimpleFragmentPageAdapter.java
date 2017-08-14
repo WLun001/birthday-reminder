@@ -12,16 +12,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
 
     private Context context;
-    public SimpleFragmentPageAdapter(Context context, FragmentManager fm){
-       super(fm);
+
+    public SimpleFragmentPageAdapter(Context context, FragmentManager fm) {
+        super(fm);
         this.context = context;
     }
+
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0: return  new UpComingBirthdayFragment();
-            case 1: return new ContactListFragment();
-                default: return null;
+        switch (position) {
+            case 0:
+                return new UpComingBirthdayFragment();
+            case 1:
+                return new ContactListFragment();
+            default:
+                return null;
         }
     }
 
@@ -32,7 +37,7 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position == 0)
+        if (position == 0)
             return context.getString(R.string.tab_title_upcoming);
         else
             return context.getString(R.string.tab_title_contact);

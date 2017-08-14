@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="135dp"
-        android:layout_gravity="center"
         android:layout_height="48dp"
-        android:src="@drawable/ic_account_circle_black_24dp"
-        android:layout_weight="0.46" />
+        android:layout_gravity="center"
+        android:layout_weight="0.46"
+        android:src="@drawable/ic_account_circle_black_24dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -51,7 +52,6 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:maxLines="1" />
-
 
 
     <TextView

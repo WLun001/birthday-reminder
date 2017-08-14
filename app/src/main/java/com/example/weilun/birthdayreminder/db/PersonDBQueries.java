@@ -16,13 +16,13 @@ public class PersonDBQueries {
 
     private PersonDBHelper helper;
 
-    public PersonDBQueries(PersonDBHelper helper){
+    public PersonDBQueries(PersonDBHelper helper) {
         this.helper = helper;
     }
 
-    public static Person getPerson(Cursor cursor){
+    public static Person getPerson(Cursor cursor) {
         Person person = null;
-        if(cursor.moveToNext()){
+        if (cursor.moveToNext()) {
             person = new Person(
                     cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
                     cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
@@ -36,6 +36,10 @@ public class PersonDBQueries {
         return person;
     }
 
+    private static boolean checkBoolean(int value) {
+        return value > 0;
+    }
+
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy
             , String having, String orderBy) {
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -43,7 +47,6 @@ public class PersonDBQueries {
         return db.query(PersonContract.PersonEntry.TABLE_NAME, columns, selection, selectionArgs, groupBy
                 , having, orderBy);
     }
-
 
     public long insert(Person person) {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -89,11 +92,6 @@ public class PersonDBQueries {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(PersonContract.PersonEntry.TABLE_NAME, null, null);
     }
-
-    private static boolean checkBoolean(int value) {
-        return value > 0;
-    }
-
 
 
 }

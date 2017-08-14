@@ -1,10 +1,8 @@
 package com.example.weilun.birthdayreminder;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,16 +13,12 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-
-import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
 public class EditBirthdayActivity extends AppCompatActivity {
     private Person person;
@@ -49,22 +43,20 @@ public class EditBirthdayActivity extends AppCompatActivity {
                 try {
 
                     //TODO: set image resources id
-                   person.setImageResourceId(R.drawable.ic_account_circle_black_24dp);
+                    person.setImageResourceId(R.drawable.ic_account_circle_black_24dp);
                     person.setName(etName.getText().toString());
                     person.setEmail(etEmail.getText().toString());
                     person.setPhone(etPhone.getText().toString());
                     person.setDob(new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.ENGLISH).parse(etDob.getText().toString()));
-                   person.setNotify(aSwitch.isChecked());
+                    person.setNotify(aSwitch.isChecked());
 
                     PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
-                    if(dbQueries.update(person) != 0){
+                    if (dbQueries.update(person) != 0) {
                         Toast.makeText(EditBirthdayActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                         finish();
-                    }
-                    else
+                    } else
                         Toast.makeText(EditBirthdayActivity.this, "error", Toast.LENGTH_SHORT).show();
-                }
-                catch (ParseException e){
+                } catch (ParseException e) {
                     Log.v("EditBIrthdayActivity", e.getMessage());
                 }
             }
@@ -76,7 +68,7 @@ public class EditBirthdayActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void setView(){
+    private void setView() {
         image = (ImageView) findViewById(R.id.icon);
         etName = (EditText) findViewById(R.id.add_birthday_name);
         etEmail = (EditText) findViewById(R.id.add_birthday_email);

@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 
 import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
+//TODO : delete birthday, send intent message
 public class ViewBirthdayActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private Person person;
@@ -55,18 +56,17 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         long id = 0;
         long idFromUpComingFragment = intent.getLongExtra(UpComingBirthdayFragment.EXTRA_ID, 0);
         long idFromContactFragment = intent.getLongExtra(ContactListFragment.EXTRA_ID, 0);
-        if(idFromUpComingFragment != 0) {
+        if (idFromUpComingFragment != 0) {
             id = idFromUpComingFragment;
-            Log.v("VIewAcitivty","id from upcoming fragment");
-        }
-        else {
+            Log.v("VIewAcitivty", "id from upcoming fragment");
+        } else {
             id = idFromContactFragment;
-            Log.v("VIewAcitivty","id from contact fragment");
+            Log.v("VIewAcitivty", "id from contact fragment");
         }
 
         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
         String[] columns = PersonContract.columns;
-        String selection =  PersonContract.PersonEntry._ID + " = ?";
+        String selection = PersonContract.PersonEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(id)};
 
         Cursor cursor = dbQueries.query(columns, selection, selectionArgs, null, null, null);
@@ -79,7 +79,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         fragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private void setView(){
+    private void setView() {
         icon = (ImageView) findViewById(R.id.icon);
         etName = (EditText) findViewById(R.id.add_birthday_name);
         etEmail = (EditText) findViewById(R.id.add_birthday_email);

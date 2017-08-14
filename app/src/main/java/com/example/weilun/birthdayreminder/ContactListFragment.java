@@ -2,17 +2,14 @@ package com.example.weilun.birthdayreminder;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -35,9 +31,9 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
  * A placeholder fragment containing a simple view.
  */
 public class ContactListFragment extends Fragment
-implements SearchView.OnQueryTextListener,
+        implements SearchView.OnQueryTextListener,
         SearchView.OnCloseListener,
-        LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     public static final int SEARCH_LOADER_ID = 1;
@@ -48,14 +44,15 @@ implements SearchView.OnQueryTextListener,
 
     public ContactListFragment() {
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_contact, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 
-        ListView listView =(ListView) rootView.findViewById(R.id.listview);
+        ListView listView = (ListView) rootView.findViewById(R.id.listview);
 
-        tv = (TextView)rootView.findViewById(R.id.no_birthday);
+        tv = (TextView) rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
         tv.setText(getString(R.string.no_birthday_data));
@@ -88,8 +85,8 @@ implements SearchView.OnQueryTextListener,
         inflater.inflate(R.menu.search_menu, menu);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        if(searchView == null)
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        if (searchView == null)
             return;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(this);
@@ -100,7 +97,7 @@ implements SearchView.OnQueryTextListener,
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if(id == R.id.action_delete){
+        if (id == R.id.action_delete) {
             comfirmDeleteAll();
         }
         return super.onOptionsItemSelected(item);
@@ -127,12 +124,11 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public boolean onQueryTextChange(String query) {
-        if(!TextUtils.isEmpty(query)){
+        if (!TextUtils.isEmpty(query)) {
             searchKeyword = query;
             Log.v("onQueryTextSubmit", "Restarting Loader when have keyword");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
-        }
-        else{
+        } else {
             searchKeyword = null;
             Log.v("onQueryTextSubmit", "Restarting Loader when no keyword");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
@@ -143,7 +139,7 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.v("onCreateLoader","creating loader" );
+        Log.v("onCreateLoader", "creating loader");
         return new SearchLoader(getActivity(), searchKeyword);
     }
 
@@ -158,7 +154,7 @@ implements SearchView.OnQueryTextListener,
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.v("onLoadReset","resetting loader" );
+        Log.v("onLoadReset", "resetting loader");
         adapter.swapCursor(null);
     }
 
@@ -167,9 +163,9 @@ implements SearchView.OnQueryTextListener,
         private String keyword;
         private Context context;
 
-        public SearchLoader(Context context, String keyword){
+        public SearchLoader(Context context, String keyword) {
             super(context);
-            Log.v("SearchLoader","SearchLoader instantiated" );
+            Log.v("SearchLoader", "SearchLoader instantiated");
             this.context = context;
             this.keyword = keyword;
             Log.v("SearchLoader", "Keyword value: " + keyword);
@@ -186,15 +182,14 @@ implements SearchView.OnQueryTextListener,
             PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(context));
             Cursor cursor;
             String[] columns = PersonContract.columns;
-            if(keyword != null) {
+            if (keyword != null) {
                 Log.v("loadInBackground", "LIKE QUERY");
                 String[] selectionArgs = {"%" + keyword + "%"};
                 cursor = dbQuery.query(columns, PersonContract.PersonEntry.COLUMN_NAME_NAME + " LIKE ?"
                         , selectionArgs, null, null
                         , null);
-            }
-            else {
-                Log.v("loadInBackgrond","query in background" );
+            } else {
+                Log.v("loadInBackgrond", "query in background");
                 cursor = dbQuery.query(columns, null, null, null, null
                         , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
 

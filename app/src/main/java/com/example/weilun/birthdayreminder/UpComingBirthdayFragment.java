@@ -1,24 +1,11 @@
 package com.example.weilun.birthdayreminder;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,16 +22,12 @@ import java.util.Calendar;
  * A placeholder fragment containing a simple view.
  */
 public class UpComingBirthdayFragment extends Fragment {
-    private static final String LOG_TAG ="UpComingBirthdayFragment";
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
+    private static final String LOG_TAG = "UpComingBirthdayFragment";
+    private static Calendar startDate, endDate, dob;
     private PersonCursorAdapter adapter;
     private TextView tv;
-    private static Calendar startDate, endDate, dob;
     private Countable countable;
-
-    public interface Countable {
-        void getCount(int count);
-    }
 
     public UpComingBirthdayFragment() {
     }
@@ -93,8 +76,8 @@ public class UpComingBirthdayFragment extends Fragment {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {startDate.getTimeInMillis() + "", "" + endDate.getTimeInMillis()};
-        Cursor cursor = dbQuery.query(columns, "strftime('%m-%d',"+ PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
-                + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')",
+        Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
+                        + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')",
                 selectionArgs, null, null, null);
 
         countable.getCount(cursor.getCount());
@@ -104,5 +87,9 @@ public class UpComingBirthdayFragment extends Fragment {
     public void onRefresh(Cursor cursor) {
         adapter.swapCursor(cursor);
         adapter.notifyDataSetChanged();
+    }
+
+    public interface Countable {
+        void getCount(int count);
     }
 }

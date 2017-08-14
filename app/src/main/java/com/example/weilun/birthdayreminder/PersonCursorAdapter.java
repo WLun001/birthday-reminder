@@ -21,10 +21,11 @@ import java.util.Calendar;
 public class PersonCursorAdapter extends CursorAdapter {
     private LayoutInflater inflater;
 
-    public PersonCursorAdapter(Context context, Cursor cursor, int flags){
+    public PersonCursorAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return inflater.inflate(R.layout.list_item, parent, false);
@@ -43,12 +44,12 @@ public class PersonCursorAdapter extends CursorAdapter {
 
         imageView.setImageResource(imageResourceId);
         nameTv.setText(name);
-        birthdayTv.setText( new SimpleDateFormat("EEEE, MMM,  d").format(dob));
+        birthdayTv.setText(new SimpleDateFormat("EEEE, MMM,  d").format(dob));
         ageTv.setText(Integer.toString(getAge(dob)));
 
     }
 
-    public int getAge(long dob){
+    public int getAge(long dob) {
         Calendar calendar = Calendar.getInstance();
         Calendar age = Calendar.getInstance();
         age.setTimeInMillis(dob);

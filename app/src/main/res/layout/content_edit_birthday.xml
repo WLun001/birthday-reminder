@@ -8,6 +8,6 @@
     tools:context="com.example.weilun.birthdayreminder.EditBirthdayActivity"
     tools:showIn="@layout/activity_edit_birthday">
 
-    <include layout="@layout/birthday_form"/>
+    <include layout="@layout/birthday_form" />
 
 </android.support.constraint.ConstraintLayout>
