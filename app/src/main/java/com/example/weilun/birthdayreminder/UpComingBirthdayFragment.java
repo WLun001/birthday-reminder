@@ -59,6 +59,7 @@ public class UpComingBirthdayFragment extends Fragment {
                 Cursor c = (Cursor) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getActivity(), ViewBirthdayActivity.class);
                 intent.putExtra(EXTRA_ID, c.getLong(c.getColumnIndex(PersonContract.PersonEntry._ID)));
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null)
                 startActivity(intent);
             }
         });

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +8,91 @@
     tools:context="com.example.weilun.birthdayreminder.ViewBirthdayActivity"
     tools:showIn="@layout/activity_view_birthday">
 
-    <include layout="@layout/birthday_form" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_account_circle_black_24dp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/icon"
+                android:textSize="18sp"
+                tools:text="@string/add_birthday_name" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/name"
+                android:textSize="18sp"
+                tools:text="@string/add_birthday_email" />
+
+            <ImageButton
+                android:onClick="sendEmail"
+                android:id="@+id/send_email"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_dialog_email"
+                android:layout_above="@+id/phone"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/email"
+                android:textSize="18sp"
+                tools:text="@string/add_birthday_phone" />
+
+            <ImageButton
+                android:onClick="sendSms"
+                android:paddingTop="10dp"
+                android:id="@+id/send_sms"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_sms_white_24dp"
+                android:layout_below="@+id/email"
+                android:layout_alignParentEnd="true" />
+
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/phone"
+                android:paddingTop="10dp"
+                android:text="@string/add_birthday_date"
+                android:textSize="18sp" />
+
+            <Switch
+                android:id="@+id/show_noti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/birthday"
+                android:checked="true"
+                android:paddingTop="20dp"
+                android:text="@string/add_bithday_notification"
+                android:textColor="#757575"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
