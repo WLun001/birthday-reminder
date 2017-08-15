@@ -34,4 +34,9 @@
     <string name="warming">Warming</string>
     <string name="btn_ok">OK</string>
     <string name="restart_app_message">Please restart the app to apply changes</string>
+
+    <string name="day">d</string>
+    <string name="hour">h</string>
+    <string name="minute">m</string>
+    <string name="second">s</string>
 </resources>

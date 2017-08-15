@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
@@ -93,9 +95,37 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         tvPhone.setText(person.getPhone());
         tvBirthday.setText(new SimpleDateFormat("EEEE, MMMM d, yyyy").format(person.getDOB()));
         aSwitch.setChecked(person.isNotify());
+        aSwitch.setClickable(false);
+        new CountDownTimer(person.getDOBAsCalender().getTimeInMillis(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                onTickCalculation(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
 
         setTitle(person.getName());
 
+    }
+
+    public void onTickCalculation(long millisUntilFinished){
+        TextView tvDay = (TextView) findViewById(R.id.countdown_day);
+        TextView tvHour = (TextView) findViewById(R.id.countdown_hour);
+        TextView tvMinute = (TextView) findViewById(R.id.countdown_minute);
+        TextView tvSecond = (TextView) findViewById(R.id.countdown_second);
+
+        long beginTime = System.currentTimeMillis();
+        beginTime = beginTime -2;
+        long serverUpTimeSeconds = (millisUntilFinished - beginTime) / 2000;
+
+        tvDay.setText(Long.toString(serverUpTimeSeconds / 86400));
+        tvHour.setText(Long.toString((serverUpTimeSeconds % 86400) / 3600));
+        tvMinute.setText(Long.toString(((serverUpTimeSeconds % 86400)  %3600) /60 ));
+        tvSecond.setText(Long.toString(((serverUpTimeSeconds % 86400)  %3600) %60 ));
     }
 
     public void sendEmail(View view){
