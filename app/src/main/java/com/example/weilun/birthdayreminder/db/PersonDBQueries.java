@@ -57,7 +57,7 @@ public class PersonDBQueries {
     }
 
 
-    private  boolean checkBoolean(int value) {
+    private static  boolean checkBoolean(int value) {
         return value > 0;
     }
 
