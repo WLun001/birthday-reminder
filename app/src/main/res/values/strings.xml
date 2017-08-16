@@ -40,4 +40,6 @@
     <string name="hour">h</string>
     <string name="minute">m</string>
     <string name="second">s</string>
+
+    <string name="backup_success">Successfully backups %d record(s) to the cloud</string>
 </resources>

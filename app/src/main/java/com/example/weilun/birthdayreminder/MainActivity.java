@@ -2,6 +2,7 @@ package com.example.weilun.birthdayreminder;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,12 +25,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         UpComingBirthdayFragment.Countable,
-        LoaderManager.LoaderCallbacks<JSONObject>{
+        LoaderManager.LoaderCallbacks<JSONObject> {
 
     private TabLayout tabLayout;
 
@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ConnectivityManager connMgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            if(networkInfo != null && networkInfo.isConnected()) {
+            if (networkInfo != null && networkInfo.isConnected()) {
                 getLoaderManager().restartLoader(1, null, this);
             }
         }
@@ -141,8 +141,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
-        Toast.makeText(this, Integer.toString(extraCodeFromJSON(data)), Toast.LENGTH_SHORT).show();
 
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setMessage(String.format(getString(R.string.backup_success)
+                , extraCodeFromJSON(data)));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.btn_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     @Override
@@ -150,11 +159,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public int extraCodeFromJSON(JSONObject jsonObj){
-        try{
+    public int extraCodeFromJSON(JSONObject jsonObj) {
+        try {
             return jsonObj.getInt("recordsSynced");
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             return 0;
         }
     }
