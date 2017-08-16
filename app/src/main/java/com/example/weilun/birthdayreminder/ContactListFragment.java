@@ -66,7 +66,7 @@ public class ContactListFragment extends Fragment
                 Intent intent = new Intent(getActivity(), ViewBirthdayActivity.class);
                 intent.putExtra(EXTRA_ID, c.getLong(c.getColumnIndex(PersonContract.PersonEntry._ID)));
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null)
-                  startActivity(intent);
+                    startActivity(intent);
             }
         });
         setHasOptionsMenu(true);
@@ -108,9 +108,9 @@ public class ContactListFragment extends Fragment
         return super.onOptionsItemSelected(item);
     }
 
-    public void comfirmDeleteAll() {
+    private void comfirmDeleteAll() {
         DialogFragment fragment = new DeleteRecordsDialogFragment();
-        fragment.setTargetFragment(ContactListFragment.this,REQUEST_CODE);
+        fragment.setTargetFragment(ContactListFragment.this, REQUEST_CODE);
         fragment.show(getActivity().getSupportFragmentManager(), "deleteDialog");
     }
 
@@ -118,7 +118,7 @@ public class ContactListFragment extends Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //request code == 1 when positive button, else is 0
-        if(requestCode == 1){
+        if (requestCode == 1) {
             PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getActivity()));
             dbQueries.deleteAll();
             Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();

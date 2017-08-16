@@ -38,7 +38,7 @@ public class PersonDBQueries {
         return person;
     }
 
-    public static List<Person> getPersonList(Cursor cursor){
+    public static List<Person> getPersonList(Cursor cursor) {
         List<Person> persons = new ArrayList<>();
         while (cursor.moveToNext()) {
             Person person = new Person(
@@ -52,12 +52,11 @@ public class PersonDBQueries {
             person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
             persons.add(person);
         }
-
         return persons;
     }
 
 
-    private static  boolean checkBoolean(int value) {
+    private static boolean checkBoolean(int value) {
         return value > 0;
     }
 
@@ -100,7 +99,7 @@ public class PersonDBQueries {
         db.delete(PersonContract.PersonEntry.TABLE_NAME, null, null);
     }
 
-    private ContentValues putValues(Person person){
+    private ContentValues putValues(Person person) {
         ContentValues values = new ContentValues();
         values.put(PersonContract.PersonEntry.COLUMN_NAME_NAME, person.getName());
         values.put(PersonContract.PersonEntry.COLUMN_NAME_EMAIL, person.getEmail());
@@ -111,6 +110,4 @@ public class PersonDBQueries {
 
         return values;
     }
-
-
 }

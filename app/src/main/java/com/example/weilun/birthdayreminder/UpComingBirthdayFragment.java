@@ -22,13 +22,13 @@ import java.util.Calendar;
  * A placeholder fragment containing a simple view.
  */
 public class UpComingBirthdayFragment extends Fragment {
+
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private static final String LOG_TAG = "UpComingBirthdayFragment";
     private static Calendar startDate, endDate, dob;
     private PersonCursorAdapter adapter;
     private TextView tv;
     private Countable countable;
-
     public UpComingBirthdayFragment() {
     }
 
@@ -60,7 +60,7 @@ public class UpComingBirthdayFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ViewBirthdayActivity.class);
                 intent.putExtra(EXTRA_ID, c.getLong(c.getColumnIndex(PersonContract.PersonEntry._ID)));
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null)
-                startActivity(intent);
+                    startActivity(intent);
             }
         });
         setHasOptionsMenu(true);

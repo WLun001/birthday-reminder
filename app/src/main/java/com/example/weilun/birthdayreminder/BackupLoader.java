@@ -22,8 +22,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -132,7 +130,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         return result.toString();
     }
 
-    public JSONObject readInputStream(InputStream is)
+    private JSONObject readInputStream(InputStream is)
             throws IOException, JSONException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
         StringBuilder builder = new StringBuilder();

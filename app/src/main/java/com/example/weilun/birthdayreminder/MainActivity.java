@@ -103,8 +103,7 @@ public class MainActivity extends AppCompatActivity
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
                 getLoaderManager().restartLoader(1, null, this);
-            }
-            else{
+            } else {
                 Toast.makeText(this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
             }
         }
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public int extraCodeFromJSON(JSONObject jsonObj) {
+    private int extraCodeFromJSON(JSONObject jsonObj) {
         try {
             return jsonObj.getInt("recordsSynced");
 

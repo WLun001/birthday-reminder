@@ -1,6 +1,5 @@
 package com.example.weilun.birthdayreminder;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
@@ -17,12 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -57,7 +53,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
                 Intent intent = new Intent(ViewBirthdayActivity.this, EditBirthdayActivity.class);
                 intent.putExtra(EXTRA_ID, person);
                 if (intent.resolveActivity(getPackageManager()) != null)
-                     startActivity(intent);
+                    startActivity(intent);
             }
         });
     }
@@ -98,7 +94,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_delete_one){
+        if (id == R.id.action_delete_one) {
             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog));
             builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title)
                     .setPositiveButton(R.string.btn_delete, new DialogInterface.OnClickListener() {
@@ -140,7 +136,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         Calendar countdown = Calendar.getInstance();
         countdown.setTimeInMillis(person.getDOBAsCalender().getTimeInMillis());
         countdown.set(Calendar.YEAR, 2017);
-        new CountDownTimer(countdown.getTimeInMillis(),1000) {
+        new CountDownTimer(countdown.getTimeInMillis(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 onTickCalculation(millisUntilFinished);
@@ -151,28 +147,26 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
             }
         }.start();
-
         setTitle(person.getName());
-
     }
 
-    public void onTickCalculation(long millisUntilFinished){
+    private void onTickCalculation(long millisUntilFinished) {
         TextView tvDay = (TextView) findViewById(R.id.countdown_day);
         TextView tvHour = (TextView) findViewById(R.id.countdown_hour);
         TextView tvMinute = (TextView) findViewById(R.id.countdown_minute);
         TextView tvSecond = (TextView) findViewById(R.id.countdown_second);
 
         long beginTime = System.currentTimeMillis();
-        beginTime = beginTime -1;
+        beginTime = beginTime - 1;
         long serverUpTimeSeconds = (millisUntilFinished - beginTime) / 1000;
 
         tvDay.setText(Long.toString(serverUpTimeSeconds / 86400));
         tvHour.setText(Long.toString((serverUpTimeSeconds % 86400) / 3600));
-        tvMinute.setText(Long.toString(((serverUpTimeSeconds % 86400)  %3600) /60 ));
-        tvSecond.setText(Long.toString(((serverUpTimeSeconds % 86400)  %3600) %60 ));
+        tvMinute.setText(Long.toString(((serverUpTimeSeconds % 86400) % 3600) / 60));
+        tvSecond.setText(Long.toString(((serverUpTimeSeconds % 86400) % 3600) % 60));
     }
 
-    public void sendEmail(View view){
+    public void sendEmail(View view) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_TEXT, "happy birthday");
@@ -182,7 +176,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
     }
 
-    public void sendSms(View view){
+    public void sendSms(View view) {
 
 //        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 //        smsIntent.setType("vnd.android-dir/mms-sms");

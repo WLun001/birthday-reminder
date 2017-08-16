@@ -49,7 +49,7 @@ public class PersonCursorAdapter extends CursorAdapter {
 
     }
 
-    public int getAge(long dob) {
+    private int getAge(long dob) {
         Calendar calendar = Calendar.getInstance();
         Calendar age = Calendar.getInstance();
         age.setTimeInMillis(dob);
