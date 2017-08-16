@@ -10,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -81,6 +83,23 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         setView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.delete_birthday, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_delete_one){
+            PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplication()));
+            dbQueries.deleteOne(person.getId());
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setView() {
         icon = (ImageView) findViewById(R.id.icon);
         tvName = (TextView) findViewById(R.id.name);
@@ -96,7 +115,10 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         tvBirthday.setText(new SimpleDateFormat("EEEE, MMMM d, yyyy").format(person.getDOB()));
         aSwitch.setChecked(person.isNotify());
         aSwitch.setClickable(false);
-        new CountDownTimer(person.getDOBAsCalender().getTimeInMillis(), 1000) {
+        Calendar countdown = Calendar.getInstance();
+        countdown.setTimeInMillis(person.getDOBAsCalender().getTimeInMillis());
+        countdown.set(Calendar.YEAR, 2017);
+        new CountDownTimer(countdown.getTimeInMillis(),1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 onTickCalculation(millisUntilFinished);
@@ -119,8 +141,8 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         TextView tvSecond = (TextView) findViewById(R.id.countdown_second);
 
         long beginTime = System.currentTimeMillis();
-        beginTime = beginTime -2;
-        long serverUpTimeSeconds = (millisUntilFinished - beginTime) / 2000;
+        beginTime = beginTime -1;
+        long serverUpTimeSeconds = (millisUntilFinished - beginTime) / 1000;
 
         tvDay.setText(Long.toString(serverUpTimeSeconds / 86400));
         tvHour.setText(Long.toString((serverUpTimeSeconds % 86400) / 3600));

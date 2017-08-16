@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -35,6 +36,7 @@ public class ContactListFragment extends Fragment
         SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final int REQUEST_CODE = 1;
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     public static final int SEARCH_LOADER_ID = 1;
     private PersonCursorAdapter adapter;
@@ -100,13 +102,27 @@ public class ContactListFragment extends Fragment
         int id = item.getItemId();
         if (id == R.id.action_delete) {
             comfirmDeleteAll();
+            //TODO: implement interface for passing result from dialogfragment
+            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void comfirmDeleteAll() {
         DialogFragment fragment = new DeleteRecordsDialogFragment();
+        fragment.setTargetFragment(ContactListFragment.this,REQUEST_CODE);
         fragment.show(getActivity().getSupportFragmentManager(), "deleteDialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //request code == 1 when positive button, else is 0
+        if(requestCode == 1){
+            PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getActivity()));
+            dbQueries.deleteAll();
+            Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
