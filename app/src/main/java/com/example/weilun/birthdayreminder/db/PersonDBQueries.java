@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.weilun.birthdayreminder.Person;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Wei Lun on 8/7/2017.
@@ -36,7 +37,8 @@ public class PersonDBQueries {
         return person;
     }
 
-    private static boolean checkBoolean(int value) {
+
+    public static boolean checkBoolean(int value) {
         return value > 0;
     }
 

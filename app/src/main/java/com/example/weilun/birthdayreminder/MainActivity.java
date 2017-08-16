@@ -1,6 +1,10 @@
 package com.example.weilun.birthdayreminder;
 
+import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,10 +18,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        UpComingBirthdayFragment.Countable {
+        UpComingBirthdayFragment.Countable,
+        LoaderManager.LoaderCallbacks<JSONObject>{
 
     private TabLayout tabLayout;
 
@@ -88,7 +99,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            ConnectivityManager connMgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if(networkInfo != null && networkInfo.isConnected()) {
+                getLoaderManager().restartLoader(1, null, this);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -117,5 +132,30 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public android.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+        return new BackupLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
+        Toast.makeText(this, Integer.toString(extraCodeFromJSON(data)), Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<JSONObject> loader) {
+
+    }
+
+    public int extraCodeFromJSON(JSONObject jsonObj){
+        try{
+            return jsonObj.getInt("recordsSynced");
+
+        }catch (JSONException e){
+            return 0;
+        }
     }
 }
