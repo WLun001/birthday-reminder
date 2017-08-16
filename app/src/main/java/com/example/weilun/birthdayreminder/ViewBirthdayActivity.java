@@ -1,5 +1,7 @@
 package com.example.weilun.birthdayreminder;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,7 +9,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
@@ -30,6 +35,7 @@ import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
 //TODO : delete birthday, send intent message
 public class ViewBirthdayActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE = 1;
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private Person person;
     private TextView tvName, tvEmail, tvPhone, tvBirthday;
@@ -93,12 +99,28 @@ public class ViewBirthdayActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_delete_one){
-            PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplication()));
-            dbQueries.deleteOne(person.getId());
-            finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog));
+            builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title)
+                    .setPositiveButton(R.string.btn_delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplication()));
+                            dbQueries.deleteOne(person.getId());
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void setView() {
         icon = (ImageView) findViewById(R.id.icon);

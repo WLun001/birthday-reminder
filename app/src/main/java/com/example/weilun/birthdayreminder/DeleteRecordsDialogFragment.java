@@ -10,9 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
-import com.example.weilun.birthdayreminder.db.PersonDBHelper;
-import com.example.weilun.birthdayreminder.db.PersonDBQueries;
-
 /**
  * Created by Wei Lun on 8/13/2017.
  */
