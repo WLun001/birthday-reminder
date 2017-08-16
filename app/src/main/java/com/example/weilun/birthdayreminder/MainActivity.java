@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity
             if (networkInfo != null && networkInfo.isConnected()) {
                 getLoaderManager().restartLoader(1, null, this);
             }
+            else{
+                Toast.makeText(this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);

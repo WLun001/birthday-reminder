@@ -37,8 +37,6 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
 
     public BackupLoader(Context context) {
         super(context);
-        persons = new ArrayList<>();
-
     }
 
     @Override
@@ -64,20 +62,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         String[] columns = PersonContract.columns;
         Cursor cursor = dbQuery.query(columns, null, null, null, null
                 , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
-
-        //TODO : DELETE CHECK BOOLEAN
-        while (cursor.moveToNext()) {
-            Person person = new Person(
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
-                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
-                    PersonDBQueries.checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
-                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
-            );
-            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
-            persons.add(person);
-        }
+        persons = PersonDBQueries.getPersonList(cursor);
     }
 
     private JSONArray putAsJSONArray() {

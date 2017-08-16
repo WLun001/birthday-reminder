@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.weilun.birthdayreminder.Person;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,24 @@ public class PersonDBQueries {
             person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
         }
         return person;
+    }
+
+    public static List<Person> getPersonList(Cursor cursor){
+        List<Person> persons = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Person person = new Person(
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
+                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
+                    PersonDBQueries.checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
+                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
+            );
+            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
+            persons.add(person);
+        }
+
+        return persons;
     }
 
 
