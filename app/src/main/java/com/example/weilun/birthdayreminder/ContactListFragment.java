@@ -36,6 +36,10 @@ public class ContactListFragment extends Fragment
         SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    public interface Refreshable{
+        void onRefresh();
+    }
+
     public static final int REQUEST_CODE = 1;
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     public static final int SEARCH_LOADER_ID = 1;
@@ -43,6 +47,7 @@ public class ContactListFragment extends Fragment
     private SearchView searchView;
     private String searchKeyword = null;
     private TextView tv;
+    private Refreshable refreshable;
 
     public ContactListFragment() {
     }
@@ -72,6 +77,17 @@ public class ContactListFragment extends Fragment
         setHasOptionsMenu(true);
         //getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try{
+            refreshable = (Refreshable) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException("must implement Refreshable interface");
+        }
     }
 
     @Override
@@ -121,6 +137,7 @@ public class ContactListFragment extends Fragment
             PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getActivity()));
             dbQueries.deleteAll();
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
+            refreshable.onRefresh();
             Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();
         }
     }

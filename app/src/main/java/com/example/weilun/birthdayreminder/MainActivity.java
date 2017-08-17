@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,9 +29,11 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         UpComingBirthdayFragment.Countable,
+        ContactListFragment.Refreshable,
         LoaderManager.LoaderCallbacks<JSONObject> {
 
     private TabLayout tabLayout;
+    private SimpleFragmentPageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        SimpleFragmentPageAdapter adapter = new SimpleFragmentPageAdapter(this, getSupportFragmentManager());
+        adapter = new SimpleFragmentPageAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
 
@@ -73,6 +76,12 @@ public class MainActivity extends AppCompatActivity
             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming) + " (" + count + ")");
         else
             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming));
+    }
+
+    @Override
+    public void onRefresh() {
+         adapter.getRegisteredFragment(0).onResume();
+
     }
 
     @Override
