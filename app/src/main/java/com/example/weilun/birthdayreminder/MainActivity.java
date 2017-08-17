@@ -110,13 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_backup) {
-            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            if (networkInfo != null && networkInfo.isConnected()) {
-                getLoaderManager().restartLoader(1, null, this);
-            } else {
-                Toast.makeText(this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
-            }
+            backupToCloud();
         }
 
         return super.onOptionsItemSelected(item);
@@ -130,13 +124,23 @@ public class MainActivity extends AppCompatActivity
         {
             if (id == R.id.nav_share) {
 
-            } else if (id == R.id.nav_send) {
-
+            } else if (id == R.id.nav_backup) {
+                backupToCloud();
             }
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             return true;
+        }
+    }
+
+    private void backupToCloud(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            getLoaderManager().restartLoader(1, null, this);
+        } else {
+            Toast.makeText(this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
         }
     }
 

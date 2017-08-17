@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class ContactListFragment extends Fragment
     private SearchView searchView;
     private String searchKeyword = null;
     private TextView tv;
+    private ProgressBar loadingBar;
     private Refreshable refreshable;
 
     public ContactListFragment() {
@@ -58,6 +60,7 @@ public class ContactListFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview);
+        loadingBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
 
         tv = (TextView) rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
@@ -177,6 +180,7 @@ public class ContactListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        loadingBar.setVisibility(View.GONE);
         Log.v("onLoadFinish", Integer.toString(data.getColumnCount()));
         adapter.swapCursor(data);
         tv.setVisibility(View.GONE);

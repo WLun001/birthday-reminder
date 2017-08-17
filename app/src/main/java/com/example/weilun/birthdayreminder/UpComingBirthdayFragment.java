@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.weilun.birthdayreminder.db.PersonContract;
@@ -51,6 +52,8 @@ public class UpComingBirthdayFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_up_coming, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.listview);
+        ProgressBar loadingBar = (ProgressBar) rootView.findViewById(R.id.loading_bar);
+        loadingBar.setVisibility(View.GONE);
 
         tv = (TextView) rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
