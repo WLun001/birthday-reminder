@@ -105,6 +105,7 @@ public class ContactListFragment extends Fragment
         if (searchView == null)
             return;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setQueryHint(getString(R.string.action_search));
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
     }

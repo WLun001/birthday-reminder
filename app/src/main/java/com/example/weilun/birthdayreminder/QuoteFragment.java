@@ -34,7 +34,7 @@ import java.util.List;
  * Created by Wei Lun on 8/17/2017.
  */
 
-public class FamousQuotesFragment extends Fragment
+public class QuoteFragment extends Fragment
         implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>> {
 
     public static final int QUOTE_LOADER_ID = 1;

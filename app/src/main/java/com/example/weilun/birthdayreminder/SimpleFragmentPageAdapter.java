@@ -30,7 +30,7 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
                 return new ContactListFragment();
 
             case 2:
-                return new FamousQuotesFragment();
+                return new QuoteFragment();
             default:
                 return null;
         }
