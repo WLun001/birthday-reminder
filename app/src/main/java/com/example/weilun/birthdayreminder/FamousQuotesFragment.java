@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,7 +77,15 @@ public class FamousQuotesFragment extends Fragment
                 dialog.show();
             }
         });
-        getLoaderManager().restartLoader(QUOTE_LOADER_ID, null, this);
+
+        ConnectivityManager connMgr = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            getLoaderManager().restartLoader(QUOTE_LOADER_ID, null, this);
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+        }
+
         return rootView;
     }
 
@@ -84,6 +96,7 @@ public class FamousQuotesFragment extends Fragment
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<List<Quote>> loader, List<Quote> data) {
+        Collections.sort(data);
         loadingBar.setVisibility(View.GONE);
         emptyView.setText(getString(R.string.no_quote_found));
         adapter = new QuoteAdapter(getActivity(), data);
@@ -94,7 +107,6 @@ public class FamousQuotesFragment extends Fragment
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<Quote>> loader) {
         adapter.clear();
-        ;
         adapter.notifyDataSetChanged();
     }
 
