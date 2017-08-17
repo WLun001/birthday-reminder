@@ -25,7 +25,6 @@ public class DeleteRecordsDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notifyToTarget(Activity.RESULT_OK);
-                        Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {

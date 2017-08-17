@@ -85,7 +85,7 @@ public class ContactListFragment extends Fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.contact_menu, menu);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
@@ -96,14 +96,13 @@ public class ContactListFragment extends Fragment
         searchView.setOnCloseListener(this);
     }
 
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
         if (id == R.id.action_delete) {
             comfirmDeleteAll();
-            //TODO: implement interface for passing result from dialogfragment
-            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -117,10 +116,11 @@ public class ContactListFragment extends Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //request code == 1 when positive button, else is 0
-        if (requestCode == 1) {
+        //result code == -1 when positive button, else is 0
+        if (resultCode == -1) {
             PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getActivity()));
             dbQueries.deleteAll();
+            getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
             Toast.makeText(getActivity(), R.string.delete_success, Toast.LENGTH_SHORT).show();
         }
     }
@@ -135,7 +135,6 @@ public class ContactListFragment extends Fragment
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         return true;
     }
 
@@ -150,7 +149,6 @@ public class ContactListFragment extends Fragment
             Log.v("onQueryTextSubmit", "Restarting Loader when no keyword");
             getLoaderManager().restartLoader(SEARCH_LOADER_ID, null, this);
         }
-
         return true;
     }
 
@@ -209,10 +207,7 @@ public class ContactListFragment extends Fragment
                 Log.v("loadInBackgrond", "query in background");
                 cursor = dbQuery.query(columns, null, null, null, null
                         , PersonContract.PersonEntry.COLUMN_NAME_NAME + " ASC");
-
             }
-//            if(cursor != null)
-//                registerContentObserver(cursor);
             return cursor;
         }
     }

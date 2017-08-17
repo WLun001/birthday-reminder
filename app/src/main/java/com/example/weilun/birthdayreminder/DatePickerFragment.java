@@ -26,9 +26,7 @@ public class DatePickerFragment extends android.support.v4.app.DialogFragment
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
-
-        return datePickerDialog;
+      return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override

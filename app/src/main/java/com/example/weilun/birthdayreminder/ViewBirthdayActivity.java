@@ -63,7 +63,6 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         super.onResume();
 
         Intent intent = getIntent();
-
         long id = 0;
         long idFromUpComingFragment = intent.getLongExtra(UpComingBirthdayFragment.EXTRA_ID, 0);
         long idFromContactFragment = intent.getLongExtra(ContactListFragment.EXTRA_ID, 0);
@@ -116,7 +115,6 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     private void setView() {
         icon = (ImageView) findViewById(R.id.icon);
@@ -173,11 +171,9 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
-
     }
 
     public void sendSms(View view) {
-
 //        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 //        smsIntent.setType("vnd.android-dir/mms-sms");
 //        smsIntent.putExtra("address", person.getPhone());

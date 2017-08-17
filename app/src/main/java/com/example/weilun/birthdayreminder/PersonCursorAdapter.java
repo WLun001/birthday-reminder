@@ -46,7 +46,6 @@ public class PersonCursorAdapter extends CursorAdapter {
         nameTv.setText(name);
         birthdayTv.setText(new SimpleDateFormat("EEEE, MMM,  d").format(dob));
         ageTv.setText(Integer.toString(getAge(dob)));
-
     }
 
     private int getAge(long dob) {

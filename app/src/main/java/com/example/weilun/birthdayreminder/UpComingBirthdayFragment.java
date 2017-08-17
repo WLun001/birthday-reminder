@@ -23,6 +23,10 @@ import java.util.Calendar;
  */
 public class UpComingBirthdayFragment extends Fragment {
 
+    public interface Countable {
+        void getCount(int count);
+    }
+
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private static final String LOG_TAG = "UpComingBirthdayFragment";
     private static Calendar startDate, endDate, dob;
@@ -89,9 +93,5 @@ public class UpComingBirthdayFragment extends Fragment {
     public void onRefresh(Cursor cursor) {
         adapter.swapCursor(cursor);
         adapter.notifyDataSetChanged();
-    }
-
-    public interface Countable {
-        void getCount(int count);
     }
 }
