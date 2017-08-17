@@ -65,7 +65,6 @@ public class ContactListFragment extends Fragment
         tv = (TextView) rootView.findViewById(R.id.no_birthday);
         listView.setEmptyView(tv);
         adapter = new PersonCursorAdapter(getActivity(), null, 0);
-        tv.setText(getString(R.string.no_birthday_data));
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -181,6 +180,7 @@ public class ContactListFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         loadingBar.setVisibility(View.GONE);
+        tv.setText(getString(R.string.no_birthday_data));
         Log.v("onLoadFinish", Integer.toString(data.getColumnCount()));
         adapter.swapCursor(data);
         tv.setVisibility(View.GONE);
