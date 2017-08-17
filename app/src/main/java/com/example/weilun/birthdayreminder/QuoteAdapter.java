@@ -18,7 +18,8 @@ import java.util.List;
 public class QuoteAdapter extends ArrayAdapter<Quote> {
 
     private Context context;
-    public QuoteAdapter(Context context, List<Quote> quotes){
+
+    public QuoteAdapter(Context context, List<Quote> quotes) {
         super(context, 0, quotes);
         this.context = context;
     }
@@ -28,7 +29,7 @@ public class QuoteAdapter extends ArrayAdapter<Quote> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View rootView = convertView;
 
-        if(rootView == null)
+        if (rootView == null)
             rootView = LayoutInflater.from(context).inflate(R.layout.list_item_quote, parent, false);
 
         Quote quote = getItem(position);

@@ -37,10 +37,6 @@ public class ContactListFragment extends Fragment
         SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    public interface Refreshable{
-        void onRefresh();
-    }
-
     public static final int REQUEST_CODE = 1;
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     public static final int SEARCH_LOADER_ID = 1;
@@ -50,7 +46,6 @@ public class ContactListFragment extends Fragment
     private TextView tv;
     private ProgressBar loadingBar;
     private Refreshable refreshable;
-
     public ContactListFragment() {
     }
 
@@ -85,9 +80,9 @@ public class ContactListFragment extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        try{
+        try {
             refreshable = (Refreshable) context;
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException("must implement Refreshable interface");
         }
     }
@@ -114,7 +109,6 @@ public class ContactListFragment extends Fragment
         searchView.setOnCloseListener(this);
     }
 
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -194,6 +188,9 @@ public class ContactListFragment extends Fragment
         adapter.swapCursor(null);
     }
 
+    public interface Refreshable {
+        void onRefresh();
+    }
 
     public static final class SearchLoader extends AsyncTaskLoader<Cursor> {
         private String keyword;

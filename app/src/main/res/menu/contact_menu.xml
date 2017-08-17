@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/action_delete"
-        app:showAsAction="never"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/action_delete_all" />
+        android:title="@string/action_delete_all"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_search"
-        android:title="@string/action_search"
-        app:showAsAction="ifRoom|collapseActionView"
         android:icon="@android:drawable/ic_menu_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"/>
+        android:title="@string/action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

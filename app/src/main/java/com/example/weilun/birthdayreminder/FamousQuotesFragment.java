@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +18,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.weilun.birthdayreminder.db.PersonDBHelper;
-import com.example.weilun.birthdayreminder.db.PersonDBQueries;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -36,7 +31,7 @@ import java.util.List;
  */
 
 public class FamousQuotesFragment extends Fragment
-implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>>{
+        implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>> {
 
     public static final int QUOTE_LOADER_ID = 1;
     private ProgressBar loadingBar;
@@ -69,7 +64,7 @@ implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>>{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                ClipData clip = ClipData.newPlainText(getString(R.string.dialog_copy_text), quote.getQuote() );
+                                ClipData clip = ClipData.newPlainText(getString(R.string.dialog_copy_text), quote.getQuote());
                                 clipboard.setPrimaryClip(clip);
                                 Toast.makeText(getActivity(), getString(R.string.copied_success), Toast.LENGTH_SHORT).show();
                             }
@@ -98,7 +93,8 @@ implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>>{
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<Quote>> loader) {
-        adapter.clear();;
+        adapter.clear();
+        ;
         adapter.notifyDataSetChanged();
     }
 
@@ -121,7 +117,7 @@ implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>>{
             List<Quote> quotes;
             try {
                 quotes = getFromJson();
-            }catch (IOException e){
+            } catch (IOException e) {
                 return null;
             }
             return quotes;
