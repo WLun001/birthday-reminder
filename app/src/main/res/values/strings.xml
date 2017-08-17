@@ -11,8 +11,10 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_up_coming">UpComingActivity</string>
     <string name="title_activity_contact">ContactActivity</string>
+
     <string name="tab_title_upcoming">Up Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>
+    <string name="tab_title_quote">Famous quotes</string>
 
     <string name="title_activity_add_birthday">Add Birthday</string>
     <string name="add_birthday_name">Name</string>
@@ -43,4 +45,6 @@
 
     <string name="backup_success">Successfully backups %d record(s) to the cloud</string>
     <string name="no_network">Network unavailable</string>
+
+    <string name="no_quote_found">No quotes available</string>
 </resources>

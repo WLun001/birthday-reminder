@@ -28,6 +28,9 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
                 return new UpComingBirthdayFragment();
             case 1:
                 return new ContactListFragment();
+
+            case 2:
+                return new FamousQuotesFragment();
             default:
                 return null;
         }
@@ -35,15 +38,17 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0)
             return context.getString(R.string.tab_title_upcoming);
-        else
+        else if (position == 1)
             return context.getString(R.string.tab_title_contact);
+        else
+            return context.getString(R.string.tab_title_quote);
     }
 
     @Override
