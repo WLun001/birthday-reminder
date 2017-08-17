@@ -30,6 +30,7 @@
 
     <string name="dialog_message">You will lose all records!</string>
     <string name="dialog_title">Delete All Records</string>
+    <string name="dialog_copy_text">Copy text</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_cancel">Cancel</string>
     <string name="delete_success">All records have been deleted</string>
@@ -47,4 +48,5 @@
     <string name="no_network">Network unavailable</string>
 
     <string name="no_quote_found">No quotes available</string>
+    <string name="copied_success">Copied to clipboard</string>
 </resources>
