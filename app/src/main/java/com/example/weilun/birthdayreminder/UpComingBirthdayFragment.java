@@ -74,9 +74,14 @@ public class UpComingBirthdayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        onRefreshView();
+    }
+
+    public void onRefreshView() {
         startDate = Calendar.getInstance();
+        startDate.add(Calendar.DAY_OF_MONTH, -1);
         endDate = Calendar.getInstance();
-        endDate.add(Calendar.DAY_OF_MONTH, 2);
+        endDate.add(Calendar.DAY_OF_MONTH, 1);
 
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
@@ -87,10 +92,6 @@ public class UpComingBirthdayFragment extends Fragment {
                 selectionArgs, null, null, null);
 
         countable.getCount(cursor.getCount());
-        onRefresh(cursor);
-    }
-
-    public void onRefresh(Cursor cursor) {
         adapter.swapCursor(cursor);
         adapter.notifyDataSetChanged();
     }

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-         adapter.getRegisteredFragment(0).onResume();
+        ((UpComingBirthdayFragment)adapter.getRegisteredFragment(0)).onRefreshView();
 
     }
 
