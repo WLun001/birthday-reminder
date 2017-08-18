@@ -25,15 +25,7 @@ public class PersonDBQueries {
     public static Person getPerson(Cursor cursor) {
         Person person = null;
         if (cursor.moveToNext()) {
-            person = new Person(
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
-                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
-                    checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
-                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
-            );
-            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
+            person = setPerson(cursor);
         }
         return person;
     }
@@ -41,20 +33,25 @@ public class PersonDBQueries {
     public static List<Person> getPersonList(Cursor cursor) {
         List<Person> persons = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Person person = new Person(
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
-                    new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
-                    PersonDBQueries.checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
-                    cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
-            );
-            person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
+            Person person = setPerson(cursor);
             persons.add(person);
         }
         return persons;
     }
 
+    private static Person setPerson(Cursor cursor){
+        Person person = new Person(
+                cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
+                cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),
+                cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
+                new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
+                checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
+                cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
+        );
+        person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
+
+        return person;
+    }
 
     private static boolean checkBoolean(int value) {
         return value > 0;
