@@ -42,8 +42,9 @@
         <activity
             android:name=".EditBirthdayActivity"
             android:label="@string/title_activity_edit_birthday"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TodayBirthdayActivity"></activity>
+        <activity android:name=".TodayBirthdayActivity"/>
     </application>
 
 </manifest>

@@ -35,6 +35,7 @@ public class EditBirthdayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra(ViewBirthdayActivity.EXTRA_ID);
         setView();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

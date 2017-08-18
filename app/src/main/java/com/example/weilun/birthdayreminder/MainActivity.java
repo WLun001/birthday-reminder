@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity
         now.setTime(date);
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 21);
+        calendar.set(Calendar.MINUTE, 33);
         calendar.set(Calendar.SECOND, 00);
 
         if(calendar.before(now)){
