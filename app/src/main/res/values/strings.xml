@@ -11,6 +11,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_up_coming">UpComingActivity</string>
     <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_today_birthday">Today birthdays</string>
 
     <string name="tab_title_upcoming">Up Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>

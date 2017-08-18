@@ -66,12 +66,17 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         long id = 0;
         long idFromUpComingFragment = intent.getLongExtra(UpComingBirthdayFragment.EXTRA_ID, 0);
         long idFromContactFragment = intent.getLongExtra(ContactListFragment.EXTRA_ID, 0);
+        long idFromTodayBirthdayActivity = intent.getLongExtra(TodayBirthdayActivity.EXTRA_ID, 0);
         if (idFromUpComingFragment != 0) {
             id = idFromUpComingFragment;
             Log.v("VIewAcitivty", "id from upcoming fragment");
-        } else {
+        } else if (idFromContactFragment != 0){
             id = idFromContactFragment;
             Log.v("VIewAcitivty", "id from contact fragment");
+        } else
+        {
+            id = idFromTodayBirthdayActivity;
+            Log.v("VIewAcitivty", "id from TodayBirthdayActivity");
         }
 
         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));

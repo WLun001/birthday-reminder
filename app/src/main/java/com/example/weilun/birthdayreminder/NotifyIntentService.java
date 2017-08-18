@@ -71,18 +71,18 @@ public class NotifyIntentService extends IntentService{
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
             managerCompat.notify(NOTIFICATION_ID, notification);
 
-            builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+            builder.build().flags |= Notification.FLAG_AUTO_CANCEL;
         }
     }
 
-//    public class CursorWrapper implements Serializable{
-//        private Cursor cursor;
-//        public CursorWrapper(Cursor cursor) {
-//            this.cursor = cursor;
-//        }
-//
-//        public Cursor getCursor(){
-//            return cursor;
-//        }
-//    }
+    public class CursorWrapper implements Serializable{
+        private Cursor cursor;
+        public CursorWrapper(Cursor cursor) {
+            this.cursor = cursor;
+        }
+
+        public Cursor getCursor(){
+            return cursor;
+        }
+    }
 }
