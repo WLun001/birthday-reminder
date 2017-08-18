@@ -41,15 +41,15 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
         return 3;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        if (position == 0)
-            return context.getString(R.string.tab_title_upcoming);
-        else if (position == 1)
-            return context.getString(R.string.tab_title_contact);
-        else
-            return context.getString(R.string.tab_title_quote);
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        if (position == 0)
+//            return context.getString(R.string.tab_title_upcoming);
+//        else if (position == 1)
+//            return context.getString(R.string.tab_title_contact);
+//        else
+//            return context.getString(R.string.tab_title_quote);
+//    }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {

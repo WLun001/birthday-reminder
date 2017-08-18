@@ -13,7 +13,7 @@
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_today_birthday">Today birthdays</string>
 
-    <string name="tab_title_upcoming">Up Coming Birthdays</string>
+    <string name="tab_title_upcoming">Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>
     <string name="tab_title_quote">Ramdom quotes</string>
 

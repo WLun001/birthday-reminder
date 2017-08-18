@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_contacts_white_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_format_quote_white_24dp);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         if (count != 0)
             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming) + " (" + count + ")");
         else
-            tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming));
+             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming));
     }
 
     @Override
@@ -150,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         now.setTime(date);
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 33);
+        calendar.set(Calendar.MINUTE, 57);
         calendar.set(Calendar.SECOND, 00);
 
         if(calendar.before(now)){

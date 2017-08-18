@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -57,7 +58,10 @@ public class NotifyIntentService extends IntentService{
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(String.format(getString(R.string.notification_content), todayBirthday))
                     .setAutoCancel(true)
-                    .setSmallIcon(R.drawable.ic_account_circle_black_24dp);
+                    .setSmallIcon(R.mipmap.birthday_icon_launcher)
+                    .setColor(getResources().getColor(R.color.colorPrimary))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.birthday_icon_launcher));
 
             Log.v("NotifyIntentService", "notification built");
 
