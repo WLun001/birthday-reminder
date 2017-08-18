@@ -6,4 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.weilun.birthdayreminder.TodayBirthdayActivity">
 
+    <include layout="@layout/listview"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,8 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -13,6 +15,7 @@ import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -22,6 +25,7 @@ import java.util.Calendar;
 public class NotifyIntentService extends IntentService{
 
     public static final int NOTIFICATION_ID = 1;
+    public static final String CURSOR = "com.example.weilun.birthdayreminder.CURSOR";
     private static Calendar calender;
 
     public NotifyIntentService(){
@@ -42,6 +46,7 @@ public class NotifyIntentService extends IntentService{
                 + "AND " + PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " = '1'",
                 selectionArgs, null, null, null);
 
+        //CursorWrapper cursorWrapper = new CursorWrapper(cursor);
         int todayBirthday = cursor.getCount();
 
         Log.v("NotifyIntentSerivice", "today birthday: " + todayBirthday + "");
@@ -57,6 +62,8 @@ public class NotifyIntentService extends IntentService{
             Log.v("NotifyIntentService", "notification built");
 
             Intent todayBirthdayIntent = new Intent(this, TodayBirthdayActivity.class);
+//            Intent cursorIntent = new Intent(this, TodayBirthdayActivity.class);
+//            cursorIntent.putExtra(CURSOR,cursorWrapper);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, todayBirthdayIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(pendingIntent);
@@ -67,4 +74,15 @@ public class NotifyIntentService extends IntentService{
             builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
         }
     }
+
+//    public class CursorWrapper implements Serializable{
+//        private Cursor cursor;
+//        public CursorWrapper(Cursor cursor) {
+//            this.cursor = cursor;
+//        }
+//
+//        public Cursor getCursor(){
+//            return cursor;
+//        }
+//    }
 }

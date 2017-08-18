@@ -149,9 +149,9 @@ public class MainActivity extends AppCompatActivity
         Date date = new Date();
         now.setTime(date);
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 13);
-        calendar.set(Calendar.SECOND, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 58);
+        calendar.set(Calendar.SECOND, 00);
 
         if(calendar.before(now)){
             calendar.add(Calendar.DATE, 1);
