@@ -49,4 +49,7 @@
 
     <string name="no_quote_found">No quotes available</string>
     <string name="copied_success">Copied to clipboard</string>
+
+    <string name="notification_title">Today bithdays</string>
+    <string name="notification_content">You have %d friend(s) birthday today.</string>
 </resources>

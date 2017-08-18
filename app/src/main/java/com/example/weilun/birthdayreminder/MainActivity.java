@@ -1,6 +1,8 @@
 package com.example.weilun.birthdayreminder;
 
+import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +27,9 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        startNotification();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new SimpleFragmentPageAdapter(this, getSupportFragmentManager());
@@ -131,6 +139,31 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
+    }
+
+    private void startNotification(){
+        AlarmManager alarmManager;
+
+        Calendar calendar = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        Date date = new Date();
+        now.setTime(date);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 13);
+        calendar.set(Calendar.SECOND, 1);
+
+        if(calendar.before(now)){
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        Intent intent = new Intent(this, NotiReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+
+        Log.v("MainActivity", "Alarm started");
+
     }
 
     private void backupToCloud() {
