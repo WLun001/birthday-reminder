@@ -59,7 +59,8 @@ public class NotifyIntentService extends IntentService {
                     .setSmallIcon(R.mipmap.birthday_icon_launcher)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                            R.mipmap.birthday_icon_launcher));
+                            R.mipmap.birthday_icon_launcher))
+                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
             Log.v("NotifyIntentService", "notification built");
 
