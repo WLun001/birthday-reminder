@@ -39,8 +39,8 @@ env:
 before_install:
   - chmod +x gradlew
 
-#before_script:
- # - bash fixbug.sh
+before_script:
+  - bash fixbug.sh
 
 script:
    - ./gradlew build
