@@ -39,7 +39,7 @@ public class PersonDBQueries {
         return persons;
     }
 
-    private static Person setPerson(Cursor cursor){
+    private static Person setPerson(Cursor cursor) {
         Person person = new Person(
                 cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME)),
                 cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_EMAIL)),

@@ -30,6 +30,7 @@ public class UpComingBirthdayFragment extends Fragment {
     private PersonCursorAdapter adapter;
     private TextView tv;
     private Countable countable;
+
     public UpComingBirthdayFragment() {
     }
 

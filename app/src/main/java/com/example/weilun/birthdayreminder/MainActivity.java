@@ -23,7 +23,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         if (count != 0)
             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming) + " (" + count + ")");
         else
-             tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming));
+            tabLayout.getTabAt(0).setText(getString(R.string.tab_title_upcoming));
     }
 
     @Override
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void startNotification(){
+    private void startNotification() {
         AlarmManager alarmManager;
 
         Calendar calendar = Calendar.getInstance();
@@ -152,11 +151,11 @@ public class MainActivity extends AppCompatActivity
         Date date = new Date();
         now.setTime(date);
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 57);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
 
-        if(calendar.before(now)){
+        if (calendar.before(now)) {
             calendar.add(Calendar.DATE, 1);
         }
 

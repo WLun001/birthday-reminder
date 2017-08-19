@@ -14,7 +14,8 @@
         android:id="@+id/loading_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@android:color/holo_blue_bright" />
 
     <TextView
         android:id="@+id/no_birthday"

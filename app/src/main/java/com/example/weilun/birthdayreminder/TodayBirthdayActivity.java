@@ -2,22 +2,20 @@ package com.example.weilun.birthdayreminder;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-//import com.example.weilun.birthdayreminder.NotifyIntentService.CursorWrapper;
+
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
+
+//import com.example.weilun.birthdayreminder.NotifyIntentService.CursorWrapper;
 
 public class TodayBirthdayActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
@@ -39,7 +37,7 @@ public class TodayBirthdayActivity extends AppCompatActivity {
                 selectionArgs, null, null, null);
 
         ListView listView = (ListView) findViewById(R.id.listview);
-        ProgressBar loadingBar = (ProgressBar)findViewById(R.id.loading_bar);
+        ProgressBar loadingBar = (ProgressBar) findViewById(R.id.loading_bar);
 
         PersonCursorAdapter adapter = new PersonCursorAdapter(this, cursor, 0);
         listView.setAdapter(adapter);

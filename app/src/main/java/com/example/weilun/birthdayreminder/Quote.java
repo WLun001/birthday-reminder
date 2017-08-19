@@ -3,13 +3,12 @@ package com.example.weilun.birthdayreminder;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
  * Created by Wei Lun on 8/17/2017.
  */
 
-public class Quote implements Serializable, Comparable<Quote>{
+public class Quote implements Serializable, Comparable<Quote> {
     private String quote;
     private String author;
     private String category;

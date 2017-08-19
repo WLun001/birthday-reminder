@@ -46,6 +46,7 @@ public class ContactListFragment extends Fragment
     private TextView tv;
     private ProgressBar loadingBar;
     private Refreshable refreshable;
+
     public ContactListFragment() {
     }
 

@@ -70,11 +70,10 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         if (idFromUpComingFragment != 0) {
             id = idFromUpComingFragment;
             Log.v("VIewAcitivty", "id from upcoming fragment");
-        } else if (idFromContactFragment != 0){
+        } else if (idFromContactFragment != 0) {
             id = idFromContactFragment;
             Log.v("VIewAcitivty", "id from contact fragment");
-        } else
-        {
+        } else {
             id = idFromTodayBirthdayActivity;
             Log.v("VIewAcitivty", "id from TodayBirthdayActivity");
         }

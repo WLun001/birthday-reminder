@@ -6,8 +6,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -23,13 +21,13 @@ import java.util.Calendar;
  * Created by Wei Lun on 8/18/2017.
  */
 
-public class NotifyIntentService extends IntentService{
+public class NotifyIntentService extends IntentService {
 
     public static final int NOTIFICATION_ID = 1;
     public static final String CURSOR = "com.example.weilun.birthdayreminder.CURSOR";
     private static Calendar calender;
 
-    public NotifyIntentService(){
+    public NotifyIntentService() {
         super(NotifyIntentService.class.getName());
     }
 
@@ -44,7 +42,7 @@ public class NotifyIntentService extends IntentService{
         //to convert millisecond to Unix timestamp, divide by 1000
         Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
                         + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')"
-                + "AND " + PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " = '1'",
+                        + "AND " + PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " = '1'",
                 selectionArgs, null, null, null);
 
         //CursorWrapper cursorWrapper = new CursorWrapper(cursor);
@@ -52,7 +50,7 @@ public class NotifyIntentService extends IntentService{
 
         Log.v("NotifyIntentSerivice", "today birthday: " + todayBirthday + "");
 
-        if(todayBirthday > 0) {
+        if (todayBirthday > 0) {
 
             Notification.Builder builder = new Notification.Builder(this)
                     .setContentTitle(getString(R.string.notification_title))
@@ -61,7 +59,7 @@ public class NotifyIntentService extends IntentService{
                     .setSmallIcon(R.mipmap.birthday_icon_launcher)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.birthday_icon_launcher));
+                            R.mipmap.birthday_icon_launcher));
 
             Log.v("NotifyIntentService", "notification built");
 
@@ -79,13 +77,14 @@ public class NotifyIntentService extends IntentService{
         }
     }
 
-    public class CursorWrapper implements Serializable{
+    public class CursorWrapper implements Serializable {
         private Cursor cursor;
+
         public CursorWrapper(Cursor cursor) {
             this.cursor = cursor;
         }
 
-        public Cursor getCursor(){
+        public Cursor getCursor() {
             return cursor;
         }
     }
