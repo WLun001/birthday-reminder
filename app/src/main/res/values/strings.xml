@@ -45,6 +45,7 @@
     <string name="minute">m</string>
     <string name="second">s</string>
 
+    <string name="progress_dialog_uploading">"Uploading</string>
     <string name="backup_success">Successfully backups %d record(s) to the cloud</string>
     <string name="no_network">Network unavailable</string>
 

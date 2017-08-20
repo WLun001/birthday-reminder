@@ -1,5 +1,6 @@
 package com.example.weilun.birthdayreminder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -32,15 +33,30 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
     private static final String JSON_URL = "http://labs.jamesooi.com/uecs3253-asg.php";
 
     private List<Person> persons;
+    private ProgressDialog progressDialog;
+    private Context context;
 
     public BackupLoader(Context context) {
         super(context);
+        this.context = context;
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(R.string.progress_dialog_uploading);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         forceLoad();
+    }
+
+    public boolean progressDialogIsShow(){
+        return progressDialog.isShowing();
+    }
+
+    public void stopProgressDialog(){
+        progressDialog.dismiss();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -185,7 +186,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
-
+        Loader<JSONObject> backupLoader = getLoaderManager().getLoader(1);
+        BackupLoader backupLoader1 = (BackupLoader) backupLoader;
+        if(backupLoader1.progressDialogIsShow())
+            backupLoader1.stopProgressDialog();
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setMessage(String.format(getString(R.string.backup_success)
                 , extraCodeFromJSON(data)));
