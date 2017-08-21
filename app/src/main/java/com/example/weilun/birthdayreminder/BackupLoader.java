@@ -39,16 +39,16 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
     public BackupLoader(Context context) {
         super(context);
         this.context = context;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(R.string.progress_dialog_uploading);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        Log.v(LOG_TAG, "BackupLoader created");
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle(R.string.progress_dialog_uploading);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-        forceLoad();
     }
 
     public boolean progressDialogIsShow() {
@@ -61,6 +61,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
 
     @Override
     public JSONObject loadInBackground() {
+        Log.v(LOG_TAG, "BackupLoader doInBackground()");
         JSONObject jsonRespose = null;
         try {
             readFromDb();

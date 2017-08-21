@@ -44,14 +44,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_birthday_phone"
-        android:inputType="phone"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/add_birthday_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="phone"
         android:maxLines="1" />
 
 

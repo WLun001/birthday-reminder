@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private TabLayout tabLayout;
     private SimpleFragmentPageAdapter adapter;
+    private static final int BACKUP_LOADER_ID = 1;
     private String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_backup) {
             backupToCloud();
+            Log.v("backupToCloud", "trigger from menu");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity
 
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
+                Log.v("backupToCloud", "trigger from navigationbar");
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            getLoaderManager().restartLoader(1, null, this);
+            getLoaderManager().restartLoader(BACKUP_LOADER_ID, null, this).forceLoad();
         } else {
             Toast.makeText(this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
         }
@@ -181,12 +184,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+        Log.v(LOG_TAG, "BackupLoader Created");
         return new BackupLoader(this);
     }
 
     @Override
     public void onLoadFinished(Loader<JSONObject> loader, JSONObject data) {
-        Loader<JSONObject> backupLoader = getLoaderManager().getLoader(1);
+        Loader<JSONObject> backupLoader = getLoaderManager().getLoader(BACKUP_LOADER_ID);
         BackupLoader backupLoader1 = (BackupLoader) backupLoader;
         if (backupLoader1.progressDialogIsShow())
             backupLoader1.stopProgressDialog();
