@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
         calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
 
-        Log.v("calender", calendar.getTimeInMillis() + "");
+        Log.v("Notitication Time", calendar.getTimeInMillis() + "");
 
         if (calendar.before(now)) {
             calendar.add(Calendar.DATE, 1);
