@@ -9,6 +9,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.util.JsonReader;
 import android.util.Log;
@@ -35,7 +38,7 @@ import java.util.List;
  */
 
 public class QuoteFragment extends Fragment
-        implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>> {
+        implements LoaderManager.LoaderCallbacks<List<Quote>> {
 
     public static final int QUOTE_LOADER_ID = 1;
     private static String LOG_TAG = QuoteFragment.class.getSimpleName();
@@ -93,12 +96,12 @@ public class QuoteFragment extends Fragment
     }
 
     @Override
-    public android.support.v4.content.Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
         return new fetchQuoteTask(getActivity());
     }
 
     @Override
-    public void onLoadFinished(android.support.v4.content.Loader<List<Quote>> loader, List<Quote> data) {
+    public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
         Collections.sort(data);
         loadingBar.setVisibility(View.GONE);
         emptyView.setText(getString(R.string.no_quote_found));
@@ -107,12 +110,12 @@ public class QuoteFragment extends Fragment
     }
 
     @Override
-    public void onLoaderReset(android.support.v4.content.Loader<List<Quote>> loader) {
+    public void onLoaderReset(Loader<List<Quote>> loader) {
         adapter.clear();
         adapter.notifyDataSetChanged();
     }
 
-    public static class fetchQuoteTask extends android.support.v4.content.AsyncTaskLoader<List<Quote>> {
+    public static class fetchQuoteTask extends AsyncTaskLoader<List<Quote>> {
         public static final String QUOTE_URL = "https://talaikis.com/api/quotes/";
 
         public fetchQuoteTask(Context context) {

@@ -10,11 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
-import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 /**

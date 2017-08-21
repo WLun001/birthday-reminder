@@ -180,12 +180,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public android.content.Loader<JSONObject> onCreateLoader(int id, Bundle args) {
+    public Loader<JSONObject> onCreateLoader(int id, Bundle args) {
         return new BackupLoader(this);
     }
 
     @Override
-    public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
+    public void onLoadFinished(Loader<JSONObject> loader, JSONObject data) {
         Loader<JSONObject> backupLoader = getLoaderManager().getLoader(1);
         BackupLoader backupLoader1 = (BackupLoader) backupLoader;
         if (backupLoader1.progressDialogIsShow())
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(android.content.Loader<JSONObject> loader) {
+    public void onLoaderReset(Loader<JSONObject> loader) {
     }
 
     private int extraCodeFromJSON(JSONObject jsonObj) {

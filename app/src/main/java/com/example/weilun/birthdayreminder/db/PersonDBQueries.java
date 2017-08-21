@@ -26,6 +26,7 @@ public class PersonDBQueries {
 
     /**
      * get a {@link Person} object from cursor
+     *
      * @param cursor cursor
      * @return {@link Person}
      */
@@ -39,6 +40,7 @@ public class PersonDBQueries {
 
     /**
      * get a List<Person> from cursor
+     *
      * @param cursor
      * @return List<Person>
      */
@@ -53,6 +55,7 @@ public class PersonDBQueries {
 
     /**
      * set {@link Person} object from a cursor
+     *
      * @param cursor
      * @return {@link Person}
      */
@@ -71,7 +74,18 @@ public class PersonDBQueries {
     }
 
     /**
+     * helper method to convert integer to boolean
+     *
+     * @param value
+     * @return true of is boolean
+     */
+    private static boolean checkBoolean(int value) {
+        return value > 0;
+    }
+
+    /**
      * Qeury database
+     *
      * @param columns
      * @param selection
      * @param selectionArgs
@@ -90,10 +104,11 @@ public class PersonDBQueries {
 
     /**
      * Query today birthdays
+     *
      * @param calender the date of today
      * @return cursor of today birthdays
      */
-    public Cursor queryTodayBirthday(Calendar calender){
+    public Cursor queryTodayBirthday(Calendar calender) {
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {calender.getTimeInMillis() + "", "" + calender.getTimeInMillis()};
 
@@ -106,6 +121,7 @@ public class PersonDBQueries {
 
     /**
      * insert specify column into database
+     *
      * @param person
      * @return column id
      */
@@ -120,6 +136,7 @@ public class PersonDBQueries {
 
     /**
      * update specific column into database
+     *
      * @param person
      * @return numbers of the rows affected
      */
@@ -134,6 +151,7 @@ public class PersonDBQueries {
 
     /**
      * delete one column from database
+     *
      * @param id of the desired column
      */
     public void deleteOne(Long id) {
@@ -153,16 +171,8 @@ public class PersonDBQueries {
     }
 
     /**
-     * helper method to convert integer to boolean
-     * @param value
-     * @return true of is boolean
-     */
-    private static boolean checkBoolean(int value) {
-        return value > 0;
-    }
-
-    /**
      * helper method to insert value from person
+     *
      * @param person
      * @return {@link ContentValues}
      */
