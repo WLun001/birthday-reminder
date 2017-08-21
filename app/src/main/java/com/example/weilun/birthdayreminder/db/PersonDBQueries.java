@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.weilun.birthdayreminder.Person;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +64,17 @@ public class PersonDBQueries {
 
         return db.query(PersonContract.PersonEntry.TABLE_NAME, columns, selection, selectionArgs, groupBy
                 , having, orderBy);
+    }
+
+    public Cursor queryTodayBirthday(Calendar calender){
+        String[] columns = PersonContract.columns;
+        String[] selectionArgs = {calender.getTimeInMillis() + "", "" + calender.getTimeInMillis()};
+
+        //to convert millisecond to Unix timestamp, divide by 1000
+        return query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
+                        + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')"
+                        + "AND " + PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " = '1'",
+                selectionArgs, null, null, null);
     }
 
     public long insert(Person person) {

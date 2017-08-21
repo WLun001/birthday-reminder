@@ -37,14 +37,7 @@ public class NotifyIntentService extends IntentService {
         calender.add(Calendar.DAY_OF_MONTH, -1);
 
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(this));
-        String[] columns = PersonContract.columns;
-        String[] selectionArgs = {calender.getTimeInMillis() + "", "" + calender.getTimeInMillis()};
-
-        //to convert millisecond to Unix timestamp, divide by 1000
-        Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
-                        + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')"
-                        + "AND " + PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " = '1'",
-                selectionArgs, null, null, null);
+        Cursor cursor = dbQuery.queryTodayBirthday(calender);
 
         //CursorWrapper cursorWrapper = new CursorWrapper(cursor);
         int todayBirthday = cursor.getCount();
