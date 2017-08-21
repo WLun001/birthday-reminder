@@ -25,7 +25,6 @@ import java.util.Calendar;
 public class UpComingBirthdayFragment extends Fragment {
 
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
-    private static final String LOG_TAG = "UpComingBirthdayFragment";
     private static Calendar startDate, endDate, dob;
     private PersonCursorAdapter adapter;
     private TextView tv;
@@ -86,6 +85,7 @@ public class UpComingBirthdayFragment extends Fragment {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getActivity()));
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {startDate.getTimeInMillis() + "", "" + endDate.getTimeInMillis()};
+
         //to convert millisecond to Unix timestamp, divide by 1000
         Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
                         + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')",

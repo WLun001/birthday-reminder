@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +22,7 @@
         <service
             android:name=".NotifyIntentService"
             android:exported="false" />
+
         <activity
             android:name=".AddBirthdayActivity"
             android:label="@string/title_activity_add_birthday"
@@ -46,7 +47,7 @@
             android:label="@string/title_activity_edit_birthday"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TodayBirthdayActivity"/>
+        <activity android:name=".TodayBirthdayActivity" />
     </application>
 
 </manifest>

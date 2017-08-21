@@ -31,7 +31,7 @@ import java.util.List;
 
 public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
     private static final String JSON_URL = "http://labs.jamesooi.com/uecs3253-asg.php";
-
+    private static String LOG_TAG = BackupLoader.class.getSimpleName();
     private List<Person> persons;
     private ProgressDialog progressDialog;
     private Context context;
@@ -51,11 +51,11 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         forceLoad();
     }
 
-    public boolean progressDialogIsShow(){
+    public boolean progressDialogIsShow() {
         return progressDialog.isShowing();
     }
 
-    public void stopProgressDialog(){
+    public void stopProgressDialog() {
         progressDialog.dismiss();
     }
 
@@ -66,7 +66,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
             readFromDb();
             jsonRespose = postJSON();
         } catch (IOException e) {
-
+            Log.e(LOG_TAG, e.getMessage());
         }
         return jsonRespose;
     }
@@ -93,15 +93,13 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
                 );
             }
         } catch (JSONException e) {
-
+            Log.e(LOG_TAG, e.getMessage());
         }
         return jsonArray;
     }
 
     private JSONObject postJSON() throws IOException {
         InputStream inputStream = null;
-        OutputStream outputStream = null;
-
         URL url = new URL(JSON_URL);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -111,7 +109,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         connection.setDoInput(true);
 
         try {
-            outputStream = connection.getOutputStream();
+            OutputStream outputStream = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             writer.write(getPostDataString(putAsJSONArray()));
             writer.flush();
@@ -125,10 +123,11 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
                 // Convert the InputStream into ArrayList<Person>
                 return readInputStream(inputStream);
             } else {
-                Log.e("HTTP_ERROR", Integer.toString(responseCode));
+                Log.e(LOG_TAG, "ERROR:" + Integer.toString(responseCode));
                 return null;
             }
         } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
             return null;
         } finally {
             inputStream.close();
@@ -158,4 +157,3 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         return new JSONObject(builder.toString());
     }
 }
-

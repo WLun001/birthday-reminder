@@ -89,5 +89,4 @@ public class EditBirthdayActivity extends AppCompatActivity {
         DialogFragment fragment = new DatePickerFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");
     }
-
 }

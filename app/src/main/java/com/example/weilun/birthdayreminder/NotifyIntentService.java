@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class NotifyIntentService extends IntentService {
 
     public static final int NOTIFICATION_ID = 1;
-    public static final String CURSOR = "com.example.weilun.birthdayreminder.CURSOR";
+    private static String LOG_TAG = NotifyIntentService.class.getSimpleName();
     private static Calendar calender;
 
     public NotifyIntentService() {
@@ -39,6 +39,7 @@ public class NotifyIntentService extends IntentService {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(this));
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {calender.getTimeInMillis() + "", "" + calender.getTimeInMillis()};
+
         //to convert millisecond to Unix timestamp, divide by 1000
         Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
                         + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')"
@@ -48,7 +49,7 @@ public class NotifyIntentService extends IntentService {
         //CursorWrapper cursorWrapper = new CursorWrapper(cursor);
         int todayBirthday = cursor.getCount();
 
-        Log.v("NotifyIntentSerivice", "today birthday: " + todayBirthday + "");
+        Log.v(LOG_TAG, "today birthday: " + todayBirthday);
 
         if (todayBirthday > 0) {
 
@@ -62,11 +63,9 @@ public class NotifyIntentService extends IntentService {
                             R.mipmap.birthday_icon_launcher))
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-            Log.v("NotifyIntentService", "notification built");
+            Log.v(LOG_TAG, "notification built");
 
             Intent todayBirthdayIntent = new Intent(this, TodayBirthdayActivity.class);
-//            Intent cursorIntent = new Intent(this, TodayBirthdayActivity.class);
-//            cursorIntent.putExtra(CURSOR,cursorWrapper);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, todayBirthdayIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(pendingIntent);
@@ -75,18 +74,6 @@ public class NotifyIntentService extends IntentService {
             managerCompat.notify(NOTIFICATION_ID, notification);
 
             builder.build().flags |= Notification.FLAG_AUTO_CANCEL;
-        }
-    }
-
-    public class CursorWrapper implements Serializable {
-        private Cursor cursor;
-
-        public CursorWrapper(Cursor cursor) {
-            this.cursor = cursor;
-        }
-
-        public Cursor getCursor() {
-            return cursor;
         }
     }
 }

@@ -16,7 +16,6 @@ public class PersonContract {
             PersonContract.PersonEntry.COLUMN_NAME_DOB,
             PersonContract.PersonEntry.COLUMN_NAME_NOFITY,
             PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
-
     };
 
     public static class PersonEntry implements BaseColumns {

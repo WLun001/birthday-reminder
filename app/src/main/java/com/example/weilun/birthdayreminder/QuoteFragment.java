@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class QuoteFragment extends Fragment
         implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Quote>> {
 
     public static final int QUOTE_LOADER_ID = 1;
+    private static String LOG_TAG = QuoteFragment.class.getSimpleName();
     private ProgressBar loadingBar;
     private TextView emptyView;
     private QuoteAdapter adapter;
@@ -102,7 +104,6 @@ public class QuoteFragment extends Fragment
         emptyView.setText(getString(R.string.no_quote_found));
         adapter = new QuoteAdapter(getActivity(), data);
         listView.setAdapter(adapter);
-
     }
 
     @Override
@@ -113,7 +114,6 @@ public class QuoteFragment extends Fragment
 
     public static class fetchQuoteTask extends android.support.v4.content.AsyncTaskLoader<List<Quote>> {
         public static final String QUOTE_URL = "https://talaikis.com/api/quotes/";
-        private Context context;
 
         public fetchQuoteTask(Context context) {
             super(context);
@@ -131,6 +131,7 @@ public class QuoteFragment extends Fragment
             try {
                 quotes = getFromJson();
             } catch (IOException e) {
+                Log.e(LOG_TAG, e.getMessage());
                 return null;
             }
             return quotes;

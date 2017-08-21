@@ -29,13 +29,10 @@ import java.util.Calendar;
 
 import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 
-//TODO : delete birthday, send intent message
 public class ViewBirthdayActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE = 1;
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private Person person;
     private TextView tvName, tvEmail, tvPhone, tvBirthday;
-    private ImageButton sendMessage, sendEmail;
     private Switch aSwitch;
     private ImageView icon;
 

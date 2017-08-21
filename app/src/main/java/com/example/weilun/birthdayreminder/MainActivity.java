@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private TabLayout tabLayout;
     private SimpleFragmentPageAdapter adapter;
+    private String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_backup) {
             backupToCloud();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -137,7 +136,6 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
             }
-
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             return true;
@@ -156,7 +154,7 @@ public class MainActivity extends AppCompatActivity
         calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
 
-        Log.v("Notitication Time", calendar.getTimeInMillis() + "");
+        Log.v(LOG_TAG, "Time: " + calendar.getTimeInMillis() + "");
 
         if (calendar.before(now)) {
             calendar.add(Calendar.DATE, 1);
@@ -167,7 +165,7 @@ public class MainActivity extends AppCompatActivity
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
-        Log.v("MainActivity", "Alarm started");
+        Log.v(LOG_TAG, "Alarm started");
 
     }
 
@@ -190,7 +188,7 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
         Loader<JSONObject> backupLoader = getLoaderManager().getLoader(1);
         BackupLoader backupLoader1 = (BackupLoader) backupLoader;
-        if(backupLoader1.progressDialogIsShow())
+        if (backupLoader1.progressDialogIsShow())
             backupLoader1.stopProgressDialog();
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setMessage(String.format(getString(R.string.backup_success)
@@ -206,14 +204,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(android.content.Loader<JSONObject> loader) {
-
     }
 
     private int extraCodeFromJSON(JSONObject jsonObj) {
         try {
             return jsonObj.getInt("recordsSynced");
-
         } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage());
             return 0;
         }
     }

@@ -15,7 +15,6 @@ import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
 import java.util.Calendar;
 
-//import com.example.weilun.birthdayreminder.NotifyIntentService.CursorWrapper;
 
 public class TodayBirthdayActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
@@ -30,6 +29,7 @@ public class TodayBirthdayActivity extends AppCompatActivity {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(this));
         String[] columns = PersonContract.columns;
         String[] selectionArgs = {calender.getTimeInMillis() + "", "" + calender.getTimeInMillis()};
+
         //to convert millisecond to Unix timestamp, divide by 1000
         Cursor cursor = dbQuery.query(columns, "strftime('%m-%d'," + PersonContract.PersonEntry.COLUMN_NAME_DOB + "/1000, 'unixepoch')"
                         + " BETWEEN strftime('%m-%d',?/1000, 'unixepoch') AND strftime('%m-%d',?/1000, 'unixepoch')"
