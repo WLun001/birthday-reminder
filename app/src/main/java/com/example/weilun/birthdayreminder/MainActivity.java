@@ -152,9 +152,11 @@ public class MainActivity extends AppCompatActivity
         Date date = new Date();
         now.setTime(date);
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
+
+        Log.v("calender", calendar.getTimeInMillis() + "");
 
         if (calendar.before(now)) {
             calendar.add(Calendar.DATE, 1);
