@@ -185,8 +185,6 @@ public class MainActivity extends AppCompatActivity
      */
     private void testNotification(){
         Notification.Builder builder = new Notification.Builder(this);
-        Intent intent = new Intent(this, NotiReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
          builder.setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.test_noti))
                 .setAutoCancel(true)
@@ -195,9 +193,9 @@ public class MainActivity extends AppCompatActivity
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),
                         R.mipmap.birthday_icon_launcher))
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(TEST_NOTIFICATION_ID, builder.build());
+        notificationManager.notify(TEST_NOTIFICATION_ID, builder.build());
     }
 
     /**

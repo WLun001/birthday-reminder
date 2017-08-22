@@ -47,7 +47,7 @@ public class NotifyIntentService extends IntentService {
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(String.format(getString(R.string.notification_content), todayBirthday))
                     .setAutoCancel(true)
-                    .setSmallIcon(R.mipmap.birthday_icon_launcher)
+                    .setSmallIcon(R.drawable.ic_announcement_black_24dp)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(),
                             R.mipmap.birthday_icon_launcher))
