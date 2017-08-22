@@ -2,11 +2,14 @@ package com.example.weilun.birthdayreminder;
 
 import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         LoaderManager.LoaderCallbacks<JSONObject> {
 
     private static final int BACKUP_LOADER_ID = 1;
+    public static final int TEST_NOTIFICATION_ID = 1;
     private TabLayout tabLayout;
     private SimpleFragmentPageAdapter adapter;
     private String LOG_TAG = MainActivity.class.getSimpleName();
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         {
             if (id == R.id.nav_share) {
+                testNotification();
 
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
@@ -172,7 +177,26 @@ public class MainActivity extends AppCompatActivity
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
         Log.v(LOG_TAG, "Alarm started");
+    }
 
+    /**
+     * helper method to test notification
+     */
+    private void testNotification(){
+        Notification.Builder builder = new Notification.Builder(this);
+        Intent intent = new Intent(this, NotiReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+         builder.setContentTitle(getString(R.string.notification_title))
+                .setContentText(String.format(getString(R.string.notification_content), 1))
+                .setAutoCancel(true)
+                .setSmallIcon(R.mipmap.birthday_icon_launcher)
+                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.birthday_icon_launcher))
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(TEST_NOTIFICATION_ID, builder.build());
     }
 
     /**
