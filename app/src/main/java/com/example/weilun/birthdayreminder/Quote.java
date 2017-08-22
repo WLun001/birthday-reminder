@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * Created by Wei Lun on 8/17/2017.
+ * A class that represent quote
  */
 
 public class Quote implements Serializable, Comparable<Quote> {

@@ -69,6 +69,9 @@ public class EditBirthdayActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /**
+     * helper mehtod to setup UI
+     */
     private void setView() {
         image = (ImageView) findViewById(R.id.icon);
         etName = (EditText) findViewById(R.id.add_birthday_name);
@@ -85,6 +88,11 @@ public class EditBirthdayActivity extends AppCompatActivity {
         aSwitch.setChecked(person.isNotify());
     }
 
+    /**
+     * show dataPicker dialog
+     *
+     * @param view
+     */
     public void showDatePickerDialog(View view) {
         DialogFragment fragment = new DatePickerFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");

@@ -65,6 +65,11 @@ public class AddBirthdayActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * show dataPickerDialog
+     *
+     * @param view
+     */
     public void showDatePickerDialog(View view) {
         DialogFragment fragment = new DatePickerFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");

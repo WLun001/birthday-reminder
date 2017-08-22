@@ -64,6 +64,12 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
         super.destroyItem(container, position, object);
     }
 
+    /**
+     * get fragment from current tab
+     *
+     * @param position
+     * @return current fragment
+     */
     public Fragment getRegisteredFragment(int position) {
         return registeredFragments.get(position);
     }

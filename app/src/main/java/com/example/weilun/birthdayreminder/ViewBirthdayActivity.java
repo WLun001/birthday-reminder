@@ -117,6 +117,9 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * helper method to setup UI
+     */
     private void setView() {
         icon = (ImageView) findViewById(R.id.icon);
         tvName = (TextView) findViewById(R.id.name);
@@ -149,6 +152,11 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         setTitle(person.getName());
     }
 
+    /**
+     * helper method to do countdown calculation
+     *
+     * @param millisUntilFinished
+     */
     private void onTickCalculation(long millisUntilFinished) {
         TextView tvDay = (TextView) findViewById(R.id.countdown_day);
         TextView tvHour = (TextView) findViewById(R.id.countdown_hour);
@@ -165,6 +173,11 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         tvSecond.setText(Long.toString(((serverUpTimeSeconds % 86400) % 3600) % 60));
     }
 
+    /**
+     * send intent as Email
+     *
+     * @param view
+     */
     public void sendEmail(View view) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
@@ -174,6 +187,11 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * send intent as SMS
+     *
+     * @param view
+     */
     public void sendSms(View view) {
 //        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 //        smsIntent.setType("vnd.android-dir/mms-sms");

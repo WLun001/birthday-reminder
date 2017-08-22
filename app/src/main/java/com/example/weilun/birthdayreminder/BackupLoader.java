@@ -51,10 +51,18 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         super.onStartLoading();
     }
 
+    /**
+     * determine whether the progressbar is showing or not
+     *
+     * @return true of progressbar is showing
+     */
     public boolean progressDialogIsShow() {
         return progressDialog.isShowing();
     }
 
+    /**
+     * dismiss the progress bar
+     */
     public void stopProgressDialog() {
         progressDialog.dismiss();
     }
@@ -72,6 +80,9 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         return jsonRespose;
     }
 
+    /**
+     * helper method to query data from database
+     */
     private void readFromDb() {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(getContext()));
         String[] columns = PersonContract.columns;
@@ -80,25 +91,12 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         persons = PersonDBQueries.getPersonList(cursor);
     }
 
-    private JSONArray putAsJSONArray() {
-        JSONArray jsonArray = new JSONArray();
-        try {
-            for (int i = 0; i < persons.size(); i++) {
-                jsonArray.put(
-                        new JSONObject().put("id", persons.get(i).getId())
-                                .put("name", persons.get(i).getName())
-                                .put("email", persons.get(i).getEmail())
-                                .put("phone", persons.get(i).getPhone())
-                                .put("dob", persons.get(i).getDOB())
-                                .put("notify", persons.get(i).isNotify())
-                );
-            }
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage());
-        }
-        return jsonArray;
-    }
-
+    /**
+     * helper mehtod to post JSONObject
+     *
+     * @return JSONObject that response from server
+     * @throws IOException
+     */
     private JSONObject postJSON() throws IOException {
         InputStream inputStream = null;
         URL url = new URL(JSON_URL);
@@ -135,6 +133,37 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         }
     }
 
+    /**
+     * helper methhod to put person as JSONArray
+     *
+     * @return JSONArray
+     */
+    private JSONArray putAsJSONArray() {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            for (int i = 0; i < persons.size(); i++) {
+                jsonArray.put(
+                        new JSONObject().put("id", persons.get(i).getId())
+                                .put("name", persons.get(i).getName())
+                                .put("email", persons.get(i).getEmail())
+                                .put("phone", persons.get(i).getPhone())
+                                .put("dob", persons.get(i).getDOB())
+                                .put("notify", persons.get(i).isNotify())
+                );
+            }
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+        return jsonArray;
+    }
+
+    /**
+     * helper method to build string from JSONArray
+     *
+     * @param data
+     * @return postDataString
+     * @throws Exception
+     */
     private String getPostDataString(JSONArray data) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -146,6 +175,14 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
         return result.toString();
     }
 
+    /**
+     * helper method to read input stream
+     *
+     * @param is
+     * @return JSONObject
+     * @throws IOException
+     * @throws JSONException
+     */
     private JSONObject readInputStream(InputStream is)
             throws IOException, JSONException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));

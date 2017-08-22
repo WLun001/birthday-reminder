@@ -37,7 +37,6 @@ public class NotifyIntentService extends IntentService {
         PersonDBQueries dbQuery = new PersonDBQueries(new PersonDBHelper(this));
         Cursor cursor = dbQuery.queryTodayBirthday(calender);
 
-        //CursorWrapper cursorWrapper = new CursorWrapper(cursor);
         int todayBirthday = cursor.getCount();
 
         Log.v(LOG_TAG, "today birthday: " + todayBirthday);

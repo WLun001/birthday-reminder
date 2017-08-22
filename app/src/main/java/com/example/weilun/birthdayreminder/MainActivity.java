@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity
         ContactListFragment.Refreshable,
         LoaderManager.LoaderCallbacks<JSONObject> {
 
+    private static final int BACKUP_LOADER_ID = 1;
     private TabLayout tabLayout;
     private SimpleFragmentPageAdapter adapter;
-    private static final int BACKUP_LOADER_ID = 1;
     private String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -145,6 +145,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * helper method to init the notification service
+     */
     private void startNotification() {
         AlarmManager alarmManager;
 
@@ -172,6 +175,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * helper mehtod do perform backup to cloud
+     */
     private void backupToCloud() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -210,6 +216,12 @@ public class MainActivity extends AppCompatActivity
     public void onLoaderReset(Loader<JSONObject> loader) {
     }
 
+    /**
+     * helper method to convert response in JSONObject form to int
+     *
+     * @param jsonObj
+     * @return response code
+     */
     private int extraCodeFromJSON(JSONObject jsonObj) {
         try {
             return jsonObj.getInt("recordsSynced");

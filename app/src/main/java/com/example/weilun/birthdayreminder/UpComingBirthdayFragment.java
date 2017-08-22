@@ -76,6 +76,9 @@ public class UpComingBirthdayFragment extends Fragment {
         onRefreshView();
     }
 
+    /**
+     * refresh current view
+     */
     public void onRefreshView() {
         startDate = Calendar.getInstance();
         startDate.add(Calendar.DAY_OF_MONTH, -1);
@@ -96,6 +99,9 @@ public class UpComingBirthdayFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * a listener to count the number of UpComing birthdays when data change
+     */
     public interface Countable {
         void getCount(int count);
     }

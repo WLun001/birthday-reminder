@@ -91,7 +91,6 @@ public class QuoteFragment extends Fragment
             emptyView.setText(getString(R.string.no_network));
             Toast.makeText(getActivity(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
         }
-
         return rootView;
     }
 
@@ -115,6 +114,9 @@ public class QuoteFragment extends Fragment
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * A inner to perform network task which fetch quotes from the URL
+     */
     public static class fetchQuoteTask extends AsyncTaskLoader<List<Quote>> {
         public static final String QUOTE_URL = "https://talaikis.com/api/quotes/";
 
@@ -140,6 +142,12 @@ public class QuoteFragment extends Fragment
             return quotes;
         }
 
+        /**
+         * helper method to get data from JSON
+         *
+         * @return List<Quote>
+         * @throws IOException
+         */
         private List<Quote> getFromJson() throws IOException {
             InputStream inputStream = null;
             List<Quote> quotes = null;
@@ -162,14 +170,27 @@ public class QuoteFragment extends Fragment
             return quotes;
         }
 
+        /**
+         * helper method to read input stream
+         *
+         * @param inputStream
+         * @return List of {@link Quote}
+         * @throws IOException
+         */
         private List<Quote> readInputStream(InputStream inputStream) throws IOException {
             JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
-            List<Quote> quotes = readAlbumsArray(reader);
+            List<Quote> quotes = readQuoteArray(reader);
             reader.close();
             return quotes;
         }
 
-        private List<Quote> readAlbumsArray(JsonReader reader) {
+        /**
+         * helper method to read from JSONReader
+         *
+         * @param reader
+         * @return List of {@link Quote}
+         */
+        private List<Quote> readQuoteArray(JsonReader reader) {
             List<Quote> quotes = new ArrayList<>();
 
             try {
@@ -184,6 +205,13 @@ public class QuoteFragment extends Fragment
             return quotes;
         }
 
+        /**
+         * helper method to read {@link Quote} from JSonReader
+         *
+         * @param reader
+         * @return quote
+         * @throws IOException
+         */
         private Quote readQuote(JsonReader reader) throws IOException {
             Quote quote = new Quote();
 

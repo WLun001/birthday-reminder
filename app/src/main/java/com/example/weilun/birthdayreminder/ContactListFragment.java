@@ -190,10 +190,16 @@ public class ContactListFragment extends Fragment
         adapter.swapCursor(null);
     }
 
+    /**
+     * A listener to notify program to refresh when have changes in data
+     */
     public interface Refreshable {
         void onRefresh();
     }
 
+    /**
+     * A class to perform search in background
+     */
     public static final class SearchLoader extends AsyncTaskLoader<Cursor> {
         private String keyword;
         private Context context;

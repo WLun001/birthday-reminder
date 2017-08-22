@@ -48,6 +48,12 @@ public class PersonCursorAdapter extends CursorAdapter {
         ageTv.setText(Integer.toString(getAge(dob)));
     }
 
+    /**
+     * helper method to get age from birhday
+     *
+     * @param dob
+     * @return age
+     */
     private int getAge(long dob) {
         Calendar calendar = Calendar.getInstance();
         Calendar age = Calendar.getInstance();

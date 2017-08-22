@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * Created by Wei Lun on 8/7/2017.
+ * A class that represent a Person information
  */
 
 public class Person implements Serializable {

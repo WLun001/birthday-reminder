@@ -36,6 +36,11 @@ public class DeleteRecordsDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * helper method to send result code to targeted fragment
+     *
+     * @param code
+     */
     private void notifyToTarget(int code) {
         Fragment targetFragment = getTargetFragment();
         if (targetFragment != null) {
