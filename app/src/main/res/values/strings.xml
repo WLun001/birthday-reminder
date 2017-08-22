@@ -13,6 +13,7 @@
     <string name="title_activity_up_coming">UpComingActivity</string>
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_today_birthday">Today birthdays</string>
+    <string name="random_quote">Random quote</string>
 
     <string name="tab_title_upcoming">Coming Birthdays</string>
     <string name="tab_title_contact">Contact</string>

@@ -5,12 +5,13 @@ import android.app.LoaderManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -35,16 +36,20 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         UpComingBirthdayFragment.Countable,
         ContactListFragment.Refreshable,
+        QuoteFragment.Receivable,
         LoaderManager.LoaderCallbacks<JSONObject> {
 
-    private static final int BACKUP_LOADER_ID = 1;
     public static final int TEST_NOTIFICATION_ID = 1;
+    private static final int BACKUP_LOADER_ID = 1;
     private TabLayout tabLayout;
+    private List<Quote> quotes;
     private SimpleFragmentPageAdapter adapter;
     private String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -101,6 +106,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onReceive(List<Quote> quotes) {
+        this.quotes = quotes;
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -140,7 +150,8 @@ public class MainActivity extends AppCompatActivity
         {
             if (id == R.id.test_noti) {
                 testNotification();
-
+            } else if (id == R.id.random_quote) {
+                showQuoteDialog();
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
                 Log.v("backupToCloud", "trigger from navigationbar");
@@ -149,6 +160,33 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
+    }
+
+    /**
+     * helper method to show quote of the day dialog
+     */
+    private void showQuoteDialog() {
+        int max = quotes.size();
+        final Quote quote = quotes.get(new Random().nextInt(max)); // ((max - min) + 1) + min
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(quote.getQuote()).setTitle(quote.getAuthor())
+                .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(R.string.dialog_copy_text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText(getString(R.string.dialog_copy_text), quote.getQuote());
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(MainActivity.this, getString(R.string.copied_success), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**
@@ -183,9 +221,9 @@ public class MainActivity extends AppCompatActivity
     /**
      * helper method to test notification
      */
-    private void testNotification(){
+    private void testNotification() {
         Notification.Builder builder = new Notification.Builder(this);
-         builder.setContentTitle(getString(R.string.notification_title))
+        builder.setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.test_noti))
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_announcement_black_24dp)

@@ -7,6 +7,12 @@
                 android:id="@+id/test_noti"
                 android:icon="@drawable/ic_announcement_black_24dp"
                 android:title="@string/test_noti" />
+
+            <item
+                android:id="@+id/random_quote"
+                android:icon="@drawable/ic_format_quote_white_24dp"
+                android:title="@string/random_quote"
+                />
             <item
                 android:id="@+id/nav_backup"
                 android:icon="@drawable/ic_backup_white_24dp"

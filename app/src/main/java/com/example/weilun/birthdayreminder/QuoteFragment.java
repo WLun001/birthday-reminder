@@ -42,6 +42,7 @@ public class QuoteFragment extends Fragment
 
     public static final int QUOTE_LOADER_ID = 1;
     private static String LOG_TAG = QuoteFragment.class.getSimpleName();
+    private Receivable receiver;
     private ProgressBar loadingBar;
     private TextView emptyView;
     private QuoteAdapter adapter;
@@ -68,7 +69,7 @@ public class QuoteFragment extends Fragment
                                 dialog.dismiss();
                             }
                         })
-                        .setNeutralButton("copy text", new DialogInterface.OnClickListener() {
+                        .setNeutralButton(R.string.dialog_copy_text, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -95,6 +96,16 @@ public class QuoteFragment extends Fragment
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            receiver = (Receivable) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("must implement Receiable interface");
+        }
+    }
+
+    @Override
     public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
         return new fetchQuoteTask(getActivity());
     }
@@ -106,12 +117,20 @@ public class QuoteFragment extends Fragment
         emptyView.setText(getString(R.string.no_quote_found));
         adapter = new QuoteAdapter(getActivity(), data);
         listView.setAdapter(adapter);
+        receiver.onReceive(data);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Quote>> loader) {
         adapter.clear();
         adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * An interface to pass List of {@link Quote} to activity
+     */
+    public interface Receivable {
+        void onReceive(List<Quote> quotes);
     }
 
     /**
