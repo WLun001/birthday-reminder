@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         {
-            if (id == R.id.nav_share) {
+            if (id == R.id.test_noti) {
                 testNotification();
 
             } else if (id == R.id.nav_backup) {
@@ -187,9 +188,9 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, NotiReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
          builder.setContentTitle(getString(R.string.notification_title))
-                .setContentText(String.format(getString(R.string.notification_content), 1))
+                .setContentText(getString(R.string.test_noti))
                 .setAutoCancel(true)
-                .setSmallIcon(R.mipmap.birthday_icon_launcher)
+                .setSmallIcon(R.drawable.ic_announcement_black_24dp)
                 .setColor(getResources().getColor(R.color.colorPrimary))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),
                         R.mipmap.birthday_icon_launcher))

@@ -4,6 +4,7 @@
     <string name="action_search">Search by names</string>
     <string name="action_delete_all">Delete All</string>
     <string name="action_delete_one">Delete</string>
+    <string name="action_test_noti">Test notification</string>
 
     <string name="no_birthday_for_upcoming">No birthday for coming three days</string>
     <string name="no_birthday_data">No birthday data found</string>
@@ -54,4 +55,5 @@
 
     <string name="notification_title">Today bithdays</string>
     <string name="notification_content">You have %d friend(s) birthday today.</string>
+    <string name="test_noti">Test notification</string>
 </resources>

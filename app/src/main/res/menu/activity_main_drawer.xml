@@ -4,9 +4,9 @@
     <item android:title="Birthday">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/test_noti"
+                android:icon="@drawable/ic_announcement_black_24dp"
+                android:title="@string/test_noti" />
             <item
                 android:id="@+id/nav_backup"
                 android:icon="@drawable/ic_backup_white_24dp"
