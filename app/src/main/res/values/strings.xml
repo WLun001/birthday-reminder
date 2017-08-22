@@ -51,7 +51,7 @@
     <string name="backup_success">Successfully backups %d record(s) to the cloud</string>
     <string name="no_network">Network unavailable</string>
 
-    <string name="no_quote_found">No quotes available</string>
+    <string name="no_quote_found">No quotes available, try again later</string>
     <string name="copied_success">Copied to clipboard</string>
 
     <string name="notification_title">Today bithdays</string>

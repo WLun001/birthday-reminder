@@ -166,6 +166,10 @@ public class MainActivity extends AppCompatActivity
      * helper method to show quote of the day dialog
      */
     private void showQuoteDialog() {
+        if(quotes == null){
+            Toast.makeText(this, R.string.no_quote_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
         int max = quotes.size();
         final Quote quote = quotes.get(new Random().nextInt(max)); // ((max - min) + 1) + min
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
