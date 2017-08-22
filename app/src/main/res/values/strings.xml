@@ -57,4 +57,6 @@
     <string name="notification_title">Today bithdays</string>
     <string name="notification_content">You have %d friend(s) birthday today.</string>
     <string name="test_noti">Test notification</string>
+
+    <string name="dev_email">weilun001@1utar.my</string>
 </resources>
