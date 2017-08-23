@@ -4,7 +4,7 @@
     <string name="action_search">Search by names</string>
     <string name="action_delete_all">Delete All</string>
     <string name="action_delete_one">Delete</string>
-    <string name="action_test_noti">Test notification</string>
+    <string name="action_test_noti">Test notification, swipe to dismiss</string>
 
     <string name="no_birthday_for_upcoming">No birthday for coming three days</string>
     <string name="no_birthday_data">No birthday data found</string>

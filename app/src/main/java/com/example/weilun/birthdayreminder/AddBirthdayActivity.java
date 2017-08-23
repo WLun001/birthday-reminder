@@ -76,7 +76,7 @@ public class AddBirthdayActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+        //TODO : implement full shared preference
         if(saved){
             editor.clear();
         }
