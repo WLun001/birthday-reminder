@@ -11,10 +11,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final int TEST_NOTIFICATION_ID = 1;
     private static final int BACKUP_LOADER_ID = 1;
+    private static final String WELCOME_MESSAGE = "welcomeScreen";
     private TabLayout tabLayout;
     private List<Quote> quotes;
     private SimpleFragmentPageAdapter adapter;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        showWelcomeMessage();
         startNotification();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -191,6 +195,28 @@ public class MainActivity extends AppCompatActivity
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    /**
+     * helper method to show welcome message when user first launch the app
+     */
+    private void showWelcomeMessage(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean welcomeScreenShowed = sharedPreferences.getBoolean(WELCOME_MESSAGE, false);
+        if(!welcomeScreenShowed){
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.welcome_title)
+                    .setMessage(R.string.welcome_message)
+                    .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(WELCOME_MESSAGE, true);
+            editor.commit();
+        }
     }
 
     /**

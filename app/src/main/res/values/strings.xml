@@ -7,7 +7,7 @@
     <string name="action_test_noti">Test notification, swipe to dismiss</string>
 
     <string name="no_birthday_for_upcoming">No birthday for coming three days</string>
-    <string name="no_birthday_data">No birthday data found</string>
+    <string name="no_birthday_data">Add friend\'s details to get started</string>
     <string name="title_activity_up_coming_fragment">UpComingFragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_up_coming">UpComingActivity</string>
@@ -59,4 +59,9 @@
     <string name="test_noti">Test notification</string>
 
     <string name="dev_email">weilun001@1utar.my</string>
+
+    <string name="welcome_title">Welcome to Birthday Reminder app.</string>
+    <string name="welcome_message">This app allows you to store birthdays of friends.
+     Everyday 8:00 a.m., the app you send notification about today\'s birthday. You can send a random quote to them.
+    Random quotes can be found at the quotes tab (3rd tab)</string>
 </resources>
