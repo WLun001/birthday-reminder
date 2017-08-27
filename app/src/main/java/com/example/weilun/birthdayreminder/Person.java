@@ -82,7 +82,7 @@ public class Person implements Serializable {
         return notify;
     }
 
-    public byte[] getImage(){
+    public byte[] getImage() {
         return image;
     }
 

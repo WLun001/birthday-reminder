@@ -55,10 +55,9 @@ public class EditBirthdayActivity extends AppCompatActivity {
                     String email = etEmail.getText().toString();
                     String phone = etPhone.getText().toString();
 
-                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null){
+                    if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null) {
                         Toast.makeText(EditBirthdayActivity.this, R.string.warning_message_no_fillup, Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         //TODO: set image resources id
                         person.setImage(DbBitmapUtility.getBytes(bitmap));
                         person.setName(name);
@@ -84,7 +83,7 @@ public class EditBirthdayActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_IMAGE) {
                 if (data != null) {
                     try {
@@ -114,7 +113,8 @@ public class EditBirthdayActivity extends AppCompatActivity {
         etDob = (EditText) findViewById(R.id.birthday_date);
         aSwitch = (Switch) findViewById(R.id.show_noti);
 
-        image.setImageBitmap(DbBitmapUtility.getImage(person.getImage()));
+        bitmap = DbBitmapUtility.getImage(person.getImage());
+        image.setImageBitmap(bitmap);
         etName.setText(person.getName());
         etEmail.setText(person.getEmail());
         etPhone.setText(person.getPhone());
@@ -134,9 +134,10 @@ public class EditBirthdayActivity extends AppCompatActivity {
 
     /**
      * select image from gallery
+     *
      * @param view
      */
-    public void selectImage(View view){
+    public void selectImage(View view) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

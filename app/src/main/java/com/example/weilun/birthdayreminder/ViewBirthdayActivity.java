@@ -32,7 +32,7 @@ import static com.example.weilun.birthdayreminder.db.PersonDBQueries.getPerson;
 public class ViewBirthdayActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.weilun.birthdayreminder.ID";
     private Person person;
-    private TextView tvName, tvEmail, tvPhone, tvBirthday;
+    private TextView tvEmail, tvPhone, tvBirthday;
     private Switch aSwitch;
     private ImageView icon;
 
@@ -123,22 +123,27 @@ public class ViewBirthdayActivity extends AppCompatActivity {
      */
     private void setView() {
         icon = (ImageView) findViewById(R.id.icon);
-        tvName = (TextView) findViewById(R.id.name);
         tvEmail = (TextView) findViewById(R.id.email);
         tvPhone = (TextView) findViewById(R.id.phone);
         tvBirthday = (TextView) findViewById(R.id.birthday);
         aSwitch = (Switch) findViewById(R.id.show_noti);
+        TextView tvAgoOrLeft = (TextView) findViewById(R.id.ago_or_left);
 
         icon.setImageBitmap(DbBitmapUtility.getImage(person.getImage()));
-        tvName.setText(person.getName());
         tvEmail.setText(person.getEmail());
         tvPhone.setText(person.getPhone());
         tvBirthday.setText(new SimpleDateFormat("EEEE, MMMM d, yyyy").format(person.getDOB()));
         aSwitch.setChecked(person.isNotify());
         aSwitch.setClickable(false);
         Calendar countdown = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
         countdown.setTimeInMillis(person.getDOBAsCalender().getTimeInMillis());
-        countdown.set(Calendar.YEAR, 2017);
+        countdown.set(Calendar.YEAR, today.get(Calendar.YEAR));
+        if (countdown.getTimeInMillis() > today.getTimeInMillis())
+            tvAgoOrLeft.setText(R.string.birthday_left);
+        else
+            tvAgoOrLeft.setText(R.string.birthday_ago);
+
         new CountDownTimer(countdown.getTimeInMillis(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -168,14 +173,15 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         beginTime = beginTime - 1;
         long serverUpTimeSeconds = (millisUntilFinished - beginTime) / 1000;
 
-        tvDay.setText(Long.toString(serverUpTimeSeconds / 86400));
-        tvHour.setText(Long.toString((serverUpTimeSeconds % 86400) / 3600));
-        tvMinute.setText(Long.toString(((serverUpTimeSeconds % 86400) % 3600) / 60));
-        tvSecond.setText(Long.toString(((serverUpTimeSeconds % 86400) % 3600) % 60));
+        tvDay.setText(Long.toString(Math.abs(serverUpTimeSeconds / 86400)));
+        tvHour.setText(Long.toString((Math.abs(serverUpTimeSeconds % 86400) / 3600)));
+        tvMinute.setText(Long.toString(((Math.abs(serverUpTimeSeconds % 86400) % 3600) / 60)));
+        tvSecond.setText(Long.toString(((Math.abs(serverUpTimeSeconds % 86400) % 3600) % 60)));
     }
 
     /**
      * send intent as Email
+     *
      * @param view
      */
     public void sendEmail(View view) {
@@ -189,6 +195,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
     /**
      * send intent as SMS
+     *
      * @param view
      */
     public void sendSms(View view) {

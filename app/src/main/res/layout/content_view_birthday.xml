@@ -26,19 +26,12 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_account_circle_black_24dp" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignBottom="@+id/icon"
-                android:textSize="18sp"
-                tools:text="@string/add_birthday_name" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@id/name"
+                android:layout_below="@id/icon"
                 android:textSize="18sp"
                 tools:text="@string/add_birthday_email" />
 
@@ -93,12 +86,21 @@
                 android:textColor="#757575"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/bithday_count"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/show_noti"
+                android:paddingTop="20dp"
+                android:text="@string/birthday_countdown"
+                android:textSize="18sp" />
+
 
             <LinearLayout
                 android:id="@+id/countdown_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/show_noti">
+                android:layout_below="@id/bithday_count">
 
                 <TextView
                     android:id="@+id/countdown_day"
@@ -166,16 +168,13 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/time_ago_left"
+                android:id="@+id/ago_or_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/countdown_linear"
-                android:layout_marginLeft="16dp"
+                android:layout_below="@+id/countdown_linear"
                 android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                tools:text="left" />
-
+                android:textSize="20sp"
+                tools:text="ago" />
         </RelativeLayout>
 
 

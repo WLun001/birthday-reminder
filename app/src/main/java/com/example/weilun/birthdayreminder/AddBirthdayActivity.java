@@ -70,12 +70,11 @@ public class AddBirthdayActivity extends AppCompatActivity {
                     Date date = dateFormat.parse(etDob.getText().toString());
                     Boolean isChecked = aSwitch.isChecked();
 
-                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null){
+                    if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null) {
                         Toast.makeText(AddBirthdayActivity.this, R.string.warning_message_no_fillup, Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
-                        Person person = new Person(name, email, phone, date, isChecked, DbBitmapUtility.getBytes(bitmap) );
+                        Person person = new Person(name, email, phone, date, isChecked, DbBitmapUtility.getBytes(bitmap));
                         if (dbQueries.insert(person) != 0) {
                             saved = true;
                             Toast.makeText(AddBirthdayActivity.this, R.string.inserted, Toast.LENGTH_SHORT).show();
@@ -92,7 +91,7 @@ public class AddBirthdayActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_IMAGE) {
                 if (data != null) {
                     try {
@@ -109,10 +108,9 @@ public class AddBirthdayActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(saved){
+        if (saved) {
             editor.clear();
-        }
-        else {
+        } else {
             String name = etName.getText().toString();
             String email = etEmail.getText().toString();
             String phone = etPhone.getText().toString();
@@ -153,9 +151,10 @@ public class AddBirthdayActivity extends AppCompatActivity {
 
     /**
      * select image from gallery
+     *
      * @param view
      */
-    public void selectImage(View view){
+    public void selectImage(View view) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

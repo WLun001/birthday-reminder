@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
      * helper method to show quote of the day dialog
      */
     private void showQuoteDialog() {
-        if(quotes == null){
+        if (quotes == null) {
             Toast.makeText(this, R.string.no_quote_found, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -200,10 +200,10 @@ public class MainActivity extends AppCompatActivity
     /**
      * helper method to show welcome message when user first launch the app
      */
-    private void showWelcomeMessage(){
+    private void showWelcomeMessage() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean welcomeScreenShowed = sharedPreferences.getBoolean(WELCOME_MESSAGE, false);
-        if(!welcomeScreenShowed){
+        if (!welcomeScreenShowed) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.welcome_title)
                     .setMessage(R.string.welcome_message)

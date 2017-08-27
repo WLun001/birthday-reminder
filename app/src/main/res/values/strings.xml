@@ -25,6 +25,9 @@
     <string name="add_birthday_phone">Phone</string>
     <string name="add_birthday_date">Birthday</string>
     <string name="add_bithday_notification">Show Notification</string>
+    <string name="birthday_countdown">Birthday</string>
+    <string name="birthday_left">left</string>
+    <string name="birthday_ago">ago</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
