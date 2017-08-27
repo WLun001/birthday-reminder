@@ -12,6 +12,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_weight="0.46"
+        android:onClick="selectImage"
         android:src="@drawable/ic_account_circle_black_24dp" />
 
     <TextView

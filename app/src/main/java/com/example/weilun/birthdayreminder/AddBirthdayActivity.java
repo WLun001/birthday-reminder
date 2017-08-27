@@ -1,8 +1,11 @@
 package com.example.weilun.birthdayreminder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +29,7 @@ import java.util.Locale;
 
 public class AddBirthdayActivity extends AppCompatActivity {
     private static final String LOG_TAG = AddBirthdayActivity.class.getSimpleName();
+    private static final int SELECT_IMAGE = 1;
     private ImageView image;
     private EditText etName, etEmail, etPhone, etDob;
     private Switch aSwitch;
@@ -85,6 +90,23 @@ public class AddBirthdayActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            if (requestCode == SELECT_IMAGE) {
+                Bitmap bitmap = null;
+                if (data != null) {
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    } catch (IOException ex) {
+                        Log.wtf("IOException", ex);
+                    }
+                }
+                image.setImageBitmap(bitmap);
+            }
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if(saved){
@@ -127,5 +149,17 @@ public class AddBirthdayActivity extends AppCompatActivity {
     public void showDatePickerDialog(View view) {
         DialogFragment fragment = new DatePickerFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    /**
+     * select image from gallery
+     * @param view
+     */
+    public void selectImage(View view){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                getResources().getString(R.string.select_image)), SELECT_IMAGE);
     }
 }

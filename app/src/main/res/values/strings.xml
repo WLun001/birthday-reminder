@@ -47,6 +47,7 @@
     <string name="minute">m</string>
     <string name="second">s</string>
 
+    <string name="select_image">Please select an image</string>
     <string name="warning_message_no_fillup">Please fill up all info</string>
     <string name="warning_message_no_fullup_date">Please fill up the date</string>
 
