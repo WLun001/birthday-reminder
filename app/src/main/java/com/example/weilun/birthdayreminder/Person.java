@@ -14,7 +14,7 @@ public class Person implements Serializable {
     private String name, email, phone;
     private Date dob;
     private Boolean notify;
-    private int imageResourceId;
+    private byte[] image;
 
     public Person() {
     }
@@ -27,13 +27,13 @@ public class Person implements Serializable {
         this.notify = notify;
     }
 
-    public Person(String name, String email, String phone, Date dob, Boolean notify, int imageResourceId) {
+    public Person(String name, String email, String phone, Date dob, Boolean notify, byte[] image) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.dob = dob;
         this.notify = notify;
-        this.imageResourceId = imageResourceId;
+        this.image = image;
     }
 
     public long getId() {
@@ -82,12 +82,12 @@ public class Person implements Serializable {
         return notify;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public byte[] getImage(){
+        return image;
     }
 
-    public void setImageResourceId(int imageResourceId) {
-        this.imageResourceId = imageResourceId;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public void setDob(Date dob) {

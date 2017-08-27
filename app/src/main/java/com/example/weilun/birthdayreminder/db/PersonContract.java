@@ -16,7 +16,7 @@ public class PersonContract {
             PersonContract.PersonEntry.COLUMN_NAME_PHONE,
             PersonContract.PersonEntry.COLUMN_NAME_DOB,
             PersonContract.PersonEntry.COLUMN_NAME_NOFITY,
-            PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID,
+            PersonContract.PersonEntry.COLUMN_NAME_IMAGE,
     };
 
     public static class PersonEntry implements BaseColumns {
@@ -26,6 +26,6 @@ public class PersonContract {
         public static final String COLUMN_NAME_PHONE = "phone";
         public static final String COLUMN_NAME_DOB = "dob";
         public static final String COLUMN_NAME_NOFITY = "notify";
-        public static final String COLUMN_NAME_IMAGERESOUCEID = "imageResourceId";
+        public static final String COLUMN_NAME_IMAGE = "image";
     }
 }

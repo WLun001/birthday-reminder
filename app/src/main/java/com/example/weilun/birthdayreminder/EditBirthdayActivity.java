@@ -1,7 +1,9 @@
 package com.example.weilun.birthdayreminder;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +16,19 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.weilun.birthdayreminder.db.DbBitmapUtility;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class EditBirthdayActivity extends AppCompatActivity {
     private static final String LOG_TAG = EditBirthdayActivity.class.getSimpleName();
+    private static final int SELECT_IMAGE = 1;
+    private Bitmap bitmap = null;
     private Person person;
     private ImageView image;
     private EditText etName, etEmail, etPhone, etDob;
@@ -49,12 +55,12 @@ public class EditBirthdayActivity extends AppCompatActivity {
                     String email = etEmail.getText().toString();
                     String phone = etPhone.getText().toString();
 
-                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
+                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null){
                         Toast.makeText(EditBirthdayActivity.this, R.string.warning_message_no_fillup, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         //TODO: set image resources id
-                        person.setImageResourceId(R.drawable.ic_account_circle_black_24dp);
+                        person.setImage(DbBitmapUtility.getBytes(bitmap));
                         person.setName(name);
                         person.setEmail(email);
                         person.setPhone(phone);
@@ -77,6 +83,22 @@ public class EditBirthdayActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            if (requestCode == SELECT_IMAGE) {
+                if (data != null) {
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    } catch (IOException ex) {
+                        Log.wtf("IOException", ex);
+                    }
+                }
+                image.setImageBitmap(bitmap);
+            }
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -92,7 +114,7 @@ public class EditBirthdayActivity extends AppCompatActivity {
         etDob = (EditText) findViewById(R.id.birthday_date);
         aSwitch = (Switch) findViewById(R.id.show_noti);
 
-        image.setImageResource(person.getImageResourceId());
+        image.setImageBitmap(DbBitmapUtility.getImage(person.getImage()));
         etName.setText(person.getName());
         etEmail.setText(person.getEmail());
         etPhone.setText(person.getPhone());
@@ -108,5 +130,17 @@ public class EditBirthdayActivity extends AppCompatActivity {
     public void showDatePickerDialog(View view) {
         DialogFragment fragment = new DatePickerFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    /**
+     * select image from gallery
+     * @param view
+     */
+    public void selectImage(View view){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                getResources().getString(R.string.select_image)), SELECT_IMAGE);
     }
 }

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.weilun.birthdayreminder.db.DbBitmapUtility;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
 
@@ -33,6 +34,7 @@ public class AddBirthdayActivity extends AppCompatActivity {
     private ImageView image;
     private EditText etName, etEmail, etPhone, etDob;
     private Switch aSwitch;
+    private Bitmap bitmap = null;
     private boolean saved = false;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -61,7 +63,6 @@ public class AddBirthdayActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     //TODO ; set iamge reources id
-                    int imageResourceId = R.drawable.ic_account_circle_black_24dp;
                     String name = etName.getText().toString();
                     String email = etEmail.getText().toString();
                     String phone = etPhone.getText().toString();
@@ -69,12 +70,12 @@ public class AddBirthdayActivity extends AppCompatActivity {
                     Date date = dateFormat.parse(etDob.getText().toString());
                     Boolean isChecked = aSwitch.isChecked();
 
-                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
+                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || bitmap == null){
                         Toast.makeText(AddBirthdayActivity.this, R.string.warning_message_no_fillup, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
-                        Person person = new Person(name, email, phone, date, isChecked, imageResourceId);
+                        Person person = new Person(name, email, phone, date, isChecked, DbBitmapUtility.getBytes(bitmap) );
                         if (dbQueries.insert(person) != 0) {
                             saved = true;
                             Toast.makeText(AddBirthdayActivity.this, R.string.inserted, Toast.LENGTH_SHORT).show();
@@ -93,7 +94,6 @@ public class AddBirthdayActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
             if (requestCode == SELECT_IMAGE) {
-                Bitmap bitmap = null;
                 if (data != null) {
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());

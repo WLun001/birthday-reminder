@@ -22,7 +22,7 @@ public class PersonDBHelper extends SQLiteOpenHelper {
                     PersonContract.PersonEntry.COLUMN_NAME_PHONE + " TEXT," +
                     PersonContract.PersonEntry.COLUMN_NAME_DOB + " INTEGER," +
                     PersonContract.PersonEntry.COLUMN_NAME_NOFITY + " INTEGER," +
-                    PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID + " INTEGER)";
+                    PersonContract.PersonEntry.COLUMN_NAME_IMAGE + " BLOB)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS" + PersonContract.PersonEntry.TABLE_NAME;

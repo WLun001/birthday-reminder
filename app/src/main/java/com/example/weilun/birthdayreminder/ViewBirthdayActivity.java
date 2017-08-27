@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.weilun.birthdayreminder.db.DbBitmapUtility;
 import com.example.weilun.birthdayreminder.db.PersonContract;
 import com.example.weilun.birthdayreminder.db.PersonDBHelper;
 import com.example.weilun.birthdayreminder.db.PersonDBQueries;
@@ -128,7 +129,7 @@ public class ViewBirthdayActivity extends AppCompatActivity {
         tvBirthday = (TextView) findViewById(R.id.birthday);
         aSwitch = (Switch) findViewById(R.id.show_noti);
 
-        icon.setImageResource(person.getImageResourceId());
+        icon.setImageBitmap(DbBitmapUtility.getImage(person.getImage()));
         tvName.setText(person.getName());
         tvEmail.setText(person.getEmail());
         tvPhone.setText(person.getPhone());

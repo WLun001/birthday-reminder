@@ -9,6 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.weilun.birthdayreminder.db.DbBitmapUtility;
 import com.example.weilun.birthdayreminder.db.PersonContract;
 
 import java.text.SimpleDateFormat;
@@ -38,11 +39,11 @@ public class PersonCursorAdapter extends CursorAdapter {
         TextView birthdayTv = (TextView) view.findViewById(R.id.birthday);
         TextView ageTv = (TextView) view.findViewById(R.id.age);
 
-        int imageResourceId = cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID));
+        byte[] image = cursor.getBlob(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGE));
         String name = cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NAME));
         long dob = cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB));
 
-        imageView.setImageResource(imageResourceId);
+        imageView.setImageBitmap(DbBitmapUtility.getImage(image));
         nameTv.setText(name);
         birthdayTv.setText(new SimpleDateFormat("EEEE, MMM,  d").format(dob));
         ageTv.setText(Integer.toString(getAge(dob)));

@@ -66,7 +66,7 @@ public class PersonDBQueries {
                 cursor.getString(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_PHONE)),
                 new Date(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_DOB))),
                 checkBoolean(cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_NOFITY))),
-                cursor.getInt(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID))
+                cursor.getBlob(cursor.getColumnIndex(PersonContract.PersonEntry.COLUMN_NAME_IMAGE))
         );
         person.setId(cursor.getLong(cursor.getColumnIndex(PersonContract.PersonEntry._ID)));
 
@@ -183,7 +183,7 @@ public class PersonDBQueries {
         values.put(PersonContract.PersonEntry.COLUMN_NAME_PHONE, person.getPhone());
         values.put(PersonContract.PersonEntry.COLUMN_NAME_DOB, person.getDOBAsCalender().getTimeInMillis());
         values.put(PersonContract.PersonEntry.COLUMN_NAME_NOFITY, person.isNotify());
-        values.put(PersonContract.PersonEntry.COLUMN_NAME_IMAGERESOUCEID, person.getImageResourceId());
+        values.put(PersonContract.PersonEntry.COLUMN_NAME_IMAGE, person.getImage());
 
         return values;
     }
