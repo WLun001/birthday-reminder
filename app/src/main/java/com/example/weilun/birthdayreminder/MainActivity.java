@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRefresh() {
         ((UpComingBirthdayFragment) adapter.getRegisteredFragment(0)).onRefreshView();
-
     }
 
     @Override
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
                 Log.v("backupToCloud", "trigger from navigationbar");
-            } else if(id == R.id.about){
+            } else if (id == R.id.about) {
                 showWelcomeDialog();
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * helper method to show welcoem dialog
      */
-    private void showWelcomeDialog(){
+    private void showWelcomeDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.welcome_title)
                 .setMessage(R.string.welcome_message)
