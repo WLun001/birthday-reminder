@@ -76,7 +76,6 @@ public class AddBirthdayActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //TODO : implement full shared preference
         if(saved){
             editor.clear();
         }
@@ -84,10 +83,12 @@ public class AddBirthdayActivity extends AppCompatActivity {
             String name = etName.getText().toString();
             String email = etEmail.getText().toString();
             String phone = etPhone.getText().toString();
+            String birthday = etDob.getText().toString();
 
             editor.putString("SAVE_STATE_NAME", name);
             editor.putString("SAVE_STATE_EMAIL", email);
             editor.putString("SAVE_STATE_PHONE", phone);
+            editor.putString("SAVE_STATE_DOB", birthday);
         }
         editor.commit();
     }
@@ -99,10 +100,12 @@ public class AddBirthdayActivity extends AppCompatActivity {
         String name = sharedPreferences.getString("SAVE_STATE_NAME", "");
         String email = sharedPreferences.getString("SAVE_STATE_EMAIL", "");
         String phone = sharedPreferences.getString("SAVE_STATE_PHONE", "");
+        String birthday = sharedPreferences.getString("SAVE_STATE_DOB", "");
 
         etName.setText(name);
         etEmail.setText(email);
         etPhone.setText(phone);
+        etDob.setText(birthday);
     }
 
     /**
