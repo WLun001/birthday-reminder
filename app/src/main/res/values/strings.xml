@@ -64,11 +64,14 @@
     <string name="notification_title">Today bithdays</string>
     <string name="notification_content">You have %d friend(s) birthday today.</string>
     <string name="test_noti">Test notification</string>
+    <string name="about">About the app</string>
 
     <string name="dev_email">weilun001@1utar.my</string>
 
-    <string name="welcome_title">Welcome to Birthday Reminder app.</string>
+    <string name="welcome_title">Welcome to Birthday Reminder app</string>
     <string name="welcome_message">This app allows you to store birthdays of friends.
-     Everyday 8:00 a.m., the app you send notification about today\'s birthday. You can send a random quote to them.
+     Everyday 8:00 a.m., the app you send notification about today\'s birthday. \"Coming birthday\" tab will display
+        a list of contacts whose birthdays are on today, tomorrow and day after tomorrow.
+  You can send a random quote to them.
     Random quotes can be found at the quotes tab (3rd tab)</string>
 </resources>

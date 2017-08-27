@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.nav_backup) {
                 backupToCloud();
                 Log.v("backupToCloud", "trigger from navigationbar");
+            } else if(id == R.id.about){
+                showWelcomeDialog();
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -204,19 +206,26 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean welcomeScreenShowed = sharedPreferences.getBoolean(WELCOME_MESSAGE, false);
         if (!welcomeScreenShowed) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.welcome_title)
-                    .setMessage(R.string.welcome_message)
-                    .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+            showWelcomeDialog();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(WELCOME_MESSAGE, true);
             editor.commit();
         }
+    }
+
+    /**
+     * helper method to show welcoem dialog
+     */
+    private void showWelcomeDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.welcome_title)
+                .setMessage(R.string.welcome_message)
+                .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     /**
