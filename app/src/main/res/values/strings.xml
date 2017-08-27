@@ -36,16 +36,20 @@
     <string name="dialog_copy_text">Copy text</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="inserted">Record inserted</string>
+    <string name="updated">Record updated</string>
     <string name="delete_success">All records have been deleted</string>
 
-    <string name="warming">Warming</string>
+    <string name="warning">Warning</string>
     <string name="btn_ok">OK</string>
-    <string name="restart_app_message">Please restart the app to apply changes</string>
 
     <string name="day">d</string>
     <string name="hour">h</string>
     <string name="minute">m</string>
     <string name="second">s</string>
+
+    <string name="warning_message_no_fillup">Please fill up all info</string>
+    <string name="warning_message_no_fullup_date">Please fill up the date</string>
 
     <string name="progress_dialog_uploading">"Uploading</string>
     <string name="backup_success">Successfully backups %d record(s) to the cloud</string>

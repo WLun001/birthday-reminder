@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddBirthdayActivity extends AppCompatActivity {
+    private static final String LOG_TAG = AddBirthdayActivity.class.getSimpleName();
     private ImageView image;
     private EditText etName, etEmail, etPhone, etDob;
     private Switch aSwitch;
@@ -59,15 +62,21 @@ public class AddBirthdayActivity extends AppCompatActivity {
                     Date date = dateFormat.parse(etDob.getText().toString());
                     Boolean isChecked = aSwitch.isChecked();
 
-                    PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
-                    Person person = new Person(name, email, phone, date, isChecked, imageResourceId);
-                    if (dbQueries.insert(person) != 0) {
-                        saved = true;
-                        Toast.makeText(AddBirthdayActivity.this, "inserted", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
+                        Toast.makeText(AddBirthdayActivity.this, R.string.warning_message_no_fillup, Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        PersonDBQueries dbQueries = new PersonDBQueries(new PersonDBHelper(getApplicationContext()));
+                        Person person = new Person(name, email, phone, date, isChecked, imageResourceId);
+                        if (dbQueries.insert(person) != 0) {
+                            saved = true;
+                            Toast.makeText(AddBirthdayActivity.this, R.string.inserted, Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                     }
                 } catch (ParseException e) {
-                    Toast.makeText(AddBirthdayActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(LOG_TAG, e.getMessage());
+                    Toast.makeText(AddBirthdayActivity.this, R.string.warning_message_no_fullup_date, Toast.LENGTH_SHORT).show();
                 }
             }
         });
