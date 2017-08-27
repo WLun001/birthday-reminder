@@ -38,9 +38,8 @@
     <string name="btn_cancel">Cancel</string>
     <string name="inserted">Record inserted</string>
     <string name="updated">Record updated</string>
+    <string name="db_error">Update error</string>
     <string name="delete_success">All records have been deleted</string>
-
-    <string name="warning">Warning</string>
     <string name="btn_ok">OK</string>
 
     <string name="day">d</string>
