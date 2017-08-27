@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>EditBirthdayActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #6e6b68; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(247,38,113); font-weight: bold; }
+.s1 { color: rgb(248,248,242); }
+.s2 { color: rgb(247,38,113); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(255,231,146); font-weight: bold; }
+.s5 { color: rgb(174,129,255); }
+.s6 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#282828">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+EditBirthdayActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">weilun</span><span class="s2">.</span><span class="s1">birthdayreminder; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Intent; 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">Bundle; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">design</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">FloatingActionButton; 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v4</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">DialogFragment; 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AppCompatActivity; 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toolbar; 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Log; 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">View; 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">EditText; 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">ImageView; 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Switch; 
+<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toast; 
+<a name="l15"><span class="ln">15   </span></a> 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">weilun</span><span class="s2">.</span><span class="s1">birthdayreminder</span><span class="s2">.</span><span class="s1">db</span><span class="s2">.</span><span class="s1">PersonDBHelper; 
+<a name="l17"><span class="ln">17   </span></a></span><span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">weilun</span><span class="s2">.</span><span class="s1">birthdayreminder</span><span class="s2">.</span><span class="s1">db</span><span class="s2">.</span><span class="s1">PersonDBQueries; 
+<a name="l18"><span class="ln">18   </span></a> 
+<a name="l19"><span class="ln">19   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">ParseException; 
+<a name="l20"><span class="ln">20   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">SimpleDateFormat; 
+<a name="l21"><span class="ln">21   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Locale; 
+<a name="l22"><span class="ln">22   </span></a> 
+<a name="l23"><span class="ln">23   </span></a></span><span class="s0">public class </span><span class="s1">EditBirthdayActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+<a name="l24"><span class="ln">24   </span></a>    </span><span class="s0">private </span><span class="s1">Person person; 
+<a name="l25"><span class="ln">25   </span></a>    </span><span class="s0">private </span><span class="s1">ImageView image; 
+<a name="l26"><span class="ln">26   </span></a>    </span><span class="s0">private </span><span class="s1">EditText etName, etEmail, etPhone, etDob; 
+<a name="l27"><span class="ln">27   </span></a>    </span><span class="s0">private </span><span class="s1">Switch aSwitch; 
+<a name="l28"><span class="ln">28   </span></a> 
+<a name="l29"><span class="ln">29   </span></a>    @Override 
+<a name="l30"><span class="ln">30   </span></a>    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+<a name="l31"><span class="ln">31   </span></a>        </span><span class="s0">super</span><span class="s2">.</span><span class="s1">onCreate(savedInstanceState); 
+<a name="l32"><span class="ln">32   </span></a>        setContentView(R</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">activity_edit_birthday); 
+<a name="l33"><span class="ln">33   </span></a>        Toolbar toolbar </span><span class="s2">= </span><span class="s1">(Toolbar) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">toolbar); 
+<a name="l34"><span class="ln">34   </span></a>        setSupportActionBar(toolbar); 
+<a name="l35"><span class="ln">35   </span></a>        Intent intent </span><span class="s2">= </span><span class="s1">getIntent(); 
+<a name="l36"><span class="ln">36   </span></a>        person </span><span class="s2">= </span><span class="s1">(Person) intent</span><span class="s2">.</span><span class="s1">getSerializableExtra(ViewBirthdayActivity</span><span class="s2">.</span><span class="s1">EXTRA_ID); 
+<a name="l37"><span class="ln">37   </span></a>        setView(); 
+<a name="l38"><span class="ln">38   </span></a>        getSupportActionBar()</span><span class="s2">.</span><span class="s1">setDisplayHomeAsUpEnabled(</span><span class="s0">true</span><span class="s1">); 
+<a name="l39"><span class="ln">39   </span></a> 
+<a name="l40"><span class="ln">40   </span></a>        FloatingActionButton fab </span><span class="s2">= </span><span class="s1">(FloatingActionButton) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">fab); 
+<a name="l41"><span class="ln">41   </span></a>        fab</span><span class="s2">.</span><span class="s1">setOnClickListener(</span><span class="s0">new </span><span class="s1">View</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l42"><span class="ln">42   </span></a>            @Override 
+<a name="l43"><span class="ln">43   </span></a>            </span><span class="s0">public void </span><span class="s1">onClick(View view) { 
+<a name="l44"><span class="ln">44   </span></a>                </span><span class="s0">try </span><span class="s1">{ 
+<a name="l45"><span class="ln">45   </span></a> 
+<a name="l46"><span class="ln">46   </span></a>                    </span><span class="s3">//TODO: set image resources id</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>                    person</span><span class="s2">.</span><span class="s1">setImageResourceId(R</span><span class="s2">.</span><span class="s1">drawable</span><span class="s2">.</span><span class="s1">ic_account_circle_black_24dp); 
+<a name="l48"><span class="ln">48   </span></a>                    person</span><span class="s2">.</span><span class="s1">setName(etName</span><span class="s2">.</span><span class="s1">getText()</span><span class="s2">.</span><span class="s1">toString()); 
+<a name="l49"><span class="ln">49   </span></a>                    person</span><span class="s2">.</span><span class="s1">setEmail(etEmail</span><span class="s2">.</span><span class="s1">getText()</span><span class="s2">.</span><span class="s1">toString()); 
+<a name="l50"><span class="ln">50   </span></a>                    person</span><span class="s2">.</span><span class="s1">setPhone(etPhone</span><span class="s2">.</span><span class="s1">getText()</span><span class="s2">.</span><span class="s1">toString()); 
+<a name="l51"><span class="ln">51   </span></a>                    person</span><span class="s2">.</span><span class="s1">setDob(</span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s4">&quot;EEEE, MMMM d, yyyy&quot;</span><span class="s1">, Locale</span><span class="s2">.</span><span class="s1">ENGLISH)</span><span class="s2">.</span><span class="s1">parse(etDob</span><span class="s2">.</span><span class="s1">getText()</span><span class="s2">.</span><span class="s1">toString())); 
+<a name="l52"><span class="ln">52   </span></a>                    person</span><span class="s2">.</span><span class="s1">setNotify(aSwitch</span><span class="s2">.</span><span class="s1">isChecked()); 
+<a name="l53"><span class="ln">53   </span></a> 
+<a name="l54"><span class="ln">54   </span></a>                    PersonDBQueries dbQueries </span><span class="s2">= </span><span class="s0">new </span><span class="s1">PersonDBQueries(</span><span class="s0">new </span><span class="s1">PersonDBHelper(getApplicationContext())); 
+<a name="l55"><span class="ln">55   </span></a>                    </span><span class="s0">if </span><span class="s1">(dbQueries</span><span class="s2">.</span><span class="s1">update(person) </span><span class="s2">!= </span><span class="s5">0</span><span class="s1">) { 
+<a name="l56"><span class="ln">56   </span></a>                        Toast</span><span class="s2">.</span><span class="s1">makeText(EditBirthdayActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s1">, </span><span class="s4">&quot;Updated&quot;</span><span class="s1">, Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT)</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l57"><span class="ln">57   </span></a>                        finish(); 
+<a name="l58"><span class="ln">58   </span></a>                    } </span><span class="s0">else</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>                        Toast</span><span class="s2">.</span><span class="s1">makeText(EditBirthdayActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s1">, </span><span class="s4">&quot;error&quot;</span><span class="s1">, Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT)</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l60"><span class="ln">60   </span></a>                } </span><span class="s0">catch </span><span class="s1">(ParseException e) { 
+<a name="l61"><span class="ln">61   </span></a>                    Log</span><span class="s2">.</span><span class="s1">v(</span><span class="s4">&quot;EditBIrthdayActivity&quot;</span><span class="s1">, e</span><span class="s2">.</span><span class="s1">getMessage()); 
+<a name="l62"><span class="ln">62   </span></a>                } 
+<a name="l63"><span class="ln">63   </span></a>            } 
+<a name="l64"><span class="ln">64   </span></a>        }); 
+<a name="l65"><span class="ln">65   </span></a>    } 
+<a name="l66"><span class="ln">66   </span></a> 
+<a name="l67"><span class="ln">67   </span></a>    @Override 
+<a name="l68"><span class="ln">68   </span></a>    </span><span class="s0">protected void </span><span class="s1">onResume() { 
+<a name="l69"><span class="ln">69   </span></a>        </span><span class="s0">super</span><span class="s2">.</span><span class="s1">onResume(); 
+<a name="l70"><span class="ln">70   </span></a>    } 
+<a name="l71"><span class="ln">71   </span></a> 
+<a name="l72"><span class="ln">72   </span></a>    </span><span class="s3">/** 
+<a name="l73"><span class="ln">73   </span></a>     * helper mehtod to setup UI 
+<a name="l74"><span class="ln">74   </span></a>     */</span><span class="s1"> 
+<a name="l75"><span class="ln">75   </span></a>    </span><span class="s0">private void </span><span class="s1">setView() { 
+<a name="l76"><span class="ln">76   </span></a>        image </span><span class="s2">= </span><span class="s1">(ImageView) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">icon); 
+<a name="l77"><span class="ln">77   </span></a>        etName </span><span class="s2">= </span><span class="s1">(EditText) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">add_birthday_name); 
+<a name="l78"><span class="ln">78   </span></a>        etEmail </span><span class="s2">= </span><span class="s1">(EditText) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">add_birthday_email); 
+<a name="l79"><span class="ln">79   </span></a>        etPhone </span><span class="s2">= </span><span class="s1">(EditText) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">add_birthday_phone); 
+<a name="l80"><span class="ln">80   </span></a>        etDob </span><span class="s2">= </span><span class="s1">(EditText) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">birthday_date); 
+<a name="l81"><span class="ln">81   </span></a>        aSwitch </span><span class="s2">= </span><span class="s1">(Switch) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">show_noti); 
+<a name="l82"><span class="ln">82   </span></a> 
+<a name="l83"><span class="ln">83   </span></a>        image</span><span class="s2">.</span><span class="s1">setImageResource(person</span><span class="s2">.</span><span class="s1">getImageResourceId()); 
+<a name="l84"><span class="ln">84   </span></a>        etName</span><span class="s2">.</span><span class="s1">setText(person</span><span class="s2">.</span><span class="s1">getName()); 
+<a name="l85"><span class="ln">85   </span></a>        etEmail</span><span class="s2">.</span><span class="s1">setText(person</span><span class="s2">.</span><span class="s1">getEmail()); 
+<a name="l86"><span class="ln">86   </span></a>        etPhone</span><span class="s2">.</span><span class="s1">setText(person</span><span class="s2">.</span><span class="s1">getPhone()); 
+<a name="l87"><span class="ln">87   </span></a>        etDob</span><span class="s2">.</span><span class="s1">setText(</span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s4">&quot;EEEE, MMMM d, yyyy&quot;</span><span class="s1">)</span><span class="s2">.</span><span class="s1">format(person</span><span class="s2">.</span><span class="s1">getDOB())); 
+<a name="l88"><span class="ln">88   </span></a>        aSwitch</span><span class="s2">.</span><span class="s1">setChecked(person</span><span class="s2">.</span><span class="s1">isNotify()); 
+<a name="l89"><span class="ln">89   </span></a>    } 
+<a name="l90"><span class="ln">90   </span></a> 
+<a name="l91"><span class="ln">91   </span></a>    </span><span class="s3">/** 
+<a name="l92"><span class="ln">92   </span></a>     * show dataPicker dialog 
+<a name="l93"><span class="ln">93   </span></a>     * 
+<a name="l94"><span class="ln">94   </span></a>     * </span><span class="s6">@param </span><span class="s3">view 
+<a name="l95"><span class="ln">95   </span></a>     */</span><span class="s1"> 
+<a name="l96"><span class="ln">96   </span></a>    </span><span class="s0">public void </span><span class="s1">showDatePickerDialog(View view) { 
+<a name="l97"><span class="ln">97   </span></a>        DialogFragment fragment </span><span class="s2">= </span><span class="s0">new </span><span class="s1">DatePickerFragment(); 
+<a name="l98"><span class="ln">98   </span></a>        fragment</span><span class="s2">.</span><span class="s1">show(getSupportFragmentManager(), </span><span class="s4">&quot;datePicker&quot;</span><span class="s1">); 
+<a name="l99"><span class="ln">99   </span></a>    } 
+<a name="l100"><span class="ln">100  </span></a>}</span></pre>
+</body>
+</html>

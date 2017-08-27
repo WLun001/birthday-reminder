@@ -175,7 +175,6 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
     /**
      * send intent as Email
-     *
      * @param view
      */
     public void sendEmail(View view) {
@@ -189,17 +188,9 @@ public class ViewBirthdayActivity extends AppCompatActivity {
 
     /**
      * send intent as SMS
-     *
      * @param view
      */
     public void sendSms(View view) {
-//        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-//        smsIntent.setType("vnd.android-dir/mms-sms");
-//        smsIntent.putExtra("address", person.getPhone());
-//        //TODO: birthday wish
-//        smsIntent.putExtra("sms_body", "happy birthday");
-//        startActivity(smsIntent);
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, "happy birthday");

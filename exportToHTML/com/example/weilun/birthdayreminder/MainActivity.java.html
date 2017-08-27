@@ -1,0 +1,348 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #6e6b68; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(247,38,113); font-weight: bold; }
+.s1 { color: rgb(248,248,242); }
+.s2 { color: rgb(247,38,113); }
+.s3 { color: rgb(174,129,255); }
+.s4 { color: rgb(255,231,146); font-weight: bold; }
+.s5 { color: rgb(128,128,128); font-style: italic; }
+.s6 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#282828">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">weilun</span><span class="s2">.</span><span class="s1">birthdayreminder; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AlarmManager; 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">LoaderManager; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">Notification; 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">NotificationManager; 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">PendingIntent; 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">ClipData; 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">ClipboardManager; 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Context; 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">DialogInterface; 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Intent; 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">Loader; 
+<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">content</span><span class="s2">.</span><span class="s1">SharedPreferences; 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">graphics</span><span class="s2">.</span><span class="s1">BitmapFactory; 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">ConnectivityManager; 
+<a name="l17"><span class="ln">17   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">NetworkInfo; 
+<a name="l18"><span class="ln">18   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">Bundle; 
+<a name="l19"><span class="ln">19   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">preference</span><span class="s2">.</span><span class="s1">PreferenceManager; 
+<a name="l20"><span class="ln">20   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">design</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">FloatingActionButton; 
+<a name="l21"><span class="ln">21   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">design</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">NavigationView; 
+<a name="l22"><span class="ln">22   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">design</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">TabLayout; 
+<a name="l23"><span class="ln">23   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v4</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">GravityCompat; 
+<a name="l24"><span class="ln">24   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v4</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">ViewPager; 
+<a name="l25"><span class="ln">25   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v4</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">DrawerLayout; 
+<a name="l26"><span class="ln">26   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">ActionBarDrawerToggle; 
+<a name="l27"><span class="ln">27   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AlertDialog; 
+<a name="l28"><span class="ln">28   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AppCompatActivity; 
+<a name="l29"><span class="ln">29   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">v7</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toolbar; 
+<a name="l30"><span class="ln">30   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Log; 
+<a name="l31"><span class="ln">31   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">Menu; 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">MenuItem; 
+<a name="l33"><span class="ln">33   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">View; 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toast; 
+<a name="l35"><span class="ln">35   </span></a> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">json</span><span class="s2">.</span><span class="s1">JSONException; 
+<a name="l37"><span class="ln">37   </span></a></span><span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">json</span><span class="s2">.</span><span class="s1">JSONObject; 
+<a name="l38"><span class="ln">38   </span></a> 
+<a name="l39"><span class="ln">39   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Calendar; 
+<a name="l40"><span class="ln">40   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date; 
+<a name="l41"><span class="ln">41   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List; 
+<a name="l42"><span class="ln">42   </span></a></span><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Random; 
+<a name="l43"><span class="ln">43   </span></a> 
+<a name="l44"><span class="ln">44   </span></a></span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity 
+<a name="l45"><span class="ln">45   </span></a>        </span><span class="s0">implements </span><span class="s1">NavigationView</span><span class="s2">.</span><span class="s1">OnNavigationItemSelectedListener, 
+<a name="l46"><span class="ln">46   </span></a>        UpComingBirthdayFragment</span><span class="s2">.</span><span class="s1">Countable, 
+<a name="l47"><span class="ln">47   </span></a>        ContactListFragment</span><span class="s2">.</span><span class="s1">Refreshable, 
+<a name="l48"><span class="ln">48   </span></a>        QuoteFragment</span><span class="s2">.</span><span class="s1">Receivable, 
+<a name="l49"><span class="ln">49   </span></a>        LoaderManager</span><span class="s2">.</span><span class="s1">LoaderCallbacks</span><span class="s2">&lt;</span><span class="s1">JSONObject</span><span class="s2">&gt; </span><span class="s1">{ 
+<a name="l50"><span class="ln">50   </span></a> 
+<a name="l51"><span class="ln">51   </span></a>    </span><span class="s0">public static final int </span><span class="s1">TEST_NOTIFICATION_ID </span><span class="s2">= </span><span class="s3">1</span><span class="s1">; 
+<a name="l52"><span class="ln">52   </span></a>    </span><span class="s0">private static final int </span><span class="s1">BACKUP_LOADER_ID </span><span class="s2">= </span><span class="s3">1</span><span class="s1">; 
+<a name="l53"><span class="ln">53   </span></a>    </span><span class="s0">private static final </span><span class="s1">String WELCOME_MESSAGE </span><span class="s2">= </span><span class="s4">&quot;welcomeScreen&quot;</span><span class="s1">; 
+<a name="l54"><span class="ln">54   </span></a>    </span><span class="s0">private </span><span class="s1">TabLayout tabLayout; 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Quote</span><span class="s2">&gt; </span><span class="s1">quotes; 
+<a name="l56"><span class="ln">56   </span></a>    </span><span class="s0">private </span><span class="s1">SimpleFragmentPageAdapter adapter; 
+<a name="l57"><span class="ln">57   </span></a>    </span><span class="s0">private </span><span class="s1">String LOG_TAG </span><span class="s2">= </span><span class="s1">MainActivity</span><span class="s2">.</span><span class="s0">class</span><span class="s2">.</span><span class="s1">getSimpleName(); 
+<a name="l58"><span class="ln">58   </span></a> 
+<a name="l59"><span class="ln">59   </span></a>    @Override 
+<a name="l60"><span class="ln">60   </span></a>    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+<a name="l61"><span class="ln">61   </span></a>        </span><span class="s0">super</span><span class="s2">.</span><span class="s1">onCreate(savedInstanceState); 
+<a name="l62"><span class="ln">62   </span></a>        setContentView(R</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">activity_main); 
+<a name="l63"><span class="ln">63   </span></a>        Toolbar toolbar </span><span class="s2">= </span><span class="s1">(Toolbar) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">toolbar); 
+<a name="l64"><span class="ln">64   </span></a>        setSupportActionBar(toolbar); 
+<a name="l65"><span class="ln">65   </span></a> 
+<a name="l66"><span class="ln">66   </span></a>        showWelcomeMessage(); 
+<a name="l67"><span class="ln">67   </span></a>        startNotification(); 
+<a name="l68"><span class="ln">68   </span></a> 
+<a name="l69"><span class="ln">69   </span></a>        ViewPager viewPager </span><span class="s2">= </span><span class="s1">(ViewPager) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">view_pager); 
+<a name="l70"><span class="ln">70   </span></a>        adapter </span><span class="s2">= </span><span class="s0">new </span><span class="s1">SimpleFragmentPageAdapter(</span><span class="s0">this</span><span class="s1">, getSupportFragmentManager()); 
+<a name="l71"><span class="ln">71   </span></a>        viewPager</span><span class="s2">.</span><span class="s1">setAdapter(adapter); 
+<a name="l72"><span class="ln">72   </span></a>        viewPager</span><span class="s2">.</span><span class="s1">setCurrentItem(</span><span class="s3">1</span><span class="s1">); 
+<a name="l73"><span class="ln">73   </span></a> 
+<a name="l74"><span class="ln">74   </span></a>        tabLayout </span><span class="s2">= </span><span class="s1">(TabLayout) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">tab); 
+<a name="l75"><span class="ln">75   </span></a>        tabLayout</span><span class="s2">.</span><span class="s1">setupWithViewPager(viewPager); 
+<a name="l76"><span class="ln">76   </span></a>        tabLayout</span><span class="s2">.</span><span class="s1">getTabAt(</span><span class="s3">1</span><span class="s1">)</span><span class="s2">.</span><span class="s1">setIcon(R</span><span class="s2">.</span><span class="s1">drawable</span><span class="s2">.</span><span class="s1">ic_contacts_white_24dp); 
+<a name="l77"><span class="ln">77   </span></a>        tabLayout</span><span class="s2">.</span><span class="s1">getTabAt(</span><span class="s3">2</span><span class="s1">)</span><span class="s2">.</span><span class="s1">setIcon(R</span><span class="s2">.</span><span class="s1">drawable</span><span class="s2">.</span><span class="s1">ic_format_quote_white_24dp); 
+<a name="l78"><span class="ln">78   </span></a> 
+<a name="l79"><span class="ln">79   </span></a>        FloatingActionButton fab </span><span class="s2">= </span><span class="s1">(FloatingActionButton) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">fab); 
+<a name="l80"><span class="ln">80   </span></a>        fab</span><span class="s2">.</span><span class="s1">setOnClickListener(</span><span class="s0">new </span><span class="s1">View</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l81"><span class="ln">81   </span></a>            @Override 
+<a name="l82"><span class="ln">82   </span></a>            </span><span class="s0">public void </span><span class="s1">onClick(View view) { 
+<a name="l83"><span class="ln">83   </span></a>                Intent intent </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Intent(MainActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s1">, AddBirthdayActivity</span><span class="s2">.</span><span class="s0">class</span><span class="s1">); 
+<a name="l84"><span class="ln">84   </span></a>                </span><span class="s0">if </span><span class="s1">(intent</span><span class="s2">.</span><span class="s1">resolveActivity(getPackageManager()) </span><span class="s2">!= </span><span class="s0">null</span><span class="s1">) 
+<a name="l85"><span class="ln">85   </span></a>                    startActivity(intent); 
+<a name="l86"><span class="ln">86   </span></a>            } 
+<a name="l87"><span class="ln">87   </span></a>        }); 
+<a name="l88"><span class="ln">88   </span></a> 
+<a name="l89"><span class="ln">89   </span></a>        DrawerLayout drawer </span><span class="s2">= </span><span class="s1">(DrawerLayout) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">drawer_layout); 
+<a name="l90"><span class="ln">90   </span></a>        ActionBarDrawerToggle toggle </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ActionBarDrawerToggle( 
+<a name="l91"><span class="ln">91   </span></a>                </span><span class="s0">this</span><span class="s1">, drawer, toolbar, R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">navigation_drawer_open, R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">navigation_drawer_close); 
+<a name="l92"><span class="ln">92   </span></a>        drawer</span><span class="s2">.</span><span class="s1">setDrawerListener(toggle); 
+<a name="l93"><span class="ln">93   </span></a>        toggle</span><span class="s2">.</span><span class="s1">syncState(); 
+<a name="l94"><span class="ln">94   </span></a>        NavigationView navigationView </span><span class="s2">= </span><span class="s1">(NavigationView) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">nav_view); 
+<a name="l95"><span class="ln">95   </span></a>        navigationView</span><span class="s2">.</span><span class="s1">setNavigationItemSelectedListener(</span><span class="s0">this</span><span class="s1">); 
+<a name="l96"><span class="ln">96   </span></a>    } 
+<a name="l97"><span class="ln">97   </span></a> 
+<a name="l98"><span class="ln">98   </span></a>    @Override 
+<a name="l99"><span class="ln">99   </span></a>    </span><span class="s0">public void </span><span class="s1">getCount(</span><span class="s0">int </span><span class="s1">count) { 
+<a name="l100"><span class="ln">100  </span></a>        </span><span class="s0">if </span><span class="s1">(count </span><span class="s2">!= </span><span class="s3">0</span><span class="s1">) 
+<a name="l101"><span class="ln">101  </span></a>            tabLayout</span><span class="s2">.</span><span class="s1">getTabAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s2">.</span><span class="s1">setText(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">tab_title_upcoming) </span><span class="s2">+ </span><span class="s4">&quot; (&quot; </span><span class="s2">+ </span><span class="s1">count </span><span class="s2">+ </span><span class="s4">&quot;)&quot;</span><span class="s1">); 
+<a name="l102"><span class="ln">102  </span></a>        </span><span class="s0">else</span><span class="s1"> 
+<a name="l103"><span class="ln">103  </span></a>            tabLayout</span><span class="s2">.</span><span class="s1">getTabAt(</span><span class="s3">0</span><span class="s1">)</span><span class="s2">.</span><span class="s1">setText(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">tab_title_upcoming)); 
+<a name="l104"><span class="ln">104  </span></a>    } 
+<a name="l105"><span class="ln">105  </span></a> 
+<a name="l106"><span class="ln">106  </span></a>    @Override 
+<a name="l107"><span class="ln">107  </span></a>    </span><span class="s0">public void </span><span class="s1">onRefresh() { 
+<a name="l108"><span class="ln">108  </span></a>        ((UpComingBirthdayFragment) adapter</span><span class="s2">.</span><span class="s1">getRegisteredFragment(</span><span class="s3">0</span><span class="s1">))</span><span class="s2">.</span><span class="s1">onRefreshView(); 
+<a name="l109"><span class="ln">109  </span></a> 
+<a name="l110"><span class="ln">110  </span></a>    } 
+<a name="l111"><span class="ln">111  </span></a> 
+<a name="l112"><span class="ln">112  </span></a>    @Override 
+<a name="l113"><span class="ln">113  </span></a>    </span><span class="s0">public void </span><span class="s1">onReceive(List</span><span class="s2">&lt;</span><span class="s1">Quote</span><span class="s2">&gt; </span><span class="s1">quotes) { 
+<a name="l114"><span class="ln">114  </span></a>        </span><span class="s0">this</span><span class="s2">.</span><span class="s1">quotes </span><span class="s2">= </span><span class="s1">quotes; 
+<a name="l115"><span class="ln">115  </span></a>    } 
+<a name="l116"><span class="ln">116  </span></a> 
+<a name="l117"><span class="ln">117  </span></a>    @Override 
+<a name="l118"><span class="ln">118  </span></a>    </span><span class="s0">public void </span><span class="s1">onBackPressed() { 
+<a name="l119"><span class="ln">119  </span></a>        DrawerLayout drawer </span><span class="s2">= </span><span class="s1">(DrawerLayout) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">drawer_layout); 
+<a name="l120"><span class="ln">120  </span></a>        </span><span class="s0">if </span><span class="s1">(drawer</span><span class="s2">.</span><span class="s1">isDrawerOpen(GravityCompat</span><span class="s2">.</span><span class="s1">START)) { 
+<a name="l121"><span class="ln">121  </span></a>            drawer</span><span class="s2">.</span><span class="s1">closeDrawer(GravityCompat</span><span class="s2">.</span><span class="s1">START); 
+<a name="l122"><span class="ln">122  </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l123"><span class="ln">123  </span></a>            </span><span class="s0">super</span><span class="s2">.</span><span class="s1">onBackPressed(); 
+<a name="l124"><span class="ln">124  </span></a>        } 
+<a name="l125"><span class="ln">125  </span></a>    } 
+<a name="l126"><span class="ln">126  </span></a> 
+<a name="l127"><span class="ln">127  </span></a>    @Override 
+<a name="l128"><span class="ln">128  </span></a>    </span><span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu) { 
+<a name="l129"><span class="ln">129  </span></a>        </span><span class="s5">// Inflate the menu; this adds items to the action bar if it is present.</span><span class="s1"> 
+<a name="l130"><span class="ln">130  </span></a>        getMenuInflater()</span><span class="s2">.</span><span class="s1">inflate(R</span><span class="s2">.</span><span class="s1">menu</span><span class="s2">.</span><span class="s1">main, menu); 
+<a name="l131"><span class="ln">131  </span></a>        </span><span class="s0">return true</span><span class="s1">; 
+<a name="l132"><span class="ln">132  </span></a>    } 
+<a name="l133"><span class="ln">133  </span></a> 
+<a name="l134"><span class="ln">134  </span></a>    @Override 
+<a name="l135"><span class="ln">135  </span></a>    </span><span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(MenuItem item) { 
+<a name="l136"><span class="ln">136  </span></a>        </span><span class="s5">// Handle action bar item clicks here. The action bar will</span><span class="s1"> 
+<a name="l137"><span class="ln">137  </span></a>        </span><span class="s5">// automatically handle clicks on the Home/Up button, so long</span><span class="s1"> 
+<a name="l138"><span class="ln">138  </span></a>        </span><span class="s5">// as you specify a parent activity in AndroidManifest.xml.</span><span class="s1"> 
+<a name="l139"><span class="ln">139  </span></a>        </span><span class="s0">int </span><span class="s1">id </span><span class="s2">= </span><span class="s1">item</span><span class="s2">.</span><span class="s1">getItemId(); 
+<a name="l140"><span class="ln">140  </span></a> 
+<a name="l141"><span class="ln">141  </span></a>        </span><span class="s5">//noinspection SimplifiableIfStatement</span><span class="s1"> 
+<a name="l142"><span class="ln">142  </span></a>        </span><span class="s0">if </span><span class="s1">(id </span><span class="s2">== </span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">action_backup) { 
+<a name="l143"><span class="ln">143  </span></a>            backupToCloud(); 
+<a name="l144"><span class="ln">144  </span></a>            Log</span><span class="s2">.</span><span class="s1">v(</span><span class="s4">&quot;backupToCloud&quot;</span><span class="s1">, </span><span class="s4">&quot;trigger from menu&quot;</span><span class="s1">); 
+<a name="l145"><span class="ln">145  </span></a>        } 
+<a name="l146"><span class="ln">146  </span></a>        </span><span class="s0">return super</span><span class="s2">.</span><span class="s1">onOptionsItemSelected(item); 
+<a name="l147"><span class="ln">147  </span></a>    } 
+<a name="l148"><span class="ln">148  </span></a> 
+<a name="l149"><span class="ln">149  </span></a>    @SuppressWarnings(</span><span class="s4">&quot;StatementWithEmptyBody&quot;</span><span class="s1">) 
+<a name="l150"><span class="ln">150  </span></a>    @Override 
+<a name="l151"><span class="ln">151  </span></a>    </span><span class="s0">public boolean </span><span class="s1">onNavigationItemSelected(MenuItem item) { 
+<a name="l152"><span class="ln">152  </span></a>        </span><span class="s5">// Handle navigation view item clicks here.</span><span class="s1"> 
+<a name="l153"><span class="ln">153  </span></a>        </span><span class="s0">int </span><span class="s1">id </span><span class="s2">= </span><span class="s1">item</span><span class="s2">.</span><span class="s1">getItemId(); 
+<a name="l154"><span class="ln">154  </span></a>        { 
+<a name="l155"><span class="ln">155  </span></a>            </span><span class="s0">if </span><span class="s1">(id </span><span class="s2">== </span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">test_noti) { 
+<a name="l156"><span class="ln">156  </span></a>                testNotification(); 
+<a name="l157"><span class="ln">157  </span></a>            } </span><span class="s0">else if </span><span class="s1">(id </span><span class="s2">== </span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">random_quote) { 
+<a name="l158"><span class="ln">158  </span></a>                showQuoteDialog(); 
+<a name="l159"><span class="ln">159  </span></a>            } </span><span class="s0">else if </span><span class="s1">(id </span><span class="s2">== </span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">nav_backup) { 
+<a name="l160"><span class="ln">160  </span></a>                backupToCloud(); 
+<a name="l161"><span class="ln">161  </span></a>                Log</span><span class="s2">.</span><span class="s1">v(</span><span class="s4">&quot;backupToCloud&quot;</span><span class="s1">, </span><span class="s4">&quot;trigger from navigationbar&quot;</span><span class="s1">); 
+<a name="l162"><span class="ln">162  </span></a>            } 
+<a name="l163"><span class="ln">163  </span></a>            DrawerLayout drawer </span><span class="s2">= </span><span class="s1">(DrawerLayout) findViewById(R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">drawer_layout); 
+<a name="l164"><span class="ln">164  </span></a>            drawer</span><span class="s2">.</span><span class="s1">closeDrawer(GravityCompat</span><span class="s2">.</span><span class="s1">START); 
+<a name="l165"><span class="ln">165  </span></a>            </span><span class="s0">return true</span><span class="s1">; 
+<a name="l166"><span class="ln">166  </span></a>        } 
+<a name="l167"><span class="ln">167  </span></a>    } 
+<a name="l168"><span class="ln">168  </span></a> 
+<a name="l169"><span class="ln">169  </span></a>    </span><span class="s5">/** 
+<a name="l170"><span class="ln">170  </span></a>     * helper method to show quote of the day dialog 
+<a name="l171"><span class="ln">171  </span></a>     */</span><span class="s1"> 
+<a name="l172"><span class="ln">172  </span></a>    </span><span class="s0">private void </span><span class="s1">showQuoteDialog() { 
+<a name="l173"><span class="ln">173  </span></a>        </span><span class="s0">if</span><span class="s1">(quotes </span><span class="s2">== </span><span class="s0">null</span><span class="s1">){ 
+<a name="l174"><span class="ln">174  </span></a>            Toast</span><span class="s2">.</span><span class="s1">makeText(</span><span class="s0">this</span><span class="s1">, R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">no_quote_found, Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT)</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l175"><span class="ln">175  </span></a>            </span><span class="s0">return</span><span class="s1">; 
+<a name="l176"><span class="ln">176  </span></a>        } 
+<a name="l177"><span class="ln">177  </span></a>        </span><span class="s0">int </span><span class="s1">max </span><span class="s2">= </span><span class="s1">quotes</span><span class="s2">.</span><span class="s1">size(); 
+<a name="l178"><span class="ln">178  </span></a>        </span><span class="s0">final </span><span class="s1">Quote quote </span><span class="s2">= </span><span class="s1">quotes</span><span class="s2">.</span><span class="s1">get(</span><span class="s0">new </span><span class="s1">Random()</span><span class="s2">.</span><span class="s1">nextInt(max)); </span><span class="s5">// ((max - min) + 1) + min</span><span class="s1"> 
+<a name="l179"><span class="ln">179  </span></a>        AlertDialog</span><span class="s2">.</span><span class="s1">Builder builder </span><span class="s2">= </span><span class="s0">new </span><span class="s1">AlertDialog</span><span class="s2">.</span><span class="s1">Builder(</span><span class="s0">this</span><span class="s1">); 
+<a name="l180"><span class="ln">180  </span></a>        builder</span><span class="s2">.</span><span class="s1">setMessage(quote</span><span class="s2">.</span><span class="s1">getQuote())</span><span class="s2">.</span><span class="s1">setTitle(quote</span><span class="s2">.</span><span class="s1">getAuthor()) 
+<a name="l181"><span class="ln">181  </span></a>                </span><span class="s2">.</span><span class="s1">setPositiveButton(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">btn_ok, </span><span class="s0">new </span><span class="s1">DialogInterface</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l182"><span class="ln">182  </span></a>                    @Override 
+<a name="l183"><span class="ln">183  </span></a>                    </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) { 
+<a name="l184"><span class="ln">184  </span></a>                        dialog</span><span class="s2">.</span><span class="s1">dismiss(); 
+<a name="l185"><span class="ln">185  </span></a>                    } 
+<a name="l186"><span class="ln">186  </span></a>                }) 
+<a name="l187"><span class="ln">187  </span></a>                </span><span class="s2">.</span><span class="s1">setNeutralButton(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">dialog_copy_text, </span><span class="s0">new </span><span class="s1">DialogInterface</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l188"><span class="ln">188  </span></a>                    @Override 
+<a name="l189"><span class="ln">189  </span></a>                    </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) { 
+<a name="l190"><span class="ln">190  </span></a>                        ClipboardManager clipboard </span><span class="s2">= </span><span class="s1">(ClipboardManager) getSystemService(Context</span><span class="s2">.</span><span class="s1">CLIPBOARD_SERVICE); 
+<a name="l191"><span class="ln">191  </span></a>                        ClipData clip </span><span class="s2">= </span><span class="s1">ClipData</span><span class="s2">.</span><span class="s1">newPlainText(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">dialog_copy_text), quote</span><span class="s2">.</span><span class="s1">getQuote()); 
+<a name="l192"><span class="ln">192  </span></a>                        clipboard</span><span class="s2">.</span><span class="s1">setPrimaryClip(clip); 
+<a name="l193"><span class="ln">193  </span></a>                        Toast</span><span class="s2">.</span><span class="s1">makeText(MainActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s1">, getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">copied_success), Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT)</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l194"><span class="ln">194  </span></a>                    } 
+<a name="l195"><span class="ln">195  </span></a>                }); 
+<a name="l196"><span class="ln">196  </span></a>        AlertDialog dialog </span><span class="s2">= </span><span class="s1">builder</span><span class="s2">.</span><span class="s1">create(); 
+<a name="l197"><span class="ln">197  </span></a>        dialog</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l198"><span class="ln">198  </span></a>    } 
+<a name="l199"><span class="ln">199  </span></a> 
+<a name="l200"><span class="ln">200  </span></a>    </span><span class="s5">/** 
+<a name="l201"><span class="ln">201  </span></a>     * helper method to show welcome message when user first launch the app 
+<a name="l202"><span class="ln">202  </span></a>     */</span><span class="s1"> 
+<a name="l203"><span class="ln">203  </span></a>    </span><span class="s0">private void </span><span class="s1">showWelcomeMessage(){ 
+<a name="l204"><span class="ln">204  </span></a>        SharedPreferences sharedPreferences </span><span class="s2">= </span><span class="s1">PreferenceManager</span><span class="s2">.</span><span class="s1">getDefaultSharedPreferences(</span><span class="s0">this</span><span class="s1">); 
+<a name="l205"><span class="ln">205  </span></a>        Boolean welcomeScreenShowed </span><span class="s2">= </span><span class="s1">sharedPreferences</span><span class="s2">.</span><span class="s1">getBoolean(WELCOME_MESSAGE, </span><span class="s0">false</span><span class="s1">); 
+<a name="l206"><span class="ln">206  </span></a>        </span><span class="s0">if</span><span class="s1">(</span><span class="s2">!</span><span class="s1">welcomeScreenShowed){ 
+<a name="l207"><span class="ln">207  </span></a>            </span><span class="s0">new </span><span class="s1">AlertDialog</span><span class="s2">.</span><span class="s1">Builder(</span><span class="s0">this</span><span class="s1">) 
+<a name="l208"><span class="ln">208  </span></a>                    </span><span class="s2">.</span><span class="s1">setTitle(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">welcome_title) 
+<a name="l209"><span class="ln">209  </span></a>                    </span><span class="s2">.</span><span class="s1">setMessage(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">welcome_message) 
+<a name="l210"><span class="ln">210  </span></a>                    </span><span class="s2">.</span><span class="s1">setPositiveButton(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">btn_ok, </span><span class="s0">new </span><span class="s1">DialogInterface</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l211"><span class="ln">211  </span></a>                        @Override 
+<a name="l212"><span class="ln">212  </span></a>                        </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) { 
+<a name="l213"><span class="ln">213  </span></a>                            dialog</span><span class="s2">.</span><span class="s1">dismiss(); 
+<a name="l214"><span class="ln">214  </span></a>                        } 
+<a name="l215"><span class="ln">215  </span></a>                    })</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l216"><span class="ln">216  </span></a>            SharedPreferences</span><span class="s2">.</span><span class="s1">Editor editor </span><span class="s2">= </span><span class="s1">sharedPreferences</span><span class="s2">.</span><span class="s1">edit(); 
+<a name="l217"><span class="ln">217  </span></a>            editor</span><span class="s2">.</span><span class="s1">putBoolean(WELCOME_MESSAGE, </span><span class="s0">true</span><span class="s1">); 
+<a name="l218"><span class="ln">218  </span></a>            editor</span><span class="s2">.</span><span class="s1">commit(); 
+<a name="l219"><span class="ln">219  </span></a>        } 
+<a name="l220"><span class="ln">220  </span></a>    } 
+<a name="l221"><span class="ln">221  </span></a> 
+<a name="l222"><span class="ln">222  </span></a>    </span><span class="s5">/** 
+<a name="l223"><span class="ln">223  </span></a>     * helper method to init the notification service 
+<a name="l224"><span class="ln">224  </span></a>     */</span><span class="s1"> 
+<a name="l225"><span class="ln">225  </span></a>    </span><span class="s0">private void </span><span class="s1">startNotification() { 
+<a name="l226"><span class="ln">226  </span></a>        AlarmManager alarmManager; 
+<a name="l227"><span class="ln">227  </span></a> 
+<a name="l228"><span class="ln">228  </span></a>        Calendar calendar </span><span class="s2">= </span><span class="s1">Calendar</span><span class="s2">.</span><span class="s1">getInstance(); 
+<a name="l229"><span class="ln">229  </span></a>        Calendar now </span><span class="s2">= </span><span class="s1">Calendar</span><span class="s2">.</span><span class="s1">getInstance(); 
+<a name="l230"><span class="ln">230  </span></a>        Date date </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Date(); 
+<a name="l231"><span class="ln">231  </span></a>        now</span><span class="s2">.</span><span class="s1">setTime(date); 
+<a name="l232"><span class="ln">232  </span></a>        calendar</span><span class="s2">.</span><span class="s1">setTimeInMillis(System</span><span class="s2">.</span><span class="s1">currentTimeMillis()); 
+<a name="l233"><span class="ln">233  </span></a>        calendar</span><span class="s2">.</span><span class="s1">set(Calendar</span><span class="s2">.</span><span class="s1">HOUR_OF_DAY, </span><span class="s3">8</span><span class="s1">); 
+<a name="l234"><span class="ln">234  </span></a>        calendar</span><span class="s2">.</span><span class="s1">set(Calendar</span><span class="s2">.</span><span class="s1">MINUTE, </span><span class="s3">00</span><span class="s1">); 
+<a name="l235"><span class="ln">235  </span></a>        calendar</span><span class="s2">.</span><span class="s1">set(Calendar</span><span class="s2">.</span><span class="s1">SECOND, </span><span class="s3">00</span><span class="s1">); 
+<a name="l236"><span class="ln">236  </span></a> 
+<a name="l237"><span class="ln">237  </span></a>        Log</span><span class="s2">.</span><span class="s1">v(LOG_TAG, </span><span class="s4">&quot;Time: &quot; </span><span class="s2">+ </span><span class="s1">calendar</span><span class="s2">.</span><span class="s1">getTimeInMillis() </span><span class="s2">+ </span><span class="s4">&quot;&quot;</span><span class="s1">); 
+<a name="l238"><span class="ln">238  </span></a> 
+<a name="l239"><span class="ln">239  </span></a>        </span><span class="s0">if </span><span class="s1">(calendar</span><span class="s2">.</span><span class="s1">before(now)) { 
+<a name="l240"><span class="ln">240  </span></a>            calendar</span><span class="s2">.</span><span class="s1">add(Calendar</span><span class="s2">.</span><span class="s1">DATE, </span><span class="s3">1</span><span class="s1">); 
+<a name="l241"><span class="ln">241  </span></a>        } 
+<a name="l242"><span class="ln">242  </span></a> 
+<a name="l243"><span class="ln">243  </span></a>        Intent intent </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, NotiReceiver</span><span class="s2">.</span><span class="s0">class</span><span class="s1">); 
+<a name="l244"><span class="ln">244  </span></a>        PendingIntent alarmIntent </span><span class="s2">= </span><span class="s1">PendingIntent</span><span class="s2">.</span><span class="s1">getBroadcast(</span><span class="s0">this</span><span class="s1">, </span><span class="s3">0</span><span class="s1">, intent, PendingIntent</span><span class="s2">.</span><span class="s1">FLAG_UPDATE_CURRENT); 
+<a name="l245"><span class="ln">245  </span></a>        alarmManager </span><span class="s2">= </span><span class="s1">(AlarmManager) getSystemService(Context</span><span class="s2">.</span><span class="s1">ALARM_SERVICE); 
+<a name="l246"><span class="ln">246  </span></a>        alarmManager</span><span class="s2">.</span><span class="s1">setRepeating(AlarmManager</span><span class="s2">.</span><span class="s1">RTC_WAKEUP, calendar</span><span class="s2">.</span><span class="s1">getTimeInMillis(), AlarmManager</span><span class="s2">.</span><span class="s1">INTERVAL_DAY, alarmIntent); 
+<a name="l247"><span class="ln">247  </span></a> 
+<a name="l248"><span class="ln">248  </span></a>        Log</span><span class="s2">.</span><span class="s1">v(LOG_TAG, </span><span class="s4">&quot;Alarm started&quot;</span><span class="s1">); 
+<a name="l249"><span class="ln">249  </span></a>    } 
+<a name="l250"><span class="ln">250  </span></a> 
+<a name="l251"><span class="ln">251  </span></a>    </span><span class="s5">/** 
+<a name="l252"><span class="ln">252  </span></a>     * helper method to test notification 
+<a name="l253"><span class="ln">253  </span></a>     */</span><span class="s1"> 
+<a name="l254"><span class="ln">254  </span></a>    </span><span class="s0">private void </span><span class="s1">testNotification() { 
+<a name="l255"><span class="ln">255  </span></a>        Notification</span><span class="s2">.</span><span class="s1">Builder builder </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Notification</span><span class="s2">.</span><span class="s1">Builder(</span><span class="s0">this</span><span class="s1">); 
+<a name="l256"><span class="ln">256  </span></a>        builder</span><span class="s2">.</span><span class="s1">setContentTitle(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">notification_title)) 
+<a name="l257"><span class="ln">257  </span></a>                </span><span class="s2">.</span><span class="s1">setContentText(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">test_noti)) 
+<a name="l258"><span class="ln">258  </span></a>                </span><span class="s2">.</span><span class="s1">setAutoCancel(</span><span class="s0">true</span><span class="s1">) 
+<a name="l259"><span class="ln">259  </span></a>                </span><span class="s2">.</span><span class="s1">setSmallIcon(R</span><span class="s2">.</span><span class="s1">drawable</span><span class="s2">.</span><span class="s1">ic_announcement_black_24dp) 
+<a name="l260"><span class="ln">260  </span></a>                </span><span class="s2">.</span><span class="s1">setColor(getResources()</span><span class="s2">.</span><span class="s1">getColor(R</span><span class="s2">.</span><span class="s1">color</span><span class="s2">.</span><span class="s1">colorPrimary)) 
+<a name="l261"><span class="ln">261  </span></a>                </span><span class="s2">.</span><span class="s1">setLargeIcon(BitmapFactory</span><span class="s2">.</span><span class="s1">decodeResource(getResources(), 
+<a name="l262"><span class="ln">262  </span></a>                        R</span><span class="s2">.</span><span class="s1">mipmap</span><span class="s2">.</span><span class="s1">birthday_icon_launcher)) 
+<a name="l263"><span class="ln">263  </span></a>                </span><span class="s2">.</span><span class="s1">setDefaults(Notification</span><span class="s2">.</span><span class="s1">DEFAULT_SOUND </span><span class="s2">| </span><span class="s1">Notification</span><span class="s2">.</span><span class="s1">DEFAULT_VIBRATE); 
+<a name="l264"><span class="ln">264  </span></a>        NotificationManager notificationManager </span><span class="s2">= </span><span class="s1">(NotificationManager) getSystemService(Context</span><span class="s2">.</span><span class="s1">NOTIFICATION_SERVICE); 
+<a name="l265"><span class="ln">265  </span></a> 
+<a name="l266"><span class="ln">266  </span></a>        notificationManager</span><span class="s2">.</span><span class="s1">notify(TEST_NOTIFICATION_ID, builder</span><span class="s2">.</span><span class="s1">build()); 
+<a name="l267"><span class="ln">267  </span></a>    } 
+<a name="l268"><span class="ln">268  </span></a> 
+<a name="l269"><span class="ln">269  </span></a>    </span><span class="s5">/** 
+<a name="l270"><span class="ln">270  </span></a>     * helper mehtod do perform backup to cloud 
+<a name="l271"><span class="ln">271  </span></a>     */</span><span class="s1"> 
+<a name="l272"><span class="ln">272  </span></a>    </span><span class="s0">private void </span><span class="s1">backupToCloud() { 
+<a name="l273"><span class="ln">273  </span></a>        ConnectivityManager connMgr </span><span class="s2">= </span><span class="s1">(ConnectivityManager) getSystemService(Context</span><span class="s2">.</span><span class="s1">CONNECTIVITY_SERVICE); 
+<a name="l274"><span class="ln">274  </span></a>        NetworkInfo networkInfo </span><span class="s2">= </span><span class="s1">connMgr</span><span class="s2">.</span><span class="s1">getActiveNetworkInfo(); 
+<a name="l275"><span class="ln">275  </span></a>        </span><span class="s0">if </span><span class="s1">(networkInfo </span><span class="s2">!= </span><span class="s0">null </span><span class="s2">&amp;&amp; </span><span class="s1">networkInfo</span><span class="s2">.</span><span class="s1">isConnected()) { 
+<a name="l276"><span class="ln">276  </span></a>            getLoaderManager()</span><span class="s2">.</span><span class="s1">restartLoader(BACKUP_LOADER_ID, </span><span class="s0">null</span><span class="s1">, </span><span class="s0">this</span><span class="s1">)</span><span class="s2">.</span><span class="s1">forceLoad(); 
+<a name="l277"><span class="ln">277  </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l278"><span class="ln">278  </span></a>            Toast</span><span class="s2">.</span><span class="s1">makeText(</span><span class="s0">this</span><span class="s1">, getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">no_network), Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT)</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l279"><span class="ln">279  </span></a>        } 
+<a name="l280"><span class="ln">280  </span></a>    } 
+<a name="l281"><span class="ln">281  </span></a> 
+<a name="l282"><span class="ln">282  </span></a>    @Override 
+<a name="l283"><span class="ln">283  </span></a>    </span><span class="s0">public </span><span class="s1">Loader</span><span class="s2">&lt;</span><span class="s1">JSONObject</span><span class="s2">&gt; </span><span class="s1">onCreateLoader(</span><span class="s0">int </span><span class="s1">id, Bundle args) { 
+<a name="l284"><span class="ln">284  </span></a>        Log</span><span class="s2">.</span><span class="s1">v(LOG_TAG, </span><span class="s4">&quot;BackupLoader Created&quot;</span><span class="s1">); 
+<a name="l285"><span class="ln">285  </span></a>        </span><span class="s0">return new </span><span class="s1">BackupLoader(</span><span class="s0">this</span><span class="s1">); 
+<a name="l286"><span class="ln">286  </span></a>    } 
+<a name="l287"><span class="ln">287  </span></a> 
+<a name="l288"><span class="ln">288  </span></a>    @Override 
+<a name="l289"><span class="ln">289  </span></a>    </span><span class="s0">public void </span><span class="s1">onLoadFinished(Loader</span><span class="s2">&lt;</span><span class="s1">JSONObject</span><span class="s2">&gt; </span><span class="s1">loader, JSONObject data) { 
+<a name="l290"><span class="ln">290  </span></a>        Loader</span><span class="s2">&lt;</span><span class="s1">JSONObject</span><span class="s2">&gt; </span><span class="s1">backupLoader </span><span class="s2">= </span><span class="s1">getLoaderManager()</span><span class="s2">.</span><span class="s1">getLoader(BACKUP_LOADER_ID); 
+<a name="l291"><span class="ln">291  </span></a>        BackupLoader backupLoader1 </span><span class="s2">= </span><span class="s1">(BackupLoader) backupLoader; 
+<a name="l292"><span class="ln">292  </span></a>        </span><span class="s0">if </span><span class="s1">(backupLoader1</span><span class="s2">.</span><span class="s1">progressDialogIsShow()) 
+<a name="l293"><span class="ln">293  </span></a>            backupLoader1</span><span class="s2">.</span><span class="s1">stopProgressDialog(); 
+<a name="l294"><span class="ln">294  </span></a>        AlertDialog alertDialog </span><span class="s2">= </span><span class="s0">new </span><span class="s1">AlertDialog</span><span class="s2">.</span><span class="s1">Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s2">.</span><span class="s1">create(); 
+<a name="l295"><span class="ln">295  </span></a>        alertDialog</span><span class="s2">.</span><span class="s1">setMessage(String</span><span class="s2">.</span><span class="s1">format(getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">backup_success) 
+<a name="l296"><span class="ln">296  </span></a>                , extraCodeFromJSON(data))); 
+<a name="l297"><span class="ln">297  </span></a>        alertDialog</span><span class="s2">.</span><span class="s1">setButton(AlertDialog</span><span class="s2">.</span><span class="s1">BUTTON_NEUTRAL, getString(R</span><span class="s2">.</span><span class="s1">string</span><span class="s2">.</span><span class="s1">btn_ok), 
+<a name="l298"><span class="ln">298  </span></a>                </span><span class="s0">new </span><span class="s1">DialogInterface</span><span class="s2">.</span><span class="s1">OnClickListener() { 
+<a name="l299"><span class="ln">299  </span></a>                    </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) { 
+<a name="l300"><span class="ln">300  </span></a>                        dialog</span><span class="s2">.</span><span class="s1">dismiss(); 
+<a name="l301"><span class="ln">301  </span></a>                    } 
+<a name="l302"><span class="ln">302  </span></a>                }); 
+<a name="l303"><span class="ln">303  </span></a>        alertDialog</span><span class="s2">.</span><span class="s1">show(); 
+<a name="l304"><span class="ln">304  </span></a>    } 
+<a name="l305"><span class="ln">305  </span></a> 
+<a name="l306"><span class="ln">306  </span></a>    @Override 
+<a name="l307"><span class="ln">307  </span></a>    </span><span class="s0">public void </span><span class="s1">onLoaderReset(Loader</span><span class="s2">&lt;</span><span class="s1">JSONObject</span><span class="s2">&gt; </span><span class="s1">loader) { 
+<a name="l308"><span class="ln">308  </span></a>    } 
+<a name="l309"><span class="ln">309  </span></a> 
+<a name="l310"><span class="ln">310  </span></a>    </span><span class="s5">/** 
+<a name="l311"><span class="ln">311  </span></a>     * helper method to convert response in JSONObject form to int 
+<a name="l312"><span class="ln">312  </span></a>     * 
+<a name="l313"><span class="ln">313  </span></a>     * </span><span class="s6">@param </span><span class="s5">jsonObj 
+<a name="l314"><span class="ln">314  </span></a>     * </span><span class="s6">@return </span><span class="s5">response code 
+<a name="l315"><span class="ln">315  </span></a>     */</span><span class="s1"> 
+<a name="l316"><span class="ln">316  </span></a>    </span><span class="s0">private int </span><span class="s1">extraCodeFromJSON(JSONObject jsonObj) { 
+<a name="l317"><span class="ln">317  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
+<a name="l318"><span class="ln">318  </span></a>            </span><span class="s0">return </span><span class="s1">jsonObj</span><span class="s2">.</span><span class="s1">getInt(</span><span class="s4">&quot;recordsSynced&quot;</span><span class="s1">); 
+<a name="l319"><span class="ln">319  </span></a>        } </span><span class="s0">catch </span><span class="s1">(JSONException e) { 
+<a name="l320"><span class="ln">320  </span></a>            Log</span><span class="s2">.</span><span class="s1">e(LOG_TAG, e</span><span class="s2">.</span><span class="s1">getMessage()); 
+<a name="l321"><span class="ln">321  </span></a>            </span><span class="s0">return </span><span class="s3">0</span><span class="s1">; 
+<a name="l322"><span class="ln">322  </span></a>        } 
+<a name="l323"><span class="ln">323  </span></a>    } 
+<a name="l324"><span class="ln">324  </span></a>}</span></pre>
+</body>
+</html>
