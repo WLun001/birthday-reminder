@@ -7,7 +7,7 @@
     <string name="action_test_noti">Test notification, swipe to dismiss</string>
 
     <string name="no_birthday_for_upcoming">No birthday for coming three days</string>
-    <string name="no_birthday_data">Add friend\'s details to get started</string>
+    <string name="no_birthday_data">No birthday records found</string>
     <string name="title_activity_up_coming_fragment">UpComingFragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_up_coming">UpComingActivity</string>
