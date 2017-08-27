@@ -26,7 +26,6 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_account_circle_black_24dp" />
 
-
             <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -63,7 +62,6 @@
                 android:onClick="sendSms"
                 android:src="@drawable/ic_sms_white_24dp" />
 
-
             <TextView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
@@ -94,7 +92,6 @@
                 android:paddingTop="20dp"
                 android:text="@string/birthday_countdown"
                 android:textSize="18sp" />
-
 
             <LinearLayout
                 android:id="@+id/countdown_linear"
@@ -176,7 +173,6 @@
                 android:textSize="20sp"
                 tools:text="ago" />
         </RelativeLayout>
-
 
     </ScrollView>
 

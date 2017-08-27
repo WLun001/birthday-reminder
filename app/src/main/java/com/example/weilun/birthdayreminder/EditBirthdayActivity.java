@@ -141,7 +141,6 @@ public class EditBirthdayActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,
-                getResources().getString(R.string.select_image)), SELECT_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_image)), SELECT_IMAGE);
     }
 }

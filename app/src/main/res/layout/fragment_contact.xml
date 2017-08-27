@@ -7,5 +7,4 @@
 
     <include layout="@layout/listview" />
 
-
 </android.support.constraint.ConstraintLayout>

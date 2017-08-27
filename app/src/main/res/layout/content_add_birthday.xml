@@ -9,4 +9,5 @@
     tools:showIn="@layout/activity_add_birthday">
 
     <include layout="@layout/birthday_form" />
+
 </android.support.constraint.ConstraintLayout>

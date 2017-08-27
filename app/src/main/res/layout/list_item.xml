@@ -33,7 +33,6 @@
         android:textSize="16sp"
         tools:text="26" />
 
-
     <TextView
         android:id="@+id/birthday"
         android:layout_width="wrap_content"
@@ -44,5 +43,3 @@
         tools:text="26/08" />
 
 </RelativeLayout>
-
-
