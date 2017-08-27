@@ -15,7 +15,6 @@ import java.util.Calendar;
 
 public class DatePickerFragment extends android.support.v4.app.DialogFragment
         implements DatePickerDialog.OnDateSetListener {
-//TODO: set max calendar year to current year
     private static Calendar calendar = null;
 
     @Override
@@ -26,7 +25,12 @@ public class DatePickerFragment extends android.support.v4.app.DialogFragment
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        //set today is the max date
+        Calendar today = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(today.getTimeInMillis());
+
+        return datePickerDialog;
     }
 
     @Override
