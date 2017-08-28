@@ -3,10 +3,10 @@
 A simple birthday reminder app
 
 ## Screenshot
-![contact](screenshot/contact.png)
-![comingBirthday](screenshot/coming.png)
-![quote](screenshot/quote.png)
-![viewBithday](screenshot/view.png)
-![addBirthday](screenshot/add.png)
-![editBirthday](screenshot/edit.png)
-![nav](screenshot/nav.png)
+![contact](screenshot/contact.PNG)
+![comingBirthday](screenshot/coming.PNG)
+![quote](screenshot/quote.PNG)
+![viewBithday](screenshot/view.PNG)
+![addBirthday](screenshot/add.PNG)
+![editBirthday](screenshot/edit.PNG)
+![nav](screenshot/nav.PNG)
