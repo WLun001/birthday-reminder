@@ -1,4 +1,5 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/WLun001/birthday-reminder?branch=master)](https://bettercodehub.com/)
+[![Build Status](https://travis-ci.org/WLun001/birthday-reminder.svg?branch=master)](https://travis-ci.org/WLun001/birthday-reminder)
 # birthday-reminder
 
 A simple birthday reminder app
