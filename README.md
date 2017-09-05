@@ -1,3 +1,4 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/WLun001/birthday-reminder?branch=master)](https://bettercodehub.com/)
 # birthday-reminder
 
 A simple birthday reminder app
