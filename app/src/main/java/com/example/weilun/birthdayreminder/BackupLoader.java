@@ -158,7 +158,7 @@ public class BackupLoader extends android.content.AsyncTaskLoader<JSONObject> {
     }
 
     /**
-     * helper method to build string from JSONArray
+     * helper method to post data string with parameter "data"
      *
      * @param data
      * @return postDataString
